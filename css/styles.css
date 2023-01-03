@@ -1,0 +1,131 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+:root [theme=light]{
+    --bg-color: #F5F4F4;
+    --primary: #6750A4;
+    --text-on-primary: #FFFFFF;
+    --secondary: #EADDFF;
+    --text-on-secondary: #6750A4;
+    --surface: #F3EDF7;
+    --text-on-surface: #1C1B1F;
+    --list-item-bg: #EADDFF;
+    --spotify-green: #1DB954;
+    --error: #B3261E;
+    --text-on-error: #FFFFFF;
+}
+
+:root [theme=dark]{
+    --bg-color: #1C1B1F;
+    --primary: #D0BCFF;
+    --text-on-primary: #381E72;
+    --secondary: #CCC2DC;
+    --text-on-secondary: #332D41;
+    --surface: #302D38;
+    --text-on-surface: #E6E1E5;
+    --list-item-bg: #302D38;
+    --spotify-green: #1DB954;
+    --error: #F2B8B5;
+    --text-on-error: #601410;
+}
+
+:root {
+    --headline-large: 32px;
+    --headline-medium: 28px;
+    --title-large: 22px;
+    --title-medium: 16px;
+    --label-large: 14px;
+    --label-medium: 12;
+    --body-large: 16px;
+    --body-medium: 14px;
+    --body-small: 12px;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--bg-color); 
+    color: var(--text-on-surface)
+}
+
+/*  Text styles  */
+
+.headline-large {
+    font-size: var(--headline-large);
+}
+
+.headline-medium {
+    font-size: var(--headline-medium);
+}
+
+.title-large {
+    font-size: var(--title-large)
+}
+
+.title-medium {
+    font-size: var(--title-medium)
+}
+
+.label-large {
+    font-size: var(--label-large);
+    font-weight: bold;
+}
+
+.label-medium {
+    font-size: var(--label-medium);
+    font-weight: bold;
+}
+
+.text-large {
+    font-size: var(--body-large);
+}
+
+.text-medium {
+    font-size: var(--body-medium);
+}
+
+.text-small {
+    font-size: var(--body-small);
+}
+
+.text-spotify {
+    color: var(--spotify-green);
+}
+
+p{
+    font-size: var(--body-medium);
+}
+
+/*  Section styles  */
+
+.primary {
+    background-color: var(--primary); 
+    color: var(--text-on-primary); 
+}
+
+.secondary {
+    background-color: var(--secondary);
+    color: var(--text-on-secondary)
+}
+
+.error {
+    background-color: var(--error);
+    color: var(--text-on-error);
+}
+
+.surface {
+    background-color: var(--surface);
+    color: var(--text-on-surface);
+}
+
+.list-item {
+    background-color: var(--list-item-bg);
+}
+
+.elevation-1 {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.elevation-2 {
+    box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
