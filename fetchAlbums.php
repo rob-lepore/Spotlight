@@ -22,6 +22,7 @@ if (isset($_POST['query'])) {
     ],
   ]);
   */
+  
 
   $response_data = json_decode($response);
 
