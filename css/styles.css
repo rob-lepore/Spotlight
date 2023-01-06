@@ -7,7 +7,7 @@
     --text-on-primary: #FFFFFF;
     --secondary: #EADDFF;
     --text-on-secondary: #6750A4;
-    --surface: #F3EDF7;
+    --surface: #6650a410;
     --text-on-surface: #1C1B1F;
     --list-item-bg: #EADDFF;
     --spotify-green: #1DB954;
@@ -129,3 +129,7 @@ p{
     box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3);
 }
 
+.primary:hover {
+    background-color: #b09de7;
+    font-weight: bold;
+}
