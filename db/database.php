@@ -21,6 +21,14 @@ class DatabaseHelper{
     }
     */
 
+    public function getArtistLikes($artistId){
+        $stmt = $this->db->prepare("SELECT username FROM `likes` WHERE element_link=?");
+        $stmt->bind_param("s", $artistId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 
 ?>

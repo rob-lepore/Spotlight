@@ -10,7 +10,7 @@
     <title><?php echo $templateParams["title"] ?></title>
 </head>
 
-<body theme="light" class="container">
+<body theme="dark" class="container">
     <style>
         .artist-image {
             width: 3rem;
@@ -29,7 +29,19 @@
             height: auto;
         }
 
-        
+        .buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        @media only screen and (min-width: 600px) {
+            .buttons {
+                justify-content: left;
+                gap: 1rem;
+            }
+        }
     </style>
     <header class=" py-2 d-flex">
         <div class="mx-2">
@@ -55,7 +67,7 @@
             $templateParams["imgUrl"] = $track->album->images[1]->url;
             $templateParams["trackAlbum"] = $track->album->name;
             $templateParams["trackName"] = $track->name;
-            $templateParams["trackUrl"]= $track->external_urls->spotify;
+            $templateParams["trackUrl"] = $track->external_urls->spotify;
 
             require("songListElement.php");
         } ?>
@@ -65,7 +77,7 @@
             <h2>
                 Discography
             </h2>
-            <div class="w-100 d-flex flex-row justify-content-evenly">
+            <div class="buttons">
                 <button class="btn btn-sm primary elevation-1" id="albumsBtn">Albums</button>
                 <button class="btn btn-sm secondary elevation-1" id="singlesBtn">EP and singles</button>
                 <button class="btn btn-sm secondary elevation-1" id="tracksBtn">Songs</button>
@@ -113,7 +125,7 @@
                         $templateParams["imgUrl"] = $image;
                         $templateParams["trackName"] = $track->name;
                         $templateParams["trackAlbum"] = $name;
-                        $templateParams["trackUrl"]= $track->external_urls->spotify;
+                        $templateParams["trackUrl"] = $track->external_urls->spotify;
 
                         require("songListElement.php");
                     }
