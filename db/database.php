@@ -29,6 +29,38 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostData($postId) {
+        $stmt = $this->db->prepare("SELECT * FROM `post` WHERE post_id=?");
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUserData($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM `user` WHERE username=?");
+        $stmt->bind_param("s", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getComments($postId) {
+        $stmt = $this->db->prepare("SELECT * FROM `comment` WHERE post_id=?");
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCommentReplies($commentId) {
+        $stmt = $this->db->prepare("SELECT * FROM `replies` WHERE thread=?");
+        $stmt->bind_param("i", $commentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 
 ?>

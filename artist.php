@@ -2,7 +2,7 @@
     require_once("bootstrap.php");
 
     $artistId = $_GET["id"];
-    $infos = require("fetchArtistInfo.php");
+    require("fetchArtistInfo.php");
 
     $templateParams["title"] = "Spotlight - $artist_data->name";
     $templateParams["artistName"] = $artist_data->name;
