@@ -1,5 +1,9 @@
 <?php 
 
+function mapToUsernames($el) {
+    return $el["username"];
+}
+
 require_once("bootstrap.php");
 
 $postId = $_GET["id"];
@@ -32,7 +36,9 @@ foreach ($comments as $comment) {
 }
 $templateParams["comments"] = $commentsWithPic;
 
-
+$likes = $dbh->getPostLikes($postId);
+$likes = array_map("mapToUsernames", $likes);
+$postIsLiked = (in_array('rob',array_values($likes)));
 
 require("template/postPage.php");
 

@@ -61,6 +61,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostLikes($postId) {
+        $stmt = $this->db->prepare("SELECT username FROM `likes_post` WHERE post_id=?");
+        $stmt->bind_param("i", $postId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 
 ?>
