@@ -26,6 +26,7 @@
 
         <div id="results" class="surface mt-3 p-3"></div>
     </div>
+    <a href="logout.php">Logout</a>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script>
         
