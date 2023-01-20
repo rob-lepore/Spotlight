@@ -5,5 +5,5 @@ $templateParams["title"] = "Spotlight";
 $templateParams["header"] = "Spotlight";
 
 //require("template/base.php");
-require("template/esempioSpotifyAPI.php");
+require("login.php");
 ?>
