@@ -8,9 +8,19 @@ if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password
         $templateParams["signupError"] = "Error! Username or email already used";
     }
     else{
-        registerLoggedUser($_POST["username"], $_POST["email"]);
-        $dbh->createUser($_POST["username"], $_POST["email"], $_POST["password"], $_POST["first_name"], $_POST["last_name"]);
+        list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["propic"]);
+        if($result != 0){
+            $propic = $msg;
+            $dbh->createUser($_POST["username"], $_POST["email"], $_POST["password"], $_POST["first_name"], $_POST["last_name"], $propic);
+            registerLoggedUser($_POST["username"], $_POST["email"]);
+            $msg = "Inserimento completato correttamente!";
+        }
+        else{
+            $msg .= "Errore in inserimento!";
+        }
+        
     }
+    header("location: login.php?formmsg=".$msg);
 }
 
 if(isUserLoggedIn()){

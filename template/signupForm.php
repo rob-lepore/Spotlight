@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-12 col-md-6">
-		    	<form action="#" method="POST" id="signup" class="mb-4">
+		    	<form action="#" method="POST" id="signup" class="mb-4" enctype="multipart/form-data">
 			    	<div class="row mb-2">
 				    	<div class="col-1"></div>
                         <div class="col-10">
@@ -51,6 +51,13 @@
 				    	<div class="col-1"></div>
                         <div class="col-10">
                             <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name"/>
+                        </div>
+			    		<div class="col-1"></div>
+				    </div>
+                    <div class="row mb-2">
+				    	<div class="col-1"></div>
+                        <div class="col-10">
+                            <label for="propic">Profile Picture</label><input type="file" name="propic" id="propic"/>
                         </div>
 			    		<div class="col-1"></div>
 				    </div>
