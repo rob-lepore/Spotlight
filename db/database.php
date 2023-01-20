@@ -89,10 +89,10 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createUser($username, $email, $password, $first_name, $last_name){
-        $query = "INSERT INTO `user` (`username`, `email`, `password`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?)";
+    public function createUser($username, $email, $password, $first_name, $last_name, $propic){
+        $query = "INSERT INTO `user` (`username`, `email`, `password`, `first_name`, `last_name`, `profile_pic`) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('sssss',$username, $email, $password, $first_name, $last_name);
+        $stmt->bind_param('ssssss',$username, $email, $password, $first_name, $last_name, $propic);
         $stmt->execute();
     }
 }

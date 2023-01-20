@@ -8,7 +8,7 @@ if(isset($_POST["username"]) && isset($_POST["password"])){
         $templateParams["loginError"] = "Error! Wrong username or password";
     }
     else{
-        registerLoggedUser($login_result[0]);
+        registerLoggedUser($login_result[0]["username"],$login_result[0]["email"]);
     }
 }
 
