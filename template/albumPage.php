@@ -13,7 +13,7 @@
 <body theme="light" class="container">
     <style>
         .album-image {
-            width: 8rem;
+            width: 9rem;
         }
     </style>
     <header class="py-2 d-flex surface">
@@ -38,4 +38,12 @@
             </span>
         </div>
     </header>
+    <section class="mt-3">
+        <h2>Tracklist</h2>
+        <?php foreach ($templateParams["tracks"]->items as $track) {
+            $templateParams["trackName"] = $track->name;
+            $templateParams["trackUrl"] = $track->external_urls->spotify;
+            require("songListElement.php");
+        } ?>
+    </section>
 </body>

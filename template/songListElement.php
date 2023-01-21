@@ -1,9 +1,13 @@
 <div class='d-flex my-2 surface align-items-center'>
-    <img class='album-cover' src=<?php echo $templateParams["imgUrl"] ?>>
+    <?php if(isset($templateParams["imgUrl"])): ?>
+        <img class='album-cover' src=<?php echo $templateParams["imgUrl"] ?>>
+    <?php endif; ?>
     <div style="width:65%" class="overflow-hidden d-block">
         <span class="text-truncate"><?php echo $templateParams["trackName"] ?></span>
         <br>
-        <span class="text-truncate"><?php echo $templateParams["trackAlbum"] ?></span>
+        <?php if(isset($templateParams["trackAlbum"])): ?>
+            <span class="text-truncate"><?php echo $templateParams["trackAlbum"] ?></span>
+        <?php endif; ?>
     </div>
     <div class="d-flex flex-row justify-content-evenly w-25" style="min-width: 7rem;">
         <a href=<?php echo $templateParams["newPostUrl"] ?> style="color: var(--text-on-surface)">
