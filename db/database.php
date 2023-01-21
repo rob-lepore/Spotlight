@@ -102,8 +102,7 @@ class DatabaseHelper{
                 if($this->checkbrute($username) == true) { 
                  // Account disabilitato
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
-                    echo "TOO MANY TRIES";
-                    return false;
+                    return 0;
             } else {
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
                  // Password corretta!            
@@ -112,18 +111,18 @@ class DatabaseHelper{
                     $_SESSION['username'] = $username;
                     $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
                     // Login eseguito con successo.
-                    return true;    
+                    return 1;    
                 } else {
                  // Password incorretta.
-                 // Registriamo il tentativo fallito nel database.
+                 // Registriamo il tentativo fallito nel database.   
                  $now = time();
                  $this->db->query("INSERT INTO login_attempts (user, time) VALUES ('$username', '$now')");
-                 return false;
+                 return 2;
               }
             }
            } else {
               // L'utente inserito non esiste.
-              return false;
+              return 2;
            }
         }
     }
