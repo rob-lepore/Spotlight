@@ -1,4 +1,6 @@
 <?php 
+    //6tkjU4Umpo79wwkgPMV3nZ
+    //19bQiwEKhXUBJWY6oV3KZk
     require_once("bootstrap.php");
 
     $albumId = $_GET["id"];
@@ -6,10 +8,10 @@
 
     $templateParams["title"] = "Spotlight - $album_data->name";
     $templateParams["albumName"] = $album_data->name;
-    $templateParams["artistName"] = $album_data->artists;
+    $templateParams["artists"] = $album_data->artists;
     $templateParams["releaseDate"] = $album_data->release_date;
     $templateParams["albumImage"] = $album_data->images[1]->url;
-    $templateParams["likes"] = $dbh->getAlbumLikes($albumId);
+    $templateParams["likes"] = count($dbh->getAlbumLikes($albumId));
     $templateParams["tracks"] = $tracks;
     $templateParams["newReviewUrl"] = "#";
     $templateParams["newPostUrl"] = "#";

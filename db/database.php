@@ -30,7 +30,7 @@ class DatabaseHelper{
     }
 
     public function getAlbumLikes($albumId){
-        $stmt = $this->db->prepare("SELECT COUNT(username) FROM `likes` WHERE element_link=?");
+        $stmt = $this->db->prepare("SELECT username FROM `likes` WHERE element_link=?");
         $stmt->bind_param("s", $albumId);
         $stmt->execute();
         $result = $stmt->get_result();
