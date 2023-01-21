@@ -42,16 +42,24 @@
     </header>
     <section class="mt-3">
         <div class="d-flex flex-row justify-content-between">
-            <div>
-                <input type="button" id="submit" class="btn btn-sm primary elevation-1" value="<>"/>
+            <div class="d-flex">
+                <input type="button" id="tracklist" class="btn btn-sm primary elevation-1 align-self-start" value="v"/>
                 <h2>Tracklist</h2>
             </div>
             <input type="button" id="review" class="btn btn-sm primary elevation-1 align-self-center" value="Write a reveiw about this album"/>
-        </div>     
-        <?php foreach ($templateParams["tracks"]->items as $track) {
-            $templateParams["trackName"] = $track->name;
-            $templateParams["trackUrl"] = $track->external_urls->spotify;
-            require("songListElement.php");
-        } ?>
+        </div> 
+        <div id="tracklistDiv">
+            <?php foreach ($templateParams["tracks"]->items as $track) {
+                $templateParams["trackName"] = $track->name;
+                $templateParams["trackUrl"] = $track->external_urls->spotify;
+                require("songListElement.php");
+            } ?>
+        </div>
     </section>
+    <section class="mt-3">
+        <h2>Popular Reviews</h2>
+    </section>
+
+    <script src="js/albumPage.js"></script>
 </body>
+</html>
