@@ -12,7 +12,7 @@
 
 <body theme="light" class="container">
     <header class="container">
-        <h1 class="mt-5 text-center">Spotlight</h1>
+        <a class ="text-decoration-none text-reset" href="login.php"><h1 class="mt-5 text-center">Spotlight</h1></a>
     </header>
     <main>
         <div class="row">
@@ -47,7 +47,7 @@
                         </div>
 			    		<div class="col-1"></div>
 				    </div>
-                    <div class="row mb-2">
+                    <div class="row mb-3">
 				    	<div class="col-1"></div>
                         <div class="col-10">
                             <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name"/>
@@ -73,7 +73,7 @@
                             <div class="col-10">
                                 <p><?php echo $templateParams["signupError"]; ?></p>
                             </div>
-                        <?php endif; ?>
+                        <?php endif;?>
                     </div>
     			</form>
             </div>
