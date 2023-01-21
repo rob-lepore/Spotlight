@@ -17,9 +17,17 @@
         <h1 class="mt-5 text-center">Spotlight</h1>
     </header>
     <main>
-        <div class="row">
+        <section class="row">
             <div class="col-md-1"></div>
-            <div class="col-12 col-md-6">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <?php if(isset($templateParams["loginTries"])): ?>
+                            <p class ="text-warning"><?php echo $templateParams["loginTries"]; ?></p>
+                        <?php endif;?>
+                    </div>
+                </div>
 		    	<form action="login_process.php" method="POST" name="login_form" class="mb-4">
 			    	<div class="row mb-2">
 				    	<div class="col-1"></div>
@@ -37,25 +45,23 @@
 				    </div>
 				    <div class="row">
 					    <div class="col-11 text-end">
-                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Sign-in" />
+                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Sign-in"/> 
 		    			</div>
 			    			<div class="col-1"></div>
 				    </div>
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                        <?php if(isset($templateParams["loginError"])): ?>
-                            <div class="col-10">
-                                <p><?php echo $templateParams["loginError"]; ?></p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
     			</form>
-            </div>
-            <div class="container">
-                <div class="text-center">
-                    <label>New user?</label><a href="signup.php">Sign-up</a>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <?php if(isset($templateParams["loginError"])): ?>
+                            <p><?php echo $templateParams["loginError"]; ?></p>
+                        <?php endif; /*onclick="formhash(this.form, this.form.password);"*/ ?>
+                    </div>
                 </div>
-            </div>
+            </section>
+            <footer class="container text-center">
+                <label>New user?</label><a href="signup.php">Sign-up</a>
+            </footer>
         </div>
     </main>
 </body>
