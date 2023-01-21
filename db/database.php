@@ -29,6 +29,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAlbumLikes($albumId){
+        $stmt = $this->db->prepare("SELECT COUNT(username) FROM `likes` WHERE element_link=?");
+        $stmt->bind_param("s", $albumId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getPostData($postId) {
         $stmt = $this->db->prepare("SELECT * FROM `post` WHERE post_id=?");
         $stmt->bind_param("i", $postId);
