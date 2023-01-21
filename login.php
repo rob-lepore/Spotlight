@@ -1,16 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-
-if(isset($_POST["username"]) && isset($_POST["password"])){
-    $login_result = $dbh->checkLogin($_POST["username"], $_POST["password"]);
-    if(count($login_result)==0){
-        //Login fallito
-        $templateParams["loginError"] = "Error! Wrong username or password";
-    }
-    else{
-        registerLoggedUser($login_result[0]["username"],$login_result[0]["email"]);
-    }
-}
+sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
 
 if(isUserLoggedIn()){
     $templateParams["title"] = "Spotlight - Home";
