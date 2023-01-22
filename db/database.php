@@ -82,7 +82,7 @@ class DatabaseHelper{
         $now = time();
         // Vengono analizzati tutti i tentativi di login a partire dalle ultime due ore.
         $valid_attempts = $now - (2 * 60 * 60); 
-        if ($stmt = $this->db->prepare("SELECT time FROM login_attempts WHERE user = ? AND time > ?")) { 
+        if ($stmt = $this->db->prepare("SELECT time FROM login_attempts WHERE username = ? AND time > ?")) { 
            $stmt->bind_param('si', $username, $valid_attempts); 
            // Eseguo la query creata.
            $stmt->execute();
@@ -112,26 +112,25 @@ class DatabaseHelper{
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
                     return 0;
             } else {
+                echo "db=$db_password\n";
+                echo "trad=$password\n";
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
                  // Password corretta!            
-                    $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
-                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // ci proteggiamo da un attacco XSS
-                    $_SESSION['username'] = $username;
-                    $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+                    registerLoggedUser($username, $password);
                     // Login eseguito con successo.
                     return 1;    
                 } else {
                  // Password incorretta.
                  // Registriamo il tentativo fallito nel database.   
                  $now = time();
-                 $this->db->query("INSERT INTO login_attempts (user, time) VALUES ('$username', '$now')");
+                 $this->db->query("INSERT INTO login_attempts (username, time) VALUES ('$username', '$now')");
                  return 2;
               }
             }
-           } else {
-              // L'utente inserito non esiste.
-              return 2;
-           }
+            } else {
+                // L'utente inserito non esiste.
+                return 2;
+            }
         }
     }
 
@@ -153,22 +152,11 @@ class DatabaseHelper{
                 if($login_check == $login_string) {
                    // Login eseguito!!!!
                    return true;
-                } else {
-                   //  Login non eseguito
-                   return false;
                 }
-             } else {
-                 // Login non eseguito
-                 return false;
              }
-          } else {
-             // Login non eseguito
-             return false;
           }
-        } else {
-          // Login non eseguito
-          return false;
-        }
+        } 
+        return false;
     }
 
     public function checkUser($username, $email){

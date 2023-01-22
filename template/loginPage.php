@@ -32,22 +32,22 @@
 			    	<div class="row mb-2">
 				    	<div class="col-1"></div>
                         <div class="col-10">
-                            <input type="text" id="email" name="email" class="form-control" placeholder="email" />
+                            <input type="text" id="email" name="email" class="form-control" placeholder="email"/>
                         </div>
 			    		<div class="col-1"></div>
 				    </div>
 				    <div class="row mb-2">
 					    <div class="col-1"></div>
                         <div class="col-10">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="password" />
+                            <input type="password" id="password" name="p" class="form-control" placeholder="password"/>
                         </div>
 			    		<div class="col-1"></div>
 				    </div>
 				    <div class="row">
-					    <div class="col-11 text-end">
-                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Sign-in"/> 
+					    <div class="col-11 text-end"> 
+                            <input type="submit" class="btn btn-sm primary elevation-1" value="Sign-in" onclick="formhash(this.form, this.form.password);"/>
 		    			</div>
-			    			<div class="col-1"></div>
+			    		<div class="col-1"></div>
 				    </div>
     			</form>
                 <div class="row">

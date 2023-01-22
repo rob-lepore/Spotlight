@@ -1,8 +1,8 @@
 <?php
 require_once 'bootstrap.php';
-if(isset($_POST['email'], $_POST['password'])) { 
+if(isset($_POST['email'], $_POST['p'])) { 
     $email = $_POST['email'];
-    $password = $_POST['password']; // Recupero la password criptata.
+    $password = $_POST['p']; // Recupero la password criptata.
     $checkLogin = $dbh->login($email, $password);
     if($checkLogin == 1) {
         // Login eseguito

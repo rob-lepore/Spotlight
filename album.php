@@ -1,7 +1,8 @@
 <?php 
+require_once("bootstrap.php");
+sec_session_start();
     //6tkjU4Umpo79wwkgPMV3nZ
     //19bQiwEKhXUBJWY6oV3KZk
-    require_once("bootstrap.php");
 
     $albumId = $_GET["id"];
     require("fetchAlbumInfo.php");

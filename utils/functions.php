@@ -1,11 +1,13 @@
 <?php
 function isUserLoggedIn(){
-    return !empty($_SESSION['email']);
+    return !empty($_SESSION['username']);
 }
 
-function registerLoggedUser($email, $password){
-    $_SESSION["email"] = $email;
-    $_SESSION["password"] = $password;
+function registerLoggedUser($username, $password){
+    $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
+    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // ci proteggiamo da un attacco XSS
+    $_SESSION['username'] = $username;
+    $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 }
 
 function uploadImage($path, $image){
