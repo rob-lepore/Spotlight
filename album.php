@@ -1,6 +1,7 @@
 <?php 
 require_once("bootstrap.php");
 sec_session_start();
+if(isUserLoggedIn()){
     //6tkjU4Umpo79wwkgPMV3nZ
     //19bQiwEKhXUBJWY6oV3KZk
 
@@ -18,4 +19,7 @@ sec_session_start();
     $templateParams["newPostUrl"] = "#";
     
     require("template/albumPage.php");
+} else{
+    echo 'You are not authorized to access this page, please login. <br/>';
+}
 ?>

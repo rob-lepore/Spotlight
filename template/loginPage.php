@@ -55,14 +55,14 @@
                     <div class="col-10">
                         <?php if(isset($templateParams["loginError"])): ?>
                             <p><?php echo $templateParams["loginError"]; ?></p>
-                        <?php endif; /*onclick="formhash(this.form, this.form.password);"*/ ?>
+                        <?php endif;?>
                     </div>
                 </div>
-            </section>
-            <footer class="container text-center">
-                <label>New user?</label><a href="signup.php">Sign-up</a>
-            </footer>
-        </div>
+            </div>
+        </section>
+        <footer class="container text-center">
+            <label>New user?</label><a href="signup.php">Sign-up</a>
+        </footer>
     </main>
 </body>
 </html>

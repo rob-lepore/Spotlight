@@ -1,13 +1,11 @@
 <?php
 function isUserLoggedIn(){
-    return !empty($_SESSION['username']);
+    return isset($_COOKIE["username"]);
 }
 
-function registerLoggedUser($username, $password){
-    $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
-    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // ci proteggiamo da un attacco XSS
-    $_SESSION['username'] = $username;
-    $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+function registerLoggedUser($username){
+    $cookie_value = $username;
+    setcookie("username", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 }
 
 function uploadImage($path, $image){

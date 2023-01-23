@@ -17,9 +17,9 @@
         <a class ="text-decoration-none text-reset" href="login.php"><h1 class="mt-5 text-center">Spotlight</h1></a>
     </header>
     <main>
-        <div class="row">
+        <section class="row">
             <div class="col-md-1"></div>
-            <div class="col-12 col-md-6">
+            <div class="col-md-10">
 		    	<form action="signUp_process.php" method="POST" name="signup_form" class="mb-4" enctype="multipart/form-data">
 			    	<div class="row mb-2">
 				    	<div class="col-1"></div>
@@ -69,17 +69,17 @@
 		    			</div>
 			    			<div class="col-1"></div>
 				    </div>
-                    <div class="row">
-                        <div class="col-md-6"></div>
+                </form>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
                         <?php if(isset($templateParams["signupError"])): ?>
-                            <div class="col-10">
-                                <p><?php echo $templateParams["signupError"]; ?></p>
-                            </div>
+                            <p><?php echo $templateParams["signupError"]; ?></p>
                         <?php endif;?>
                     </div>
-    			</form>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
 </body>
 </html>

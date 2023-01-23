@@ -112,11 +112,13 @@ class DatabaseHelper{
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
                     return 0;
             } else {
-                echo "db=$db_password\n";
-                echo "trad=$password\n";
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
-                 // Password corretta!            
-                    registerLoggedUser($username, $password);
+                 // Password corretta!         
+                    $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
+                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // ci proteggiamo da un attacco XSS
+                    $_SESSION['username'] = $username;
+                    $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+                    registerLoggedUser($username);
                     // Login eseguito con successo.
                     return 1;    
                 } else {
@@ -169,13 +171,18 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createUser($username, $email, $password, $salt, $first_name, $last_name, $propic){
+    public function createFullUser($username, $email, $password, $salt, $first_name, $last_name, $propic){
         $query = "INSERT INTO `user` (`username`, `email`, `password`, `salt`, `first_name`, `last_name`, `profile_pic`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sssssss',$username, $email, $password, $salt, $first_name, $last_name, $propic);
         $stmt->execute();
-        
+    }
+
+    public function createUser($username, $email, $password, $salt, $first_name, $last_name){
+        $query = "INSERT INTO `user` (`username`, `email`, `password`, `salt`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssssss',$username, $email, $password, $salt, $first_name, $last_name);
+        $stmt->execute();
     }
 }
-
 ?>

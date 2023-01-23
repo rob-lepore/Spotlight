@@ -7,6 +7,10 @@ $_SESSION = array();
 $params = session_get_cookie_params();
 // Cancella i cookie attuali.
 setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+if (isset($_COOKIE['username'])) {
+    unset($_COOKIE['username']); 
+    setcookie('username', null, -1, '/'); 
+}
 // Cancella la sessione.
 session_destroy();
 header('Location: ./');

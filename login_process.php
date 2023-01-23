@@ -7,7 +7,7 @@ if(isset($_POST['email'], $_POST['p'])) {
     if($checkLogin == 1) {
         // Login eseguito
         $templateParams["title"] = "Spotlight - Home";
-        require "template/esempioSpotifyAPI.php";
+        header('Location: ./album.php?id=6tkjU4Umpo79wwkgPMV3nZ');
     } else if($checkLogin == 0) {
         // Brute Force
         $templateParams["loginTries"] = "WARNING! Too many tries. Access to this account is temporarily unavailable";
