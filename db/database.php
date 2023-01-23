@@ -29,6 +29,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAlbumLikes($albumId){
+        $stmt = $this->db->prepare("SELECT username FROM `likes` WHERE element_link=?");
+        $stmt->bind_param("s", $albumId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getPostData($postId) {
         $stmt = $this->db->prepare("SELECT * FROM `post` WHERE post_id=?");
         $stmt->bind_param("i", $postId);
@@ -74,7 +82,7 @@ class DatabaseHelper{
         $now = time();
         // Vengono analizzati tutti i tentativi di login a partire dalle ultime due ore.
         $valid_attempts = $now - (2 * 60 * 60); 
-        if ($stmt = $this->db->prepare("SELECT time FROM login_attempts WHERE user = ? AND time > ?")) { 
+        if ($stmt = $this->db->prepare("SELECT time FROM login_attempts WHERE username = ? AND time > ?")) { 
            $stmt->bind_param('si', $username, $valid_attempts); 
            // Eseguo la query creata.
            $stmt->execute();
@@ -105,25 +113,26 @@ class DatabaseHelper{
                     return 0;
             } else {
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
-                 // Password corretta!            
+                 // Password corretta!         
                     $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
                     $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // ci proteggiamo da un attacco XSS
                     $_SESSION['username'] = $username;
                     $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+                    registerLoggedUser($username);
                     // Login eseguito con successo.
                     return 1;    
                 } else {
                  // Password incorretta.
                  // Registriamo il tentativo fallito nel database.   
                  $now = time();
-                 $this->db->query("INSERT INTO login_attempts (user, time) VALUES ('$username', '$now')");
+                 $this->db->query("INSERT INTO login_attempts (username, time) VALUES ('$username', '$now')");
                  return 2;
               }
             }
-           } else {
-              // L'utente inserito non esiste.
-              return 2;
-           }
+            } else {
+                // L'utente inserito non esiste.
+                return 2;
+            }
         }
     }
 
@@ -145,22 +154,11 @@ class DatabaseHelper{
                 if($login_check == $login_string) {
                    // Login eseguito!!!!
                    return true;
-                } else {
-                   //  Login non eseguito
-                   return false;
                 }
-             } else {
-                 // Login non eseguito
-                 return false;
              }
-          } else {
-             // Login non eseguito
-             return false;
           }
-        } else {
-          // Login non eseguito
-          return false;
-        }
+        } 
+        return false;
     }
 
     public function checkUser($username, $email){
@@ -173,13 +171,18 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createUser($username, $email, $password, $salt, $first_name, $last_name, $propic){
+    public function createFullUser($username, $email, $password, $salt, $first_name, $last_name, $propic){
         $query = "INSERT INTO `user` (`username`, `email`, `password`, `salt`, `first_name`, `last_name`, `profile_pic`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sssssss',$username, $email, $password, $salt, $first_name, $last_name, $propic);
         $stmt->execute();
-        
+    }
+
+    public function createUser($username, $email, $password, $salt, $first_name, $last_name){
+        $query = "INSERT INTO `user` (`username`, `email`, `password`, `salt`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssssss',$username, $email, $password, $salt, $first_name, $last_name);
+        $stmt->execute();
     }
 }
-
 ?>

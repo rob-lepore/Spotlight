@@ -1,11 +1,11 @@
 <?php
 function isUserLoggedIn(){
-    return !empty($_SESSION['email']);
+    return isset($_COOKIE["username"]);
 }
 
-function registerLoggedUser($email, $password){
-    $_SESSION["email"] = $email;
-    $_SESSION["password"] = $password;
+function registerLoggedUser($username){
+    $cookie_value = $username;
+    setcookie("username", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 }
 
 function uploadImage($path, $image){
