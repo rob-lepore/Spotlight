@@ -77,7 +77,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-<<<<<<< HEAD
     public function getFriendsCount($username) {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE F_U_username=? OR username=?");
         $stmt->bind_param("ss", $username, $username);
@@ -124,7 +123,6 @@ class DatabaseHelper{
     
 
 }
-=======
     function checkbrute($username) {
         // Recupero il timestamp
         $now = time();
@@ -143,7 +141,7 @@ class DatabaseHelper{
            }
         }
     }
->>>>>>> 046368d029d20fb4721043f52745e53fc7134e14
+
 
     function login($email, $password) {
         // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
