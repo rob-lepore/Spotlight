@@ -1,0 +1,85 @@
+body{
+    background:#fffbfe;
+}
+
+
+.save{
+    background:#6750a4;
+    color:white;
+    border-radius: 30px;
+    border-top-right-radius: 30px;
+    border: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-width: 69px;
+    min-height:24px;
+    margin-right:1rem;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
+    visibility: hidden;
+}
+
+
+.btn-profile{
+    background:#6750a4;
+    color:white;
+    border-radius: 30px;
+    border-top-right-radius: 30px;
+    border: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-width: 69px;
+    min-height:24px;
+    margin-right:1rem;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
+}
+
+.name-holder{
+    border:none;
+    background:#f3edf7;
+    width: 8rem;
+}
+
+nav{
+    background:#f3edf7;
+}
+
+.select-file{
+    font-size: smaller;
+    visibility: hidden;
+}
+
+.profile-pic{
+    margin-top:1rem;
+    border-radius: 100%;
+    border: 0.3rem solid #6750a4;
+}
+
+.username{
+    font-weight: bold;
+    font-size: medium;
+    margin-bottom: 0;
+    margin-top:1rem;
+}
+
+.realname{
+    color:#a1a1a1;
+}
+
+.info{
+    outline: none;
+    text-decoration: none;
+    color:black;
+    margin-left:1rem;
+    margin-right:1rem;
+    font-weight: bold;
+    font-size: medium;
+}
+
+@media screen and (max-width: 500px) {
+    .profile-pic{
+        border-radius: 100%;
+        max-width: 3rem;
+        max-height: 3rem;
+        border: 0.3rem solid #6750a4;
+    }
+}
