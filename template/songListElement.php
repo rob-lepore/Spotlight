@@ -8,6 +8,14 @@
         <?php if(isset($templateParams["trackAlbum"])): ?>
             <span class="text-truncate"><?php echo $templateParams["trackAlbum"] ?></span>
         <?php endif; ?>
+        <?php if(isset($templateParams["trackArtists"])): ?>
+            <?php foreach($templateParams["trackArtists"] as $artist):?>
+                <span class="text-truncate"><?php echo "$artist->name" ?></span>
+                <?php if($templateParams["trackArtists"][count($templateParams["trackArtists"]) -1] != $artist){
+                    echo ", ";
+                }?>
+            <?php endforeach;?>
+        <?php endif; ?>
     </div>
     <div class="d-flex flex-row justify-content-evenly w-25" style="min-width: 7rem;">
         <a href=<?php echo $templateParams["newPostUrl"] ?> style="color: var(--text-on-surface)">

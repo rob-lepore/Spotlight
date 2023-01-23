@@ -10,6 +10,7 @@ if(isUserLoggedIn()){
 
     $templateParams["title"] = "Spotlight - $album_data->name";
     $templateParams["albumName"] = $album_data->name;
+    $templateParams["albumUrl"] = $album_data->external_urls->spotify;
     $templateParams["artists"] = $album_data->artists;
     $templateParams["releaseDate"] = $album_data->release_date;
     $templateParams["albumImage"] = $album_data->images[1]->url;

@@ -17,18 +17,20 @@
         }
     </style>
     <header class="py-2 d-flex surface">
-        <div class="mx-2">
-            <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="">
-        </div>
-        <div>
-            <h1><?php echo $templateParams["albumName"]?></h1>
+        <a class ="text-decoration-none text-reset" href="<?php echo $templateParams["albumUrl"]?>" >
+            <div class="mx-2">
+                <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="albumImage">
+            </div>
+            <div>
+                <h1><?php echo $templateParams["albumName"]?></h1>
+        </a>
             <h4>
-                <?php foreach($templateParams["artists"] as $artist){
-                    echo $artist->name;
-                   if($templateParams["artists"][count($templateParams["artists"]) -1] != $artist){
+                <?php foreach($templateParams["artists"] as $artist):?>
+                   <a class ="text-decoration-none text-reset" href="./artist.php?id=<?php echo $artist->id?>"><?php echo "$artist->name";?><a>
+                   <?php if($templateParams["artists"][count($templateParams["artists"]) -1] != $artist){
                        echo ", ";
-                    }
-                }?>
+                    }?>
+                <?php endforeach;?>
             </h4>
             <div class="d-flex flex-row justify-content-between">
                 <h4><?php echo substr($templateParams["releaseDate"],0,4)?></h4>
@@ -40,10 +42,14 @@
             </div>
         </div>
     </header>
-    <section class="mt-3">
+    <section class="m-1">
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex">
-                <input type="button" id="tracklist" class="btn btn-sm primary elevation-1 align-self-start" value="v"/>
+                <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="tracklist">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                        <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                    </svg>
+                </button>
                 <h2>Tracklist</h2>
             </div>
             <input type="button" id="review" class="btn btn-sm primary elevation-1 align-self-center" value="Write a reveiw about this album"/>
@@ -52,12 +58,23 @@
             <?php foreach ($templateParams["tracks"]->items as $track) {
                 $templateParams["trackName"] = $track->name;
                 $templateParams["trackUrl"] = $track->external_urls->spotify;
+                $templateParams["trackArtists"] = $track->artists;
                 require("songListElement.php");
             } ?>
         </div>
     </section>
-    <section class="mt-3">
-        <h2>Popular Reviews</h2>
+    <section class="m-1">
+        <div class="d-flex">
+            <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="showReviews">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                    <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                </svg>
+            </button>
+            <h2>Popular Reviews</h2>
+        </div>
+        <div id="reviewsDiv">
+
+        </div>
     </section>
 
     <script src="js/albumPage.js"></script>
