@@ -120,9 +120,6 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
-    
-
-}
     function checkbrute($username) {
         // Recupero il timestamp
         $now = time();
@@ -141,7 +138,6 @@ class DatabaseHelper{
            }
         }
     }
-
 
     function login($email, $password) {
         // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
