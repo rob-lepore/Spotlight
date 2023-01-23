@@ -24,7 +24,7 @@
                     <div class="col-1"></div>
                     <div class="col-10">
                         <?php if(isset($templateParams["loginTries"])): ?>
-                            <p class ="text-warning"><?php echo $templateParams["loginTries"]; ?></p>
+                            <p class ="text-danger"><?php echo $templateParams["loginTries"]; ?></p>
                         <?php endif;?>
                     </div>
                 </div>
@@ -54,14 +54,14 @@
                     <div class="col-1"></div>
                     <div class="col-10">
                         <?php if(isset($templateParams["loginError"])): ?>
-                            <p><?php echo $templateParams["loginError"]; ?></p>
+                            <p class="text-warning"><?php echo $templateParams["loginError"]; ?></p>
                         <?php endif;?>
                     </div>
                 </div>
             </div>
         </section>
         <footer class="container text-center">
-            <label>New user?</label><a href="signup.php">Sign-up</a>
+            <label>New user?</label><a href="./signup.php?id=1">Sign-up</a>
         </footer>
     </main>
 </body>

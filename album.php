@@ -19,7 +19,7 @@ if(isUserLoggedIn()){
     $templateParams["newPostUrl"] = "#";
     
     require("template/albumPage.php");
-} else{
-    echo 'You are not authorized to access this page, please login. <br/>';
+} else {
+    header('Location: ./');
 }
 ?>

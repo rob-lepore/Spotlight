@@ -5,9 +5,7 @@ if(isset($_POST["username"], $_POST["email"], $_POST["p"], $_POST["first_name"],
     $signup_result = $dbh->checkUser($_POST["username"], $_POST["email"]);
     if(count($signup_result)!=0){
         //Account non disponibile
-        $templateParams["signupError"] = "Error! Username or email already used";
-        $templateParams["title"] = "Spotlight - Sign-Up";
-        require "template/signupForm.php";
+        header("Location: ./signup.php?id=0");
     }
     else{
         // Recupero la password criptata dal form di inserimento.
@@ -23,13 +21,12 @@ if(isset($_POST["username"], $_POST["email"], $_POST["p"], $_POST["first_name"],
             $dbh->createFullUser($_POST["username"], $_POST["email"], $password, $random_salt, $_POST["first_name"], $_POST["last_name"], $propic);
             registerLoggedUser($_POST["username"], $_POST["email"]);
             $msg = "Inserimento completato correttamente!";
-            $templateParams["title"] = "Spotlight - Home";
-            require "template/esempioSpotifyAPI.php";
+            header('Location: ./signup.php?id=1');
+            exit;
         }
         else{
-            $msg .= "Errore in inserimento!";
-            $templateParams["title"] = "Spotlight - Sign-Up";
-            require "template/signupForm.php";
+            $msg .= "Ops! An error occured";
+            header("Location: ./template/signup.php?id=2");
         }
     }
 }

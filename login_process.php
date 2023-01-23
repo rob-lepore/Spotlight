@@ -6,18 +6,14 @@ if(isset($_POST['email'], $_POST['p'])) {
     $checkLogin = $dbh->login($email, $password);
     if($checkLogin == 1) {
         // Login eseguito
-        $templateParams["title"] = "Spotlight - Home";
-        header('Location: ./album.php?id=6tkjU4Umpo79wwkgPMV3nZ');
+        header('Location: ./login.php?id=1');
+        exit;
     } else if($checkLogin == 0) {
         // Brute Force
-        $templateParams["loginTries"] = "WARNING! Too many tries. Access to this account is temporarily unavailable";
-        $templateParams["title"] = "Spotlight - Login";
-        require "template/loginPage.php";
+        header("Location: ./login.php?id=0");
     } else if($checkLogin == 2) {
         // Login fallito
-        $templateParams["title"] = "Spotlight - Login";
-        $templateParams["loginError"] = "Error! Invalid email or password";
-        require "template/loginPage.php";
+        header("Location: ./login.php?id=2");
     }
 } else { 
    // Le variabili corrette non sono state inviate a questa pagina dal metodo POST.

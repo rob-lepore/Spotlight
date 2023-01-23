@@ -14,7 +14,7 @@
 
 <body theme="light" class="container">
     <header class="container">
-        <a class ="text-decoration-none text-reset" href="login.php"><h1 class="mt-5 text-center">Spotlight</h1></a>
+        <a class ="text-decoration-none text-reset" href="./login.php?id=1"><h1 class="mt-5 text-center">Spotlight</h1></a>
     </header>
     <main>
         <section class="row">
@@ -74,7 +74,7 @@
                     <div class="col-1"></div>
                     <div class="col-10">
                         <?php if(isset($templateParams["signupError"])): ?>
-                            <p><?php echo $templateParams["signupError"]; ?></p>
+                            <p class="text-warning"><?php echo $templateParams["signupError"]; ?></p>
                         <?php endif;?>
                     </div>
                 </div>
