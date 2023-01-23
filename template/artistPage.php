@@ -43,7 +43,7 @@
             }
         }
     </style>
-    <header class=" py-2 d-flex">
+    <header class="py-2 d-flex">
         <div class="mx-2">
             <img class="artist-image" src=<?php echo $templateParams["artistImage"] ?> alt="">
         </div>
@@ -51,10 +51,20 @@
             <h1><?php echo $templateParams["artistName"] ?></h1>
             <span><?php echo $templateParams["followers"] ?> followers</span>
             <br>
-            <span><?php echo $templateParams["likes"] ?> likes
-                <a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                    </svg></a>
+            <span><span id="likesNumber"><?php echo $templateParams["likes"] ?></span> likes
+                <a onclick="toggleLike('<?php echo $templateParams['artistId'] ?>')">
+                    <?php
+                        echo ($templateParams["isLiked"] ?
+                        '<svg id="heartIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>'
+                        : 
+                        '<svg id="heartIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>'
+                        )
+                    ?>
+                </a>
             </span>
         </div>
     </header>
@@ -90,7 +100,7 @@
                 if ($album->album_type == "album") {
                     $templateParams["imgUrl"] = $album->images[1]->url;
                     $templateParams["albumName"] = $album->name;
-                    $templateParams["albumUrl"] = $album->external_urls->spotify;
+                    $templateParams["albumUrl"] = $templateParams["albumBaseUrl"] . $album->id;
                     $templateParams["year"] = substr($album->release_date, 0, 4);
 
                     require("albumListElement.php");
@@ -105,7 +115,7 @@
                 if ($album->album_type == "single") {
                     $templateParams["imgUrl"] = $album->images[1]->url;
                     $templateParams["albumName"] = $album->name;
-                    $templateParams["albumUrl"] = $album->external_urls->spotify;
+                    $templateParams["albumUrl"] = $templateParams["albumBaseUrl"] . $album->id;
                     $templateParams["year"] = substr($album->release_date, 0, 4);
 
                     require("albumListElement.php");
@@ -137,6 +147,7 @@
         </div>
     </section>
 
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="js/artistPage.js"></script>
 </body>
 
