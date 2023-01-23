@@ -50,3 +50,22 @@ tracksBtn.addEventListener("click", e => {
     tracksDiv.classList.remove("d-none");
 })
 
+
+function toggleLike(id) {
+    $.ajax({
+        url: 'toggleArtistLike.php',
+        type: 'POST',
+        data: {
+            artistId: id,
+        },
+        success: function(response) {
+            if(response == 0) { // il like è stato rimosso
+                $("#heartIcon").attr("fill", "currentColor");
+                $("#likesNumber").text(Number($("#likesNumber").text()) - 1); 
+            } else { // il like è stato aggiunto
+                $("#heartIcon").attr("fill", "red");
+                $("#likesNumber").text(Number($("#likesNumber").text()) + 1); 
+            }
+        }
+    });
+}
