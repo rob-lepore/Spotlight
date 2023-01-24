@@ -1,10 +1,6 @@
 <?php 
     require_once("bootstrap.php");
     sec_session_start(); 
-
-    function mapToUsernames($el) {
-        return $el["username"];
-    }
     
     if(isUserLoggedIn()){
 

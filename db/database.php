@@ -186,7 +186,7 @@ class DatabaseHelper{
     }
 
 
-    public function toggleArtistLike($id) {
+    public function toggleSpotifyElementLike($id) {
         $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `likes` WHERE `username` = ? AND `element_link`= ?");
         $stmt->bind_param("ss", $_COOKIE["username"], $id);
         $stmt->execute();
