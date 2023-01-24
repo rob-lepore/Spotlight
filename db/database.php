@@ -227,5 +227,42 @@ class DatabaseHelper{
         $stmt->bind_param('ssssss',$username, $email, $password, $salt, $first_name, $last_name);
         $stmt->execute();
     }
+
+
+    public function toggleArtistLike($id) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `likes` WHERE `username` = ? AND `element_link`= ?");
+        $stmt->bind_param("ss", $_COOKIE["username"], $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($result[0]["num"] > 0) {
+            $stmt = $this->db->prepare("DELETE FROM `likes` WHERE `username` = ? AND `element_link`= ?");
+            $stmt->bind_param("ss", $_COOKIE["username"], $id);
+            $stmt->execute();
+            return 0;
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO `likes` VALUES (?, ?)");
+            $stmt->bind_param("ss", $id, $_COOKIE["username"]);
+            $stmt->execute();
+            return 1;
+        } 
+
+    }
+
+    public function createSpotifyElement($type, $id) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `spotify_element` WHERE `type` = ? AND `element_link`= ?");
+        $stmt->bind_param("ss", $type, $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($result[0]["num"] == 0) {
+            $stmt = $this->db->prepare("INSERT INTO `spotify_element` VALUES (?, ?)");
+            $stmt->bind_param("ss", $type, $id);
+            $stmt->execute();
+        } 
+
+    }
 }
 ?>
