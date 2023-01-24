@@ -36,7 +36,7 @@
         <input class="select-file" name="propic" type="file"/>
         <button class="save-btn">save</button>
         <div class = "d-flex justify-content-center">
-            <a class=" info"><?php echo $templateParams["FriendsCount"];?> Friends</a>
+            <?php echo $templateParams["is_friend"]?"<a class='info'>". $templateParams['FriendsCount']. "Friends</a>":""?>
             <a class=" info"><?php  echo $templateParams["FollowerCount"];?> Followers</a>
             <a class=" info"><?php echo $templateParams["FollowingCount"]?> Following</a>
         </div>
