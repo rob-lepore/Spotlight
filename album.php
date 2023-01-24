@@ -21,7 +21,7 @@
         $templateParams["isLiked"] = in_array($_COOKIE["username"], $likes);
         $templateParams["tracks"] = $tracks;
         $templateParams["newReviewUrl"] = "#";
-        $templateParams["newPostUrl"] = "#";
+        $templateParams["newPostUrl"] = "newPost.php?id=";
     
         require("template/albumPage.php");
     } else {

@@ -1,4 +1,4 @@
-<footer class="fixed-bottom overlayBackground py-2">
+<footer class="fixed-bottom overlayBackground py-2 elevation-1">
     <div class="d-flex flex-row justify-content-around">
         <a href="index.php" class="btn btn-light">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">

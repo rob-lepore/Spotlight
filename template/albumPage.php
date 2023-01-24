@@ -16,9 +16,9 @@
             width: 9rem;
         }
     </style>
-    <header class="sticky-top py-2 d-flex overlayBackground">
+    <header class="sticky-top py-2 d-flex overlayBackground elevation-1">
         <div class="mx-2">
-            <a class ="text-decoration-none text-reset" href="<?php echo $templateParams["albumUrl"]?>" >
+            <a class ="text-decoration-none text-reset align-self-center" href="<?php echo $templateParams["albumUrl"]?>" >
                 <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="albumImage">
             </a>
         </div>
@@ -55,7 +55,7 @@
             </div>
         </div>
     </header>
-    <section class="m-1">
+    <section class="mt-3">
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex">
                 <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="tracklist">
@@ -70,13 +70,14 @@
         <div id="tracklistDiv">
             <?php foreach ($templateParams["tracks"]->items as $track) {
                 $templateParams["trackName"] = $track->name;
+                $templateParams["trackId"] = $track->id;
                 $templateParams["trackUrl"] = $track->external_urls->spotify;
                 $templateParams["trackArtists"] = $track->artists;
                 require("songListElement.php");
             } ?>
         </div>
     </section>
-    <section class="m-1">
+    <section class="mt-3">
         <div class="d-flex">
             <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="showReviews">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
