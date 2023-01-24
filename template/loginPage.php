@@ -60,9 +60,9 @@
                 </div>
             </div>
         </section>
-        <footer class="container text-center">
-            <label>New user?</label><a href="./signup.php?id=1">Sign-up</a>
-        </footer>
     </main>
+    <footer class="container text-center">
+        <label>New user?</label><a href="./signup.php?id=1">Sign-up</a>
+    </footer>
 </body>
 </html>

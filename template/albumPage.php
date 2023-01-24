@@ -16,7 +16,7 @@
             width: 9rem;
         }
     </style>
-    <header class="py-2 d-flex">
+    <header class="sticky-top py-2 d-flex overlayBackground">
         <div class="mx-2">
             <a class ="text-decoration-none text-reset" href="<?php echo $templateParams["albumUrl"]?>" >
                 <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="albumImage">
@@ -89,6 +89,9 @@
 
         </div>
     </section>
+    
+    <?php require("footerElement.php"); ?>
+
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="js/albumPage.js"></script>
 </body>
