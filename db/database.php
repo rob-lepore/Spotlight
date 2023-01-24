@@ -153,16 +153,18 @@ class DatabaseHelper{
     }
 
     public function getLikedAlbumsByUser($username){
-        $stmt = $this->db->prepare("SELECT element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type = Album");
-        $stmt->bind_param("s", $username);
+        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
+        $type = "Album";
+        $stmt->bind_param("ss", $username, $type);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getLikedArtistsByUser($username){
-        $stmt = $this->db->prepare("SELECT element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type = Artist");
-        $stmt->bind_param("s", $username);
+        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
+        $tpe = "Artist";
+        $stmt->bind_param("ss", $username, $type);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

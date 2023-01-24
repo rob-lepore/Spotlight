@@ -19,7 +19,7 @@ if(isUserLoggedIn()){
     $userPosts = $dbh->getPostsOfUser($user[0]["username"]);
     $userReviews = $dbh->getReviewsOfUser($user[0]["username"]);
     //$userLikedArtists = $dbh->getLikedArtistsByUser($user[0]["username"]);
-    //$userLikedAlbums = $dbh->getLikedAlbumsByUser($user[0]["username"]);
+    $userLikedAlbums = $dbh->getLikedAlbumsByUser($user[0]["username"]);
 
     require "template/userPage.php";
 }else{
