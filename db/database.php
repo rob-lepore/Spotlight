@@ -221,5 +221,15 @@ class DatabaseHelper{
         } 
 
     }
+
+    public function createPost($text, $song){
+        $likes = 0;
+        $date = date("Y/m/d");
+        $username = $_COOKIE["username"];
+        echo $text;
+        $stmt = $this->db->prepare("INSERT INTO `post` VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssis", $likes, $text, $song, $date, $likes, $username);
+        $stmt->execute();
+    }
 }
 ?>
