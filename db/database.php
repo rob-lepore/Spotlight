@@ -77,6 +77,49 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getFriendsCount($username) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE F_U_username=? OR username=?");
+        $stmt->bind_param("ss", $username, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFollowerCount($username) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follows WHERE F_U_username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFollowingCount($username) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follows WHERE username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function followUser($sender, $receiver){
+        $stmt = $this->db->prepare("INSERT INTO follows (F_U_username, username) VALUES (? ?) ");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+    }
+
+    public function unfollowUser($sender, $receiver){
+        $stmt = $this->db->prepare("DELETE FROM follows WHERE F_U_username=? AND username=? ");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+    }
+
+    //friend request?
+    public function eliminateFriend($sender, $receiver){
+        $stmt = $this->db->prepare("DELETE FROM friends WHERE (F_U_username=? AND username=?) AND (F_U_username=? AND username=?)");
+        $stmt->bind_param("ssss", $receiver, $sender, $sender, $receiver);
+        $stmt->execute();
+    }
+
     function checkbrute($username) {
         // Recupero il timestamp
         $now = time();
