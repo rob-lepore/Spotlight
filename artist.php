@@ -1,6 +1,5 @@
 <?php 
     require_once("bootstrap.php");
-    sec_session_start(); 
     
     if(isUserLoggedIn()){
 
@@ -21,7 +20,7 @@
         $templateParams["topSongs"] = $top_songs;
         $templateParams["albums"] = $albums;
         $templateParams["tracks"] = $tracks;
-        $templateParams["newPostUrl"] = "#";
+        $templateParams["newPostUrl"] = "./newPost.php?id=";
         $templateParams["albumBaseUrl"] = "./album.php?id=";
         require("template/artistPage.php");
     } else {

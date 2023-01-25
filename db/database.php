@@ -62,7 +62,7 @@ class DatabaseHelper{
     }
 
     public function getCommentReplies($commentId) {
-        $stmt = $this->db->prepare("SELECT * FROM `replies` WHERE thread=?");
+        $stmt = $this->db->prepare("SELECT * FROM `reply` WHERE thread=?");
         $stmt->bind_param("i", $commentId);
         $stmt->execute();
         $result = $stmt->get_result();
