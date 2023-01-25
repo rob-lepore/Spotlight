@@ -79,6 +79,8 @@
             $templateParams["trackAlbum"] = $track->album->name;
             $templateParams["trackName"] = $track->name;
             $templateParams["trackUrl"] = $track->external_urls->spotify;
+            $templateParams["trackId"] = $track->id;
+            
 
             require("songListElement.php");
         } ?>
@@ -137,6 +139,7 @@
                         $templateParams["trackName"] = $track->name;
                         $templateParams["trackAlbum"] = $name;
                         $templateParams["trackUrl"] = $track->external_urls->spotify;
+                        $templateParams["trackId"] = $track->id;
 
                         require("songListElement.php");
                     }

@@ -1,6 +1,7 @@
 -- Database Section
 -- ________________ 
 
+drop database if exists Spotlight;
 create database Spotlight;
 use Spotlight;
 
@@ -17,6 +18,16 @@ create table COMMENT (
      username char(15) not null,
      constraint ID_COMMENT_ID primary key (comment_id),
      constraint FKFROM_COMMENT_ID unique (notification_id));
+
+create table REPLY (
+     reply_id int not null AUTO_INCREMENT,
+     to_user char(15) not null,
+     thread int not null,
+     date date not null,
+     username char(15) not null,
+     text char(100) not null,
+     constraint ID_REPLY_ID primary key (reply_id)
+);
 
 create table FOLLOWS (
      Follower_username char(15) not null,
@@ -105,7 +116,7 @@ create table USER (
      email char(40) not null,
      first_name char(20) not null,
      last_name char(20) not null,
-     profile_pic char(128) DEFAULT default_icon.png,
+     profile_pic char(128) DEFAULT "default_icon.png",
      constraint ID_USER_ID primary key (username));
 
 
@@ -123,6 +134,18 @@ alter table COMMENT add constraint FKFROM_COMMENT_FK
 alter table COMMENT add constraint FKCOMMENTS_FK
      foreign key (username)
      references USER (username);
+
+alter table REPLY add constraint FKREPLY_TO
+     foreign key(to_user)
+     references USER (username);
+
+alter table REPLY add constraint FKREPLY_FROM
+     foreign key(username)
+     references USER (username);
+
+alter table REPLY add constraint FKREPLY_TOCOMMENT
+     foreign key(thread)
+     references COMMENT (comment_id);
 
 alter table FOLLOWS add constraint FKFOLLOWER
      foreign key (username)
