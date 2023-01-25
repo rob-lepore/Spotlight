@@ -13,12 +13,13 @@ $comments = $dbh->getComments($postId);
 $trackId = $data["song"];
 require("fetchTrackData.php");
 
-
 $templateParams["title"] = "Spotlight - Post";
 $templateParams["username"] = $data["username"];
-$templateParams["profilePic"] = $user["profile_pic"];
+$templateParams["profilePic"] = "upload/" . $user["profile_pic"];
 $templateParams["albumCover"] = $track->album->images[0]->url;
 $templateParams["trackName"] = $track->name;
+$templateParams["date"] = $data["date"];
+
 
 $commentsWithPic = [];
 foreach ($comments as $comment) {

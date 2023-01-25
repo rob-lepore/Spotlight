@@ -47,7 +47,7 @@
                 <span><i>Following</i></span>
             </div>
         </div>
-        <span>23h</span>
+        <span><?php echo $templateParams["date"] ?></span>
 
     </header>
     <main class="mt-3 container">
