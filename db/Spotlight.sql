@@ -46,8 +46,7 @@ create table LIKES_REVIEW (
 
 create table LOGIN_ATTEMPTS (
      time int not null,
-     username char(15) not null,
-     constraint IDLOGIN_ATTEMPTS primary key (username));
+     username char(15) not null);
 
 create table MOOD (
      mood_id int not null AUTO_INCREMENT,
@@ -105,7 +104,7 @@ create table USER (
      email char(40) not null,
      first_name char(20) not null,
      last_name char(20) not null,
-     profile_pic char(128) DEFAULT default_icon.png,
+     profile_pic char(128) DEFAULT "default_icon.png",
      constraint ID_USER_ID primary key (username));
 
 
