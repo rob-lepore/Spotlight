@@ -133,3 +133,7 @@ p{
     background-color: #b09de7;
     font-weight: bold;
 }
+
+.overlayBackground {
+    background-color: var(--bg-color);
+}
