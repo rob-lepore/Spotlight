@@ -1,6 +1,5 @@
 <?php 
     require_once("bootstrap.php");
-    sec_session_start();
     if(isUserLoggedIn()){
         //6tkjU4Umpo79wwkgPMV3nZ
         //19bQiwEKhXUBJWY6oV3KZk
