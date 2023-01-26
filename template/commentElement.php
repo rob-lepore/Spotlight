@@ -1,6 +1,6 @@
 <div class="d-flex my-3 w-100">
     <div style="padding-top: 0.4rem;">
-        <img class="profile-pic" src=<?php echo $commentData["profilePic"] ?>  alt="Profile picture not found">
+        <img class="profile-pic" src=<?php echo "upload/".$commentData["profilePic"] ?>  alt="Profile picture not found">
     </div>
     <div class="comment surface w-100">
         <span class="label-large"><?php echo $commentData["username"] ?></span>
