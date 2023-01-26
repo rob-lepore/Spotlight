@@ -30,7 +30,7 @@ input.addEventListener("input", e => {
         url: 'searchTracksOrAlbums.php',
         type: 'POST',
         data: {
-            query: input.value,
+            query: encodeURI(input.value),
             type: input.getAttribute("search-type")
         },
         success: function (response) {
