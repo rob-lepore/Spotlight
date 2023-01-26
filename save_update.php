@@ -1,6 +1,5 @@
 <?php
 require_once 'bootstrap.php';
-sec_session_start();
 if(isUserLoggedIn()){
     $user = $dbh->getUserData($_COOKIE["username"]);
 

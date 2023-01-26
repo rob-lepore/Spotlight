@@ -217,6 +217,13 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
+    public function createReview($data){
+        $stmt = $this->db->prepare("INSERT INTO review (text, album, date, score, number_of_likes, number_of_dislikes, username) VALUES
+         (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssiiis",$data["text"], $data["album"], $data["date"], $data["score"], $data["number_of_likes"], $data["number_of_dislikes"], $data["username"]);
+        $stmt->execute();
+    }
+
     function checkbrute($username) {
         // Recupero il timestamp
         $now = time();

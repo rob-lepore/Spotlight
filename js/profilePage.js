@@ -16,12 +16,14 @@ function getCookie(cname) {
 (()=>{
     //vulnerability se l'utente cambiasse il valore del cookie potrebbe modificare il profilo di un utente
     //contollare il cookie atraverso il db
+    var createbtn = document.querySelector('.create-btn')
     var search = new URLSearchParams(window.location.search)
     console.log(getCookie('username'))
     console.log(search.toString())
     if(!(getCookie('username') == search.get('user'))){
         document.querySelector('.edit').removeChild(document.querySelector('.edit').lastChild);
         document.querySelector('.edit').remove();
+        createbtn.remove();
     }else{
         document.querySelector('.follow').remove();
         document.querySelector('.friend').remove();
@@ -34,6 +36,7 @@ var profile_pic = document.querySelector(".select-file")
 var save_btn = document.querySelector(".save-btn")
 var friend_btn = document.querySelector('.friend')
 var follow_btn = document.querySelector('.follow')
+var create_btn = document.querySelector('.create-btn')
 
 if(edit != null){
 edit.addEventListener("click", e=>{
@@ -45,6 +48,18 @@ edit.addEventListener("click", e=>{
     name_surname.style.border = "1px solid #000000"
     save_btn.style.visibility = "visible"
 })
+}
+
+if(create_btn != null){
+    create_btn.addEventListener("click", e=>{
+        e.preventDefault();
+        activeLink = document.querySelector('a.active');
+        if(activeLink.getAttribute('data-value') == "Posts"){
+            console.log("Creating post")
+        }else if(activeLink.getAttribute('data-value') == "Reviews"){
+            console.log("Creating review")
+        }
+    })
 }
 
 if(friend_btn != null){

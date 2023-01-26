@@ -1,6 +1,5 @@
 <?php
 require_once "bootstrap.php";
-sec_session_start();
 if(isUserLoggedIn()){
 
     $_username = $_GET["user"];
@@ -18,7 +17,7 @@ if(isUserLoggedIn()){
     $templateParams["is_follower"] = $dbh->isFollower($user[0]["username"], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
     $userPosts = $dbh->getPostsOfUser($user[0]["username"]);
     $userReviews = $dbh->getReviewsOfUser($user[0]["username"]);
-    //$userLikedArtists = $dbh->getLikedArtistsByUser($user[0]["username"]);
+    $userLikedArtists = $dbh->getLikedArtistsByUser($user[0]["username"]);
     $userLikedAlbums = $dbh->getLikedAlbumsByUser($user[0]["username"]);
 
     require "template/userPage.php";
