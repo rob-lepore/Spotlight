@@ -22,7 +22,7 @@
             height: 150px;
             padding: 0.5rem 0.5rem;
             box-sizing: border-box;
-            border: 1.5% solid #ccc;
+            border: 1.2% solid #ccc;
             border-radius: 0.4rem;
             margin: 0% 1%;
             resize: none;
