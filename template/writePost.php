@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title><?php echo $templateParams["title"]; ?></title>
@@ -43,19 +44,14 @@
         </div>
     </header>
     <div class="topnav mt-3">
-        <form id="search-track-form" class="mb-1 d-flex">
-            <input type="text" id="queryTracks" value="" class="form-control" placeholder="Search..." />
-            <button type="submit" id="search" class="btn primary mt-1" value="Search"><i class="fa fa-search"></i></button>
-        </form>
-        <form id="new-track-form" method="POST" class="d-flex flex-row-reverse" action="">
-            <input type="submit" class="btn btn-sm primary mt-1" value="Update"/>
-            <select class="results align-self-center col-9" id="results" data-mdb-filter="true">
-                <option value=<?php echo $templateParams["trackId"]?>><?php echo $templateParams["trackName"]?> --- <?php echo $templateParams["artists"][0]->name?></option>
-            </select>
-        </form>
+        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn primary">Search track</button>
+        <?php
+            $templateParams["searchType"] = "track"; // oppure "album"
+            require("template/modal.php");
+        ?>
     </div>
     <main class="mt-3">
-        <form id="create-post-form" method="POST" name="post_form">
+        <form action="post_creation.php?id=<?php echo $_GET["id"]?>" id="create-post-form" method="POST" name="post_form">
             <textarea id="post_text" class="post_text" name="post_text" placeholder="Write here..."></textarea>
             <div class="col-12 text-end">
                 <input type="submit" class="btn btn-sm primary elevation-1" value="Post"/>
@@ -63,7 +59,5 @@
         </form>
     </main>
     <?php require("footerElement.php"); ?>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="js/writePost.js"></script>
 </body>
 </html>
