@@ -75,7 +75,7 @@
             <div class="my-2"><p class="username mr-2 label-medium"><?php echo $templateParams["username"]?></p><p class="date text-medium"><?php echo $templateParams["date"]?></p></div>
         </section>
         <section class="">
-            <textArea class = "col-12 review" rows="20"></textArea>
+            <textArea class = "col-12 review" style="resize:none;border-radius:0.4;box-sizing:border-box;border: 1.2% solid #ccc;" rows="20"></textArea>
         </section>
         <div class="d-flex flex-row-reverse">
             <button class="primary elevation submit" style="border-radius:30px;border:none">Submit</button>

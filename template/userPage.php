@@ -52,17 +52,6 @@
     </nav>
 
     <main>
-    <?php
-        foreach ($userPosts as $post) {
-            $templateParams = $post;
-            require("postPage.php");
-
-           //la versione di post senza i commenti che cliccandoci sopra ti porta alla postPage
-           //ripetere la stessa cosa per le reviews
-        }
-
-    ?>
-
         <div class="content">
         <p>Line 1</p>
     <p>Line 2</p>

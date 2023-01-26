@@ -55,9 +55,9 @@ if(create_btn != null){
         e.preventDefault();
         activeLink = document.querySelector('a.active');
         if(activeLink.getAttribute('data-value') == "Posts"){
-            console.log("Creating post")
+            window.location.replace("/Spotlight/newPost.php")
         }else if(activeLink.getAttribute('data-value') == "Reviews"){
-            console.log("Creating review")
+            window.location.replace("/Spotlight/createReview.php")
         }
     })
 }

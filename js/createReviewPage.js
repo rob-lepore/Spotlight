@@ -107,7 +107,7 @@ submit.addEventListener("click", e=>{
             var div = document.createElement("div")
             div.setAttribute("class", "alert alert-danger alert-dismissible fade show")
             div.setAttribute("role", "alert")
-            div.innerHTML = "An error occured during the posting of the review , please try again"
+            div.innerHTML = "An error occured during the publishing of the review , please try again"
             var btn = document.createElement("button")
             btn.setAttribute("type", "button")
             btn.setAttribute("class", "btn-close")
