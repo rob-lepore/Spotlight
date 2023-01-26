@@ -8,7 +8,7 @@ if (isset($_POST['query'])) {
 
   $ch = curl_init();
 
-  curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/search?q=$query&type=album");
+  curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/search?q=$query&type=album&album_type=album");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer $access_token"));
 
