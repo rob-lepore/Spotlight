@@ -62,7 +62,7 @@ class DatabaseHelper{
     }
 
     public function getCommentReplies($commentId) {
-        $stmt = $this->db->prepare("SELECT * FROM `replies` WHERE thread=?");
+        $stmt = $this->db->prepare("SELECT * FROM `reply` WHERE thread=?");
         $stmt->bind_param("i", $commentId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -78,7 +78,7 @@ class DatabaseHelper{
     }
 
     public function getFriendsCount($username) {
-        $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE F_U_username=? OR username=?");
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE Friend_username=? OR username=?");
         $stmt->bind_param("ss", $username, $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -86,7 +86,7 @@ class DatabaseHelper{
     }
 
     public function getFollowerCount($username) {
-        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follows WHERE F_U_username=?");
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follows WHERE Follower_username=?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -102,21 +102,125 @@ class DatabaseHelper{
     }
 
     public function followUser($sender, $receiver){
-        $stmt = $this->db->prepare("INSERT INTO follows (F_U_username, username) VALUES (? ?) ");
+        $stmt = $this->db->prepare("INSERT INTO follows (Follower_username, username) VALUES (?,?) ");
         $stmt->bind_param("ss", $receiver, $sender);
         $stmt->execute();
     }
 
     public function unfollowUser($sender, $receiver){
-        $stmt = $this->db->prepare("DELETE FROM follows WHERE F_U_username=? AND username=? ");
+        $stmt = $this->db->prepare("DELETE FROM follows WHERE Follower_username=? AND username=? ");
         $stmt->bind_param("ss", $receiver, $sender);
         $stmt->execute();
     }
 
     //friend request?
     public function eliminateFriend($sender, $receiver){
-        $stmt = $this->db->prepare("DELETE FROM friends WHERE (F_U_username=? AND username=?) AND (F_U_username=? AND username=?)");
+        $stmt = $this->db->prepare("DELETE FROM friends WHERE (Friend_username=? AND username=?) AND (Friend_username=? AND username=?)");
         $stmt->bind_param("ssss", $receiver, $sender, $sender, $receiver);
+        $stmt->execute();
+    }
+
+    public function isFollower($sender, $receiver){
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follows WHERE Follower_username=? AND username=?");
+        $stmt->bind_param("ss", $sender, $receiver);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function isFriend($sender, $receiver){
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE Friend_username=? AND username=?");
+        $stmt->bind_param("ss", $sender, $receiver);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPostsOfUser($username){
+        $stmt = $this->db->prepare("SELECT post_id, text, song, date, number_of_likes, username FROM post WHERE username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getReviewsOfUser($username){
+        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLikedAlbumsByUser($username){
+        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
+        $type = "Album";
+        $stmt->bind_param("ss", $username, $type);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLikedArtistsByUser($username){
+        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
+        $tpe = "Artist";
+        $stmt->bind_param("ss", $username, $type);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updateUserData($username, $data){
+        $command = "UPDATE user SET";
+        $index = 0;
+        $parametric = '';
+        $upd = array();
+        //potrei fare una funzione generale
+        if(isset($data['username'])){
+            $command = $command . " username=?";
+            $parametric = $parametric . 's';
+            array_push($upd, $data['username']);
+            $index += 1;
+        }
+        if(isset($data['first_name'])){
+            if($index > 0){
+                $command = $command . ",";
+            }
+            $command = $command . " first_name=?";
+            $parametric = $parametric . 's';
+            array_push($upd,$data['first_name']);
+            $index += 1;
+        }
+        if(isset($data['last_name'])){
+            if($index > 0){
+                $command = $command . ",";
+            }
+            $command = $command . " last_name=?";
+            $parametric = $parametric . 's';
+            array_push($upd,$data['last_name']);
+            $index += 1;
+        }
+        if(isset($data['profile_pic'])){
+            if($index > 0){
+                $command = $command . ",";
+            }
+            $command = $command . " profile_pic=?";
+            $parametric = $parametric . 's';
+            array_push($upd, $data['profile_pic']);
+            $index += 1;
+        }
+        if($index == 0){
+            return;
+        }
+        $stmt = $this->db->prepare($command . " WHERE 1");
+        $stmt->bind_param($parametric, ...$upd);
+        $stmt->execute();
+    }
+
+    public function createReview($data){
+        $stmt = $this->db->prepare("INSERT INTO review (text, album, date, score, number_of_likes, number_of_dislikes, username) VALUES
+         (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssiiis",$data["text"], $data["album"], $data["date"], $data["score"], $data["number_of_likes"], $data["number_of_dislikes"], $data["username"]);
         $stmt->execute();
     }
 
@@ -153,6 +257,10 @@ class DatabaseHelper{
                 if($this->checkbrute($username) == true) { 
                  // Account disabilitato
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
+                    /*$mail = "We inform you that your account is currently suspended due to too many failed logins using your email.\nThe Spotlight Team";
+                    $mail = wordwrap($mail,70);
+                    $headers = 'From: spotlight@example.com'."\r\n" .'X-Mailer: PHP/' . phpversion();
+                    mail($email, "Spotlight: Security Warning", $mail, $headers);*/
                     return 0;
             } else {
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
@@ -225,6 +333,53 @@ class DatabaseHelper{
         $query = "INSERT INTO `user` (`username`, `email`, `password`, `salt`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ssssss',$username, $email, $password, $salt, $first_name, $last_name);
+        $stmt->execute();
+    }
+
+
+    public function toggleSpotifyElementLike($id) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `likes` WHERE `username` = ? AND `element_link`= ?");
+        $stmt->bind_param("ss", $_COOKIE["username"], $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($result[0]["num"] > 0) {
+            $stmt = $this->db->prepare("DELETE FROM `likes` WHERE `username` = ? AND `element_link`= ?");
+            $stmt->bind_param("ss", $_COOKIE["username"], $id);
+            $stmt->execute();
+            return 0;
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO `likes` VALUES (?, ?)");
+            $stmt->bind_param("ss", $id, $_COOKIE["username"]);
+            $stmt->execute();
+            return 1;
+        } 
+
+    }
+
+    public function createSpotifyElement($type, $id) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `spotify_element` WHERE `type` = ? AND `element_link`= ?");
+        $stmt->bind_param("ss", $type, $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($result[0]["num"] == 0) {
+            $stmt = $this->db->prepare("INSERT INTO `spotify_element` VALUES (?, ?)");
+            $stmt->bind_param("ss", $type, $id);
+            $stmt->execute();
+        } 
+
+    }
+
+    public function createPost($text, $song){
+        $likes = 0;
+        $date = date("Y/m/d");
+        $username = $_COOKIE["username"];
+        echo $text;
+        $stmt = $this->db->prepare("INSERT INTO `post` VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssis", $likes, $text, $song, $date, $likes, $username);
         $stmt->execute();
     }
 }

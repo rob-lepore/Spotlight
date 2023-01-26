@@ -47,7 +47,7 @@
                 <span><i>Following</i></span>
             </div>
         </div>
-        <span><?php echo $templateParams["date"] ?></span>
+        <span>23h</span>
 
     </header>
     <main class="mt-3 container">
@@ -94,33 +94,7 @@
         <section>
             <p><?php echo $data["text"] ?></p>
         </section>
-        <section style="margin-bottom: 4rem">
-            <p><?php
-                foreach ($templateParams["comments"] as $comment) {
-                    $commentData = $comment;
-                    require("commentElement.php");
-
-                    foreach ($comment["replies"] as $reply) {
-                        $commentData = $reply;
-                        require("replyElement.php");
-                    }
-                }
-
-                ?></p>
-        </section>
     </main>
-
-    <footer class="fixed-bottom p-2" style="background-color: var(--bg-color)">
-        <span class="text-large d-none" id="replyUsername"></span>
-        <form class="input-group input-group-lg">
-            <input type="text" class="form-control" placeholder="Write a comment!">
-            <button class="btn primary" type="button" id="button-addon2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
-                </svg>
-            </button>
-        </form>
-    </footer>
 
     <script src="js/postPage.js"></script>
 </body>
