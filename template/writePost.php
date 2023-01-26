@@ -18,15 +18,28 @@
             width: 4rem;
         }
         .post_text{
-            width: 100%;
+            width: 98%;
             height: 150px;
             padding: 0.5rem 0.5rem;
             box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
+            border: 1.5% solid #ccc;
+            border-radius: 0.4rem;
+            margin: 0% 1%;
             resize: none;
         }
     </style>
+    <div class="topnav mx-2 mt-3 d-flex justify-content-between">
+        <button onclick="history.back()" class="btn overlayBackground">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg>
+        </button>
+        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn primary"><i class="fa fa-search"> Search a song </i></button>
+        <?php
+            $templateParams["searchType"] = "track"; // oppure "album"
+            require("template/modal.php");
+        ?>
+    </div>
     <header class="py-2 d-flex">
         <div class="mx-2 align-self-center">
             <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="..">
@@ -35,7 +48,7 @@
             <h1><?php echo $templateParams["trackName"]?></h1>
             <h4>
                 <?php foreach($templateParams["artists"] as $artist):?>
-                   <a class ="text-decoration-none text-reset" href="./artist.php?id=<?php echo $artist->id?>"><?php echo "$artist->name";?><a>
+                   <?php echo "$artist->name";?>
                    <?php if($templateParams["artists"][count($templateParams["artists"]) -1] != $artist){
                        echo ", ";
                     }?>
@@ -43,13 +56,6 @@
             </h4>
         </div>
     </header>
-    <div class="topnav mt-3">
-        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn primary">Search track</button>
-        <?php
-            $templateParams["searchType"] = "track"; // oppure "album"
-            require("template/modal.php");
-        ?>
-    </div>
     <main class="mt-3">
         <form action="post_creation.php?id=<?php echo $_GET["id"]?>" id="create-post-form" method="POST" name="post_form">
             <textarea id="post_text" class="post_text" name="post_text" placeholder="Write here..."></textarea>
