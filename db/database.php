@@ -62,7 +62,7 @@ class DatabaseHelper{
     }
 
     public function getCommentReplies($commentId) {
-        $stmt = $this->db->prepare("SELECT * FROM `replies` WHERE thread=?");
+        $stmt = $this->db->prepare("SELECT * FROM `reply` WHERE thread=?");
         $stmt->bind_param("i", $commentId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -257,6 +257,10 @@ class DatabaseHelper{
                 if($this->checkbrute($username) == true) { 
                  // Account disabilitato
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
+                    /*$mail = "We inform you that your account is currently suspended due to too many failed logins using your email.\nThe Spotlight Team";
+                    $mail = wordwrap($mail,70);
+                    $headers = 'From: spotlight@example.com'."\r\n" .'X-Mailer: PHP/' . phpversion();
+                    mail($email, "Spotlight: Security Warning", $mail, $headers);*/
                     return 0;
             } else {
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
@@ -333,7 +337,7 @@ class DatabaseHelper{
     }
 
 
-    public function toggleArtistLike($id) {
+    public function toggleSpotifyElementLike($id) {
         $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `likes` WHERE `username` = ? AND `element_link`= ?");
         $stmt->bind_param("ss", $_COOKIE["username"], $id);
         $stmt->execute();
@@ -367,6 +371,16 @@ class DatabaseHelper{
             $stmt->execute();
         } 
 
+    }
+
+    public function createPost($text, $song){
+        $likes = 0;
+        $date = date("Y/m/d");
+        $username = $_COOKIE["username"];
+        echo $text;
+        $stmt = $this->db->prepare("INSERT INTO `post` VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssis", $likes, $text, $song, $date, $likes, $username);
+        $stmt->execute();
     }
 }
 ?>
