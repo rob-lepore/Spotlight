@@ -153,6 +153,10 @@ class DatabaseHelper{
                 if($this->checkbrute($username) == true) { 
                  // Account disabilitato
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
+                    /*$mail = "We inform you that your account is currently suspended due to too many failed logins using your email.\nThe Spotlight Team";
+                    $mail = wordwrap($mail,70);
+                    $headers = 'From: spotlight@example.com'."\r\n" .'X-Mailer: PHP/' . phpversion();
+                    mail($email, "Spotlight: Security Warning", $mail, $headers);*/
                     return 0;
             } else {
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.

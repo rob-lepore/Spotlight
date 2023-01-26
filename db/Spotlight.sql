@@ -57,8 +57,7 @@ create table LIKES_REVIEW (
 
 create table LOGIN_ATTEMPTS (
      time int not null,
-     username char(15) not null,
-     constraint IDLOGIN_ATTEMPTS primary key (username));
+     username char(15) not null);
 
 create table MOOD (
      mood_id int not null AUTO_INCREMENT,
