@@ -40,6 +40,7 @@
             require("template/modal.php");
         ?>
     </div>
+    <?php if(isset($templateParams["albumImage"])):?>
     <header class="py-2 d-flex">
         <div class="mx-2 align-self-center">
             <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="..">
@@ -56,8 +57,9 @@
             </h4>
         </div>
     </header>
+    <?php endif; ?>
     <main class="mt-3">
-        <form action="post_creation.php?id=<?php echo $_GET["id"]?>" id="create-post-form" method="POST" name="post_form">
+        <form <?php if(isset($_GET["id"])):?>action="post_creation.php?id=<?php echo $_GET["id"]?>" <?php endif; ?>id="create-post-form" method="POST" name="post_form">
             <textarea id="post_text" class="post_text" name="post_text" placeholder="Write here..."></textarea>
             <div class="col-12 text-end">
                 <input type="submit" class="btn btn-sm primary elevation-1" value="Post"/>
