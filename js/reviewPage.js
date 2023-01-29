@@ -1,3 +1,19 @@
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
 var paragraph = document.querySelector(".review-text");
 var max_l = paragraph.getAttribute("data-show")
 
@@ -49,6 +65,19 @@ like_btns.forEach(el=>{
             document.querySelector('[data-type=thumbs-down]').setAttribute('style', 'visibility:visible')
             document.querySelector('[data-type=thumbs-down]').setAttribute('width', '24')
             document.querySelector('[data-type=thumbs-down]').setAttribute('height', '24')
+
+            var data = new FormData();
+            data.append('username',document.querySelector('p.username').innerHTML);
+            data.append('username_session', getCookie('username'));
+            data.append('review_id', document.querySelector('main.review').getAttribute("id"));
+            data.append('rating',1);
+            axios.post('/Spotlight/updateLikesReviews.php',data)
+            .then(res=>{
+                document.querySelector('.thumbs-up-value').innerHTML = res["data"][0]["number_of_likes"]
+                document.querySelector('.thumbs-down-value').innerHTML = res["data"][0]["number_of_dislikes"]
+            })
+            .catch(err=>{console.log(err)});
+
             
         }else if(el.getAttribute('data-type') == 'thumbs-down'){
             el.setAttribute('style', 'visibility:hidden')
@@ -66,6 +95,16 @@ like_btns.forEach(el=>{
             document.querySelector('[data-type=thumbs-up]').setAttribute('style', 'visibility:visible')
             document.querySelector('[data-type=thumbs-up]').setAttribute('width', '24')
             document.querySelector('[data-type=thumbs-up]').setAttribute('height', '24')
+
+            var data = new FormData();
+            data.append('username',document.querySelector('p.username').innerHTML);
+            data.append('username_session', getCookie('username'));
+            data.append('review_id', document.querySelector('main.review').getAttribute("id"));
+            data.append('rating',0);
+            axios.post('/Spotlight/updateLikesReviews.php',data)
+            .then(res=>{document.querySelector('.thumbs-up-value').innerHTML = res["data"][0]["number_of_likes"]
+            document.querySelector('.thumbs-down-value').innerHTML = res["data"][0]["number_of_dislikes"]})
+            .catch(err=>{console.log(err)});
         }
     })
 })

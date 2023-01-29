@@ -57,7 +57,7 @@ if(create_btn != null){
         if(activeLink.getAttribute('data-value') == "Posts"){
             window.location.replace("/Spotlight/newPost.php")
         }else if(activeLink.getAttribute('data-value') == "Reviews"){
-            window.location.replace("/Spotlight/createReview.php")
+            window.location.replace("/Spotlight/newReview.php")
         }
     })
 }

@@ -9,7 +9,7 @@
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer $access_token"));
 
     $response = curl_exec($ch);
-    $album_data = json_decode($response, true);
+    $album_data = json_decode($response);
     curl_close($ch);
 
     //get tracks

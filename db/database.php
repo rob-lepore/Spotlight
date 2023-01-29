@@ -223,6 +223,70 @@ class DatabaseHelper{
         $stmt->bind_param("sssiiis",$data["text"], $data["album"], $data["date"], $data["score"], $data["number_of_likes"], $data["number_of_dislikes"], $data["username"]);
         $stmt->execute();
     }
+    
+    public function addOrUpdateLikeReview($review_id, $username, $rating, $username_session){
+        //check if a like already exist for the review and the user
+        $stmt = $this->db->prepare("SELECT review_id, username, isLike FROM likes_review WHERE review_id=? AND username=?");
+        $stmt->bind_param("ss", $review_id, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+        //get from the review the number of likes and dislikes
+        $stmt = $this->db->prepare("SELECT number_of_likes, number_of_dislikes FROM review WHERE review_id=? AND username=?");
+        $stmt->bind_param("ss", $review_id, $username_session);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $likes = $result->fetch_all(MYSQLI_ASSOC);
+        // check if the like_review already exist and if it is.Is it different to respect to the new value
+        if(isset($res[0]['isLike']) && $res[0]['isLike'] != $rating){
+            $stmt = $this->db->prepare("UPDATE likes_review SET isLike=? WHERE review_id=? AND username=?");
+            $stmt->bind_param("iss", $rating, $review_id, $username);
+            $stmt->execute();
+
+            if($rating){
+                $number_of_likes = $likes[0]['number_of_likes'] + 1;
+                $number_of_dislikes = ($likes[0]['number_of_dislikes'] - 1 )<0?0:$likes[0]['number_of_dislikes'] - 1 ;
+            }else{
+                $number_of_dislikes = $likes[0]['number_of_dislikes'] + 1;
+                $number_of_likes = ($likes[0]['number_of_likes'] - 1 )<0?0:$likes[0]['number_of_likes'] - 1 ;
+            }
+            $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
+            $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username_session);
+            $stmt->execute();
+        }else{//create the like to the review
+            $stmt = $this->db->prepare("INSERT INTO likes_review (review_id, username, isLike) VALUES (?, ?, ?)");
+            $stmt->bind_param("ssi", $review_id, $username, $rating);
+            $stmt->execute();
+
+            if($rating){
+                $number_of_likes = $likes[0]['number_of_likes'] + 1;
+                $number_of_dislikes = $likes[0]['number_of_dislikes'];
+            }else{
+                $number_of_likes = $likes[0]['number_of_likes'];
+                $number_of_dislikes = $likes[0]['number_of_dislikes'] + 1;
+            }
+            $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
+            $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username_session);
+            $stmt->execute();
+
+        }
+    }
+
+    public function getLikesAndDislikesOfReview($review_id, $username){
+        $stmt = $this->db->prepare("SELECT number_of_likes, number_of_dislikes FROM review WHERE review_id=? AND username=?");
+        $stmt->bind_param("ss", $review_id, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getIsLikedReview($review_id, $username){
+        $stmt = $this->db->prepare("SELECT isLike FROM likes_review WHERE review_id=? AND username=?");
+        $stmt->bind_param("ss", $review_id, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+       return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     function checkbrute($username) {
         // Recupero il timestamp

@@ -62,6 +62,7 @@
                     $templateParams['score'] = $userReview["score"];
                     $templateParams['id'] = $userReview["album"];
                     $templateParams["max-chars"] = 1000;
+                    $templateParams["review_id"] = $userReview["review_id"];
                     require('reviewPage.php');
                 }
             ?>
