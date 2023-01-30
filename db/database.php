@@ -382,5 +382,63 @@ class DatabaseHelper{
         $stmt->bind_param("isssis", $likes, $text, $song, $date, $likes, $username);
         $stmt->execute();
     }
+
+    private function getLastInsertId() {
+        $stmt = $this->db->prepare("SELECT LAST_INSERT_ID() as `last_id`;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+        return $result[0]["last_id"];
+    }
+
+    public function createComment($postId, $user, $text) {
+        $date = date("Y/m/d");
+
+        $stmt = $this->db->prepare("INSERT INTO `notification` (`date`,`username`) VALUES (?,?)");
+        $stmt->bind_param("ss", $date,$user);
+        $stmt->execute();
+
+        $notId = $this->getLastInsertId();
+        
+
+        $stmt = $this->db->prepare("INSERT INTO `comment` (`text`,`date`,`post_id`,`username`,`notification_id`) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("ssisi", $text,$date, $postId, $user, $notId);
+        $stmt->execute();
+
+        $stmt = $this->db->prepare("UPDATE `notification` SET `post_id` = ? WHERE `notification_id` = ?");
+        $stmt->bind_param("ii", $postId,$notId);
+        $stmt->execute();
+
+    }
+
+    public function createReply($user, $text, $replyTo, $thread) {
+        $date = date("Y/m/d");
+
+        $stmt = $this->db->prepare("INSERT INTO `reply` (`to_user`,`date`,`thread`,`text`,`username` ) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("ssiss", $replyTo,$date, $thread, $text, $user);
+        $stmt->execute();
+    }
+
+    public function togglePostLike($id){
+        $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `likes_post` WHERE `username` = ? AND `post_id`= ?");
+        $stmt->bind_param("ss", $_COOKIE["username"], $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($result[0]["num"] > 0) {
+            $stmt = $this->db->prepare("DELETE FROM `likes_post` WHERE `username` = ? AND `post_id`= ?");
+            $stmt->bind_param("ss", $_COOKIE["username"], $id);
+            $stmt->execute();
+            return 0;
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO `likes_post` VALUES (?, ?)");
+            $stmt->bind_param("ss", $id, $_COOKIE["username"]);
+            $stmt->execute();
+            return 1;
+        } 
+    }
+
+    
 }
 ?>
