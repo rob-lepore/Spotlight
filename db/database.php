@@ -419,6 +419,26 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
+    public function togglePostLike($id){
+        $stmt = $this->db->prepare("SELECT COUNT(*) as `num` FROM `likes_post` WHERE `username` = ? AND `post_id`= ?");
+        $stmt->bind_param("ss", $_COOKIE["username"], $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($result[0]["num"] > 0) {
+            $stmt = $this->db->prepare("DELETE FROM `likes_post` WHERE `username` = ? AND `post_id`= ?");
+            $stmt->bind_param("ss", $_COOKIE["username"], $id);
+            $stmt->execute();
+            return 0;
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO `likes_post` VALUES (?, ?)");
+            $stmt->bind_param("ss", $id, $_COOKIE["username"]);
+            $stmt->execute();
+            return 1;
+        } 
+    }
+
     
 }
 ?>
