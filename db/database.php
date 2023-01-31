@@ -439,6 +439,16 @@ class DatabaseHelper{
         } 
     }
 
+    public function getUsersMatch($username) {
+        $stmt = $this->db->prepare("SELECT * FROM `user` WHERE `username` LIKE ? or `first_name` LIKE ? or `last_name` LIKE ?");
+        $regex = "%" . $username . "%";
+        $stmt->bind_param("sss", $regex, $regex, $regex);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+        return $result;
+    }
+
     
 }
 ?>
