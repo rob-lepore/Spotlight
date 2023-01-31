@@ -71,8 +71,11 @@ like_btns.forEach(el=>{
             data.append('username_session', getCookie('username'));
             data.append('review_id', document.querySelector('main.review').getAttribute("id"));
             data.append('rating',1);
+            console.log("USERNAME: "+document.querySelector('p.username').innerHTML)
+            console.log("USERNAME LOGGED IN : "+getCookie('username'))
             axios.post('/Spotlight/updateLikesReviews.php',data)
             .then(res=>{
+                console.log(res["data"])
                 document.querySelector('.thumbs-up-value').innerHTML = res["data"][0]["number_of_likes"]
                 document.querySelector('.thumbs-down-value').innerHTML = res["data"][0]["number_of_dislikes"]
             })

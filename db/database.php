@@ -113,9 +113,27 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
-    //friend request?
+    public function sendFriendRequest($sender, $receiver){
+        $stmt = $this->db->prepare("INSERT INTO friend_request (Friend_username, username) VALUES (?,?) ");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+    }
+
+    public function eliminateFriendRequest($sender, $receiver){
+        $stmt = $this->db->prepare("DELETE FROM `friend_request` WHERE (Friend_username=? AND username=?) OR (Friend_username=? AND username=?) ");
+        $stmt->bind_param("ssss", $receiver, $sender, $sender, $receiver);
+        $stmt->execute();
+    }
+
+    public function acceptFriendRequest($sender, $receiver){
+        $this->eliminateFriendRequest($sender, $receiver);
+        $stmt = $this->db->prepare("INSERT INTO friends (Friend_username, username) VALUES (?,?) ");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+    }
+
     public function eliminateFriend($sender, $receiver){
-        $stmt = $this->db->prepare("DELETE FROM friends WHERE (Friend_username=? AND username=?) AND (Friend_username=? AND username=?)");
+        $stmt = $this->db->prepare("DELETE FROM friends WHERE (Friend_username=? AND username=?) OR (Friend_username=? AND username=?)");
         $stmt->bind_param("ssss", $receiver, $sender, $sender, $receiver);
         $stmt->execute();
     }
@@ -130,6 +148,22 @@ class DatabaseHelper{
 
     public function isFriend($sender, $receiver){
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE Friend_username=? AND username=?");
+        $stmt->bind_param("ss", $sender, $receiver);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function sentFriendRequest($sender, $receiver){
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS requests FROM friend_request WHERE Friend_username=? AND username=?");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function receivedFriendRequest($sender, $receiver){
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS requests FROM friend_request WHERE Friend_username=? AND username=?");
         $stmt->bind_param("ss", $sender, $receiver);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -152,18 +186,8 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLikedAlbumsByUser($username){
-        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
-        $type = "Album";
-        $stmt->bind_param("ss", $username, $type);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getLikedArtistsByUser($username){
-        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
-        $tpe = "Artist";
+    public function getLikedElementByUser($username, $type){
+        $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE (likes.username=?) AND (spotify_element.type=?) AND likes.element_link = spotify_element.element_link");
         $stmt->bind_param("ss", $username, $type);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -227,20 +251,20 @@ class DatabaseHelper{
     public function addOrUpdateLikeReview($review_id, $username, $rating, $username_session){
         //check if a like already exist for the review and the user
         $stmt = $this->db->prepare("SELECT review_id, username, isLike FROM likes_review WHERE review_id=? AND username=?");
-        $stmt->bind_param("ss", $review_id, $username);
+        $stmt->bind_param("ss", $review_id, $username_session);
         $stmt->execute();
         $result = $stmt->get_result();
         $res = $result->fetch_all(MYSQLI_ASSOC);
         //get from the review the number of likes and dislikes
         $stmt = $this->db->prepare("SELECT number_of_likes, number_of_dislikes FROM review WHERE review_id=? AND username=?");
-        $stmt->bind_param("ss", $review_id, $username_session);
+        $stmt->bind_param("ss", $review_id, $username);
         $stmt->execute();
         $result = $stmt->get_result();
         $likes = $result->fetch_all(MYSQLI_ASSOC);
         // check if the like_review already exist and if it is.Is it different to respect to the new value
         if(isset($res[0]['isLike']) && $res[0]['isLike'] != $rating){
             $stmt = $this->db->prepare("UPDATE likes_review SET isLike=? WHERE review_id=? AND username=?");
-            $stmt->bind_param("iss", $rating, $review_id, $username);
+            $stmt->bind_param("iss", $rating, $review_id, $username_session);
             $stmt->execute();
 
             if($rating){
@@ -251,11 +275,11 @@ class DatabaseHelper{
                 $number_of_likes = ($likes[0]['number_of_likes'] - 1 )<0?0:$likes[0]['number_of_likes'] - 1 ;
             }
             $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
-            $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username_session);
+            $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username);
             $stmt->execute();
         }else{//create the like to the review
             $stmt = $this->db->prepare("INSERT INTO likes_review (review_id, username, isLike) VALUES (?, ?, ?)");
-            $stmt->bind_param("ssi", $review_id, $username, $rating);
+            $stmt->bind_param("ssi", $review_id, $username_session, $rating);
             $stmt->execute();
 
             if($rating){
@@ -266,7 +290,7 @@ class DatabaseHelper{
                 $number_of_dislikes = $likes[0]['number_of_dislikes'] + 1;
             }
             $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
-            $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username_session);
+            $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username);
             $stmt->execute();
 
         }
@@ -286,6 +310,14 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function isLikedSpotifyElement($id, $username){
+        $stmt = $this->db->prepare("SELECT element_link FROM likes WHERE element_link=? AND username=?");
+        $stmt->bind_param("ss", $id, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     function checkbrute($username) {

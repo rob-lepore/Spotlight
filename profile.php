@@ -14,11 +14,11 @@ if(isUserLoggedIn()){
     $templateParams["FollowingCount"] = $dbh->getFollowingCount($_username)[0]["COUNT(*)"];
     $templateParams["Posts"] = "prova";
     $templateParams["is_friend"] = $dbh->isFriend($user[0]["username"], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
+    $templateParams["sent_request"] = $dbh->sentFriendRequest($_COOKIE["username"], $_GET["user"])[0]["requests"] >= 1;
+    $templateParams["received_request"] = $dbh->receivedFriendRequest($_COOKIE["username"], $_GET["user"])[0]["requests"] >=1;
     $templateParams["is_follower"] = $dbh->isFollower($user[0]["username"], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
     $userPosts = $dbh->getPostsOfUser($user[0]["username"]);
     $userReviews = $dbh->getReviewsOfUser($user[0]["username"]);
-    $userLikedArtists = $dbh->getLikedArtistsByUser($user[0]["username"]);
-    $userLikedAlbums = $dbh->getLikedAlbumsByUser($user[0]["username"]);
 
     require "template/userPage.php";
 }else{

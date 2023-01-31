@@ -7,11 +7,15 @@ if(isUserLoggedIn()){
     }else if($_GET["type"] == 1){
         $dbh->unfollowUser($_COOKIE["username"], $_GET["user"]);
     }else if($_GET["type"] == 2){
-        //$dbh->
+        $dbh->sendFriendRequest($_COOKIE["username"], $_GET["user"]);
     }else if($_GET["type"] == 3){
+        $dbh->eliminateFriendRequest($_COOKIE["username"], $_GET["user"]);
+    }else if($_GET["type"] == 4){
         $dbh->eliminateFriend($_COOKIE["username"], $_GET["user"]);
+    }else if($_GET["type"] == 5){
+        $dbh->acceptFriendRequest($_COOKIE["username"], $_GET["user"]);
     }
-    header("Location: /Spotlight/getUsersInfo.php?user=".$_GET["user"]);
+    header("Location: /Spotlight/profile.php?user=".$_GET["user"]);
 }
 else{
     header("Location: ./");

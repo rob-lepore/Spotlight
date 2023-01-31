@@ -39,8 +39,9 @@ var submit = document.querySelector(".submit")
 submit.addEventListener("click", e=>{
     e.preventDefault();
     var data = new FormData()
+    var id = new URLSearchParams(window.location.search)
     data.append("text", document.querySelector("textarea").value)
-    data.append("album", document.querySelector('[data-type=template]').getAttribute("id"))
+    data.append("album", id.get("id"))
     data.append("date", document.querySelector(".date").innerHTML)
     data.append("score", document.querySelector(".rating").getAttribute("id"))
     data.append("number_of_likes", 0)

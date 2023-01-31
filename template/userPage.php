@@ -17,7 +17,30 @@
     <nav class ="">
     <div class ="d-flex flex-row-reverse">
         <button class=" btn-profile follow <?php echo $templateParams["is_follower"]?"following":"not_follow"?>" type="button"><?php echo $templateParams["is_follower"]?"Unfollow":"Follow"?></button>
-        <button class=" btn-profile friend <?php echo $templateParams["is_friend"]?"friends":"not_friend"?>" type="button">Friend Request</button>
+        <button class=" btn-profile friend" type="button" data-type="<?php 
+            if($templateParams["is_friend"]){
+                echo "friend";
+            }elseif($templateParams["sent_request"]){
+                echo "wait-acceptance";
+            }elseif($templateParams["received_request"]){
+                echo "request-received";
+            }else{
+                echo "not_friend";
+            }
+        ?>"><?php
+        if($templateParams["is_friend"]){
+            echo "Remove friend";
+        }elseif($templateParams["sent_request"]){
+            echo "Cancel request";
+        }elseif($templateParams["received_request"]){
+            echo "Accept request";
+        }else{
+            echo "Send request";
+        }
+        ?></button>
+        <?php if($templateParams["received_request"]){
+            echo '<button class="btn-profile" data-type="received-request-decline" type="button">Decline request</button>';
+        }?>
     </div>
 
         <div class="row d-flex justify-content-between m-3">
@@ -45,27 +68,37 @@
             <div class="active-link"></div>
                 <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
                 <a class = "top-links" data-value = "Reviews" href="#">Reviews</a>
-                <a class = "top-links" href="#">Artists</a>
-                <a class = "top-links" href="#">Albums</a> 
+                <a class = "top-links" data-value = "Artists" href="#">Artists</a>
+                <a class = "top-links" data-value = "Albums" href="#">Albums</a> 
         </div>
         </div>
     </nav>
 
     <main>
         <div class="content">
-            <?php
-                foreach($userReviews as $userReview){
-                    $templateParams['text'] = $userReview['text'];
-                    $templateParams['number_of_likes'] = $userReview['number_of_likes'];
-                    $templateParams['number_of_dislikes'] = $userReview['number_of_dislikes'];
-                    $templateParams['date'] = $userReview['date'];
-                    $templateParams['score'] = $userReview["score"];
-                    $templateParams['id'] = $userReview["album"];
-                    $templateParams["max-chars"] = 1000;
-                    $templateParams["review_id"] = $userReview["review_id"];
-                    require('reviewPage.php');
-                }
-            ?>
+            <div class="Posts">
+
+            </div>
+            <div class="Reviews" style="visibility:hidden;display:none">
+                <?php
+                    foreach($userReviews as $userReview){
+                        $templateParams['text'] = $userReview['text'];
+                        $templateParams['number_of_likes'] = $userReview['number_of_likes'];
+                        $templateParams['number_of_dislikes'] = $userReview['number_of_dislikes'];
+                        $templateParams['date'] = $userReview['date'];
+                        $templateParams['score'] = $userReview["score"];
+                        $templateParams['id'] = $userReview["album"];
+                        $templateParams["max-chars"] = 1000;
+                        $templateParams["review_id"] = $userReview["review_id"];
+                        require('reviewPage.php');
+                    }
+                ?>
+            </div>
+            <div class="Albums" style="visibility:hidden;display:none">
+                    
+            </div>
+            <div class="Artists" style="visibility:hidden;display:none">
+            </div>
             <button class="create-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>

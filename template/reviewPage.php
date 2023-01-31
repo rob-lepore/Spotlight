@@ -30,7 +30,7 @@
                    <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>" class="label-large" style="text-decoration:none;outline:none;color:black"> <p class="label-large ms-3 username"><?php echo $templateParams["username"]?></p> </a>
                     <p><?php echo $templateParams["is_follower"]?"following":($templateParams["username"] == $_COOKIE["username"]?"":"not following");?></p>
                 </div>
-                <p class="col-3 ms-auto text-small"><?php echo $templateParams["date"]?></p>
+                <p class=" ms-auto text-small"><?php echo $templateParams["date"]?></p>
             </header>
             <?php 
                 $albumId = $templateParams["id"];
