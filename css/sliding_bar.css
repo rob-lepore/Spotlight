@@ -12,11 +12,11 @@
     display: flex;
     align-items: start;
     justify-content: center;
-    background: #f3edf7;
+    background-color: #f3edf7;
 } 
 
 .top-navigation{
-    background:#f3edf7;
+    /*background:#f3edf7;*/
     padding: 0 1rem;
     border-radius:0.75rem;
     display: flex;
@@ -37,7 +37,7 @@
 }
 
 .top-links:hover{
-    background: #f3edf7;
+    color:#6750a4;
 }
 
 .top-links:active{
@@ -52,7 +52,7 @@
     left: 0;
     width: 80px;
     height: 5px;
-    background: #6750a4;
+    background-color: #6750a4;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
 
