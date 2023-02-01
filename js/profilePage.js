@@ -113,34 +113,31 @@ activeLinks = activeLinks.querySelectorAll('a');
 activeLinks.forEach(el=>{
     el.addEventListener("click", e=>{
         e.preventDefault();
-        if(document.querySelector('a.active').getAttribute('data-value') == "Posts"){
+        if(document.querySelector('a.active').getAttribute('data-value') == "Posts" && document.querySelector('.Posts') != null){
             document.querySelector('.Posts').setAttribute('style', 'display:block;visibility:visible')
             document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
-        }else if(document.querySelector('a.active').getAttribute('data-value') == "Reviews"){
+        }else if(document.querySelector('a.active').getAttribute('data-value') == "Reviews" && document.querySelector('.Posts') != null){
             console.log("review show")
-            document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden' )
             document.querySelector('.Reviews').setAttribute('style', 'display:block;visibility:visible')
             document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
-        }else if(document.querySelector('a.active').getAttribute('data-value') == "Artists"){
+        }else if(document.querySelector('a.active').getAttribute('data-value') == "Artists" && document.querySelector('.Posts') != null){
             document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Artists').setAttribute('style', 'display:block;visibility:visible')
             document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
 
             createNewElements('Artist')
-            
-
-        }else if(document.querySelector('a.active').getAttribute('data-value') == "Albums"){
+        }else if(document.querySelector('a.active').getAttribute('data-value') == "Albums" && document.querySelector('.Posts') != null){
             document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Albums').setAttribute('style', 'display:block;visibility:visible')
 
             createNewElements('Album')
-
         }
     })
 })
