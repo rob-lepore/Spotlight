@@ -152,6 +152,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAlbumReviews($albumId){
+        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY SUM(number_of_likes)+SUM(number_of_dislikes) DESC LIMIT 10");
+        $stmt->bind_param("s", $albumId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getLikedAlbumsByUser($username){
         $stmt = $this->db->prepare("SELECT likes.element_link FROM likes, spotify_element WHERE username=? AND likes.element_link = spotify_element.element_link AND spotify_element.type=?");
         $type = "Album";
