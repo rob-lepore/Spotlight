@@ -91,9 +91,9 @@
                 Discography
             </h2>
             <div class="buttons">
-                <button class="btn btn-sm primary elevation-1" id="albumsBtn">Albums</button>
-                <button class="btn btn-sm secondary elevation-1" id="singlesBtn">EP and singles</button>
-                <button class="btn btn-sm secondary elevation-1" id="tracksBtn">Songs</button>
+                <button class="sl-btn primary elevation-1" id="albumsBtn">Albums</button>
+                <button class="sl-btn secondary elevation-1" id="singlesBtn">EP and singles</button>
+                <button class="sl-btn secondary elevation-1" id="tracksBtn">Songs</button>
             </div>
         </header>
         <div id="albumsDiv">
@@ -149,6 +149,8 @@
 
         </div>
     </section>
+
+    <?php require("template/footerElement.php") ?>
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="js/artistPage.js"></script>

@@ -5,7 +5,8 @@
     <div class="comment surface w-100">
         <span class="label-large"><?php echo $commentData["username"] ?></span>
         <p><?php echo $commentData["text"] ?></p>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-between">
+            <span class="text-small ml-auto"><?php echo $commentData["date"] ?></span>
             <span class="text-small ml-auto" onclick=<?php echo "toggleReply('", $commentData["username"], "',", $commentData["comment_id"], ")" ?>>reply</span>
         </div>
     </div>
