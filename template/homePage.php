@@ -20,7 +20,7 @@
     </style>
     <header class="fixed-top overlayBackground py-2 elevation-1">
     <div class="mx-2 d-flex flex-row justify-content-between">
-        <a href="getUsersInfo.php?user=<?php echo $templateParams["username"]?>" class="btn">
+        <a href="profile.php?user=<?php echo $templateParams["username"]?>" class="btn">
             <img class="profile-pic" src='<?php echo UPLOAD_DIR .  $templateParams["profilePic"]?>' alt="profilePic">
         </a>
         <h1>Spotlight</h1>
@@ -35,9 +35,32 @@
             <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
             <a class = "top-links" data-value = "Reviews" href="#">Reviews</a>
     </div>
-    
+    <main>
+        <div class="content">
+            <div class="Posts"></div>
+            <div class="Reviews" style="visibility:hidden;display:none">
+                <?php
+                    foreach($templateParams["followersReviews"] as $review){
+                        $templateParams['text'] = $review['text'];
+                        $templateParams['number_of_likes'] = $review['number_of_likes'];
+                        $templateParams['number_of_dislikes'] = $review['number_of_dislikes'];
+                        $templateParams['date'] = $review['date'];
+                        $templateParams['score'] = $review["score"];
+                        $templateParams['id'] = $review["album"];
+                        $templateParams['username'] = $review["username"];
+                        $templateParams["is_follower"] = $dbh->isFollower($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
+                        $templateParams["max-chars"] = 150;
+                        $templateParams["review_id"] = $review["review_id"];
+                        $templateParams["profilePicPath"] = $dbh->getUserData($templateParams['username'])[0]["profile_pic"];
+                        require('reviewPage.php');
+                    }
+                ?>
+            </div>
+        </div>
+    </main>
 
-    <script src="/Spotlight/js/sliding_bar.js"></script>
+    <script src="js/sliding_bar.js"></script>
+    <script src="js/home.js"></script>
     <?php require("footerElement.php"); ?>
 </body>
 </html>

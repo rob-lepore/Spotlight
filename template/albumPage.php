@@ -22,7 +22,7 @@
             }
         }
     </style>
-    <header class="sticky-top py-2 d-flex overlayBackground elevation-1">
+    <header class="py-2 d-flex">
         <div class="mx-2">
             <a class ="text-decoration-none text-reset align-self-center" href="<?php echo $templateParams["albumUrl"]?>" >
                 <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="albumImage">
@@ -30,7 +30,7 @@
         </div>
         <div>
             <a class ="text-decoration-none text-reset" href="<?php echo $templateParams["albumUrl"]?>" >
-                <h1><?php echo $templateParams["albumName"]?></h1>
+                <h1><?php echo $templateParams["albumName"]?></h1> 
             </a>
             <h4>
                 <?php foreach($templateParams["artists"] as $artist):?>
@@ -40,25 +40,23 @@
                     }?>
                 <?php endforeach;?>
             </h4>
-            <div class="d-flex flex-row justify-content-between">
-                <h4><?php echo substr($templateParams["releaseDate"],0,4)?></h4>
-                <h4>
-                    <span id="likesNumber"><?php echo $templateParams["likes"] ?></span> likes
-                    <a onclick="toggleLike('<?php echo $templateParams['albumId'] ?>')">
-                        <?php
-                            echo ($templateParams["isLiked"] ?
-                            '<svg id="heartIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                            </svg>'
-                            : 
-                            '<svg id="heartIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                            </svg>'
-                            )
-                        ?>
-                    </a>
-                </h4>
-            </div>
+            <h5><?php echo substr($templateParams["releaseDate"],0,4)?></h5>
+            <h5>
+                <span id="likesNumber"><?php echo $templateParams["likes"]?></span> likes
+                <a onclick="toggleLike('<?php echo $templateParams['albumId'] ?>')">
+                    <?php
+                        echo ($templateParams["isLiked"] ?
+                        '<svg id="heartIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>'
+                        : 
+                        '<svg id="heartIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>'
+                        )
+                    ?>
+                </a>
+            </h5>
         </div>
     </header>
     <section class="mt-3">
@@ -95,7 +93,7 @@
             <h2>Popular Reviews</h2>
         </div>
         <div id="reviewsDiv">
-            <?php/*
+            <?php
                 foreach ($templateParams["popularReviews"] as $review) {
                     $templateParams['text'] = $review['text'];
                     $templateParams['number_of_likes'] = $review['number_of_likes'];
@@ -103,10 +101,13 @@
                     $templateParams['date'] = $review['date'];
                     $templateParams['score'] = $review["score"];
                     $templateParams['id'] = $review["album"];
+                    $templateParams['username'] = $review["username"];
+                    $templateParams["is_follower"] = $dbh->isFollower($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
                     $templateParams["max-chars"] = 150;
                     $templateParams["review_id"] = $review["review_id"];
+                    $templateParams["profilePicPath"] = $dbh->getUserData($templateParams['username'])[0]["profile_pic"];
                     require('reviewPage.php');
-                }*/
+                }
             ?>
         </div>
     </section>
