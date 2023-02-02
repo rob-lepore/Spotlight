@@ -19,7 +19,8 @@
         $templateParams["likes"] = count($likes);
         $templateParams["isLiked"] = in_array($_COOKIE["username"], $likes);
         $templateParams["tracks"] = $tracks;
-        $templateParams["newReviewUrl"] = "#";
+        $templateParams["popularReviews"] = $dbh->getAlbumReviews($albumId);
+        $templateParams["newReviewUrl"] = "newReview.php?id=" . $albumId;
         $templateParams["newPostUrl"] = "newPost.php?id=";
     
         require("template/albumPage.php");
