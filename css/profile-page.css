@@ -62,7 +62,7 @@ main{
 .name-holder{
     border:none;
     background:#f3edf7;
-    width: 8rem;
+    width: 10rem;
 }
 
 nav{
@@ -77,7 +77,8 @@ nav{
 .profile-pic{
     margin-top:1rem;
     border-radius: 100%;
-    border: 0.3rem solid #6750a4;
+    width:9rem;
+    height:9rem;
 }
 
 .username{
@@ -106,6 +107,5 @@ nav{
         border-radius: 100%;
         max-width: 3rem;
         max-height: 3rem;
-        border: 0.3rem solid #6750a4;
     }
 }

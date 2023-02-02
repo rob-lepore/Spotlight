@@ -18,8 +18,6 @@ function getCookie(cname) {
     //contollare il cookie atraverso il db
     var createbtn = document.querySelector('.create-btn')
     var search = new URLSearchParams(window.location.search)
-    console.log(getCookie('username'))
-    console.log(search.toString())
     if(!(getCookie('username') == search.get('user'))){
         document.querySelector('.edit').removeChild(document.querySelector('.edit').lastChild);
         document.querySelector('.edit').remove();
@@ -37,6 +35,7 @@ var save_btn = document.querySelector(".save-btn")
 var friend_btn = document.querySelector('.friend')
 var follow_btn = document.querySelector('.follow')
 var create_btn = document.querySelector('.create-btn')
+var decline_friend = document.querySelector('[data-type=received-request-decline]')
 
 if(edit != null){
 edit.addEventListener("click", e=>{
@@ -55,30 +54,137 @@ if(create_btn != null){
         e.preventDefault();
         activeLink = document.querySelector('a.active');
         if(activeLink.getAttribute('data-value') == "Posts"){
-            console.log("Creating post")
+            window.location.replace("/Spotlight/newPost.php")
         }else if(activeLink.getAttribute('data-value') == "Reviews"){
-            console.log("Creating review")
+            window.location.replace("/Spotlight/newReview.php")
         }
     })
 }
 
+function lowerFirstLetter(string) {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+  }
+
+function createNewElements(type){
+    var search = new URLSearchParams(window.location.search)
+    //add the way to check if you need to update otherwise remove all and get
+    var elements = new Array()
+    document.querySelector('.'+type+'s').querySelectorAll('section').forEach(el=>{
+        elements.push(el.getAttribute('id'))
+    })
+    axios.get('getLikedElementByUser.php?user='+search.get("user")+'&type='+type)
+    .then(d=>{
+        d["data"].forEach(element=>{
+            if(!elements.includes(element["element_link"])){
+                elements.slice(elements.indexOf(element["element_link"]),1)
+                axios.get('fetch'+type+'Data.php?'+lowerFirstLetter(type)+'Id='+element["element_link"])
+                .then(res=>{
+                    console.log(res["data"])
+                    var a = document.createElement('a',element["element_link"])
+                    a.setAttribute('href', lowerFirstLetter(type)+'.php?id='+element["element_link"])
+                    a.setAttribute('style','text-decoration:none;outline:none')
+                    var section = document.createElement('section')
+                    section.setAttribute('id',element["element_link"])
+                    section.setAttribute('class', 'd-flex my-2 surface align-items-center')
+                    section.setAttribute('style', 'border-radius:0.5rem;height:5rem;')
+                    var img = document.createElement('img')
+                    img.setAttribute('class', 'mx-2')
+                    img.setAttribute('style',"width:4rem;border-radius:100%;")
+                    img.setAttribute("src",res["data"]["images"][1]["url"])
+                    var span = document.createElement('span')
+                    span.setAttribute('class',"albumName ml-2 label-large")
+                    span.innerHTML = res["data"]["name"]
+                    section.appendChild(img)
+                    section.appendChild(span)
+                    a.appendChild(section)
+                    document.querySelector('.'+type+'s').appendChild(a)
+                
+            })
+        }
+    })
+        
+    })
+    .catch(err=>{console.log(err)})
+}
+
+var activeLinks = document.querySelector('.top-navigation');
+activeLinks = activeLinks.querySelectorAll('a');
+
+activeLinks.forEach(el=>{
+    el.addEventListener("click", e=>{
+        e.preventDefault();
+        if(document.querySelector('a.active').getAttribute('data-value') == "Posts" && document.querySelector('.Posts') != null){
+            document.querySelector('.Posts').setAttribute('style', 'display:block;visibility:visible')
+            document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
+        }else if(document.querySelector('a.active').getAttribute('data-value') == "Reviews" && document.querySelector('.Posts') != null){
+            console.log("review show")
+            document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden' )
+            document.querySelector('.Reviews').setAttribute('style', 'display:block;visibility:visible')
+            document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
+        }else if(document.querySelector('a.active').getAttribute('data-value') == "Artists" && document.querySelector('.Posts') != null){
+            document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Artists').setAttribute('style', 'display:block;visibility:visible')
+            document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
+
+            createNewElements('Artist')
+        }else if(document.querySelector('a.active').getAttribute('data-value') == "Albums" && document.querySelector('.Posts') != null){
+            document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
+            document.querySelector('.Albums').setAttribute('style', 'display:block;visibility:visible')
+
+            createNewElements('Album')
+        }
+    })
+})
 if(friend_btn != null){
     friend_btn.addEventListener("click", e=>{
         e.preventDefault()
-        if(friend_btn.classList.contains('not_friend')){
+        if(friend_btn.getAttribute('data-type') == 'not_friend'){
             axios.get("/Spotlight/userRequest.php?type=2&user="+username.value).then(res=>{
-                friend_btn.value = "cancel request";
-                friend_btn.classList.remove("not_friend");
-                friend_btn.classList.add("friends");
+                friend_btn.innerHTML = "cancel request";
+                friend_btn.setAttribute("data-type","wait-acceptance");
                 console.log(res)
             })
-        }else if(friend_btn.classList.contains('.friends')){
+        }else if(friend_btn.getAttribute('data-type') == 'wait-acceptance'){
             axios.get("/Spotlight/userRequest.php?type=3&user="+username.value).then(res=>{
-                friend_btn.value = "friend request";
-                friend_btn.classList.remove("friends");
-                friend_btn.classList.add("not_friend");
+                friend_btn.innerHTML = "friend request";
+                friend_btn.setAttribute("data-type","not_friend");
+            })
+        }else if(friend_btn.getAttribute('data-type') == 'friend'){
+            axios.get("/Spotlight/userRequest.php?type=4&user="+username.value).then(res=>{
+                friend_btn.innerHTML = "friend request"
+                friend_btn.setAttribute("data-type","not_friend");
+            })
+        }else if(friend_btn.getAttribute('data-type') == 'request-received'){
+            axios.get("/Spotlight/userRequest.php?type=5&user="+username.value).then(res=>{
+                friend_btn.innerHTML = "remove friend"
+                friend_btn.setAttribute("data-type","friend")
+                if(decline_friend != null){
+                    decline_friend.remove()
+                }
+                window.location.replace("/Spotlight/profile.php?user="+username.value)
             })
         }
+    })
+}
+
+if(decline_friend != null){
+    decline_friend.addEventListener("click", e=>{
+        e.preventDefault()
+        axios.get("/Spotlight/userRequest.php?type=3&user="+username.value).then(res=>{
+                if(friend_btn != null){
+                    friend_btn.innerHTML = "friend request"
+                    friend_btn.setAttribute("data-type","not_friend")
+                }
+                decline_friend.remove()
+                console.log("decline friend request")
+                window.location.replace("/Spotlight/profile.php?user="+username.value)
+        })
     })
 }
 
@@ -88,14 +194,14 @@ if(follow_btn != null){
         if(follow_btn.classList.contains('not_follow')){
             //console.log(username.value)
             axios.get("/Spotlight/userRequest.php?type=0&user="+username.value).then(res=>{
-                follow_btn.value = "unfollow";
+                follow_btn.innerHTML = "unfollow";
                 follow_btn.classList.remove("not_follow");
                 follow_btn.classList.add("following");
                 console.log(res["data"])
             }).catch(err=>{console.log(err)})
         }else if(follow_btn.classList.contains('following')){
             axios.get("/Spotlight/userRequest.php?type=1&user="+username.value).then(res=>{
-                follow_btn.value = "follow";
+                follow_btn.innerHTML = "follow";
                 follow_btn.classList.remove("following");
                 follow_btn.classList.add("not_follow");
             })
