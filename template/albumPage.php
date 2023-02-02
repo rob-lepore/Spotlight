@@ -15,6 +15,12 @@
         .album-image {
             width: 9rem;
         }
+        @media only screen and (min-width: 600px) {
+            .buttons {
+                justify-content: left;
+                gap: 1rem;
+            }
+        }
     </style>
     <header class="sticky-top py-2 d-flex overlayBackground elevation-1">
         <div class="mx-2">
@@ -65,7 +71,9 @@
                 </button>
                 <h2>Tracklist</h2>
             </div>
-            <input type="button" id="review" class="btn btn-sm primary elevation-1 align-self-center" value="Write a reveiw about this album"/>
+            <a href=<?php echo $templateParams["newReviewUrl"]?>>
+                <button type="button" id="review" class="btn btn-sm primary elevation-1 align-self-center">Write a reveiw about this album</button>
+            </a>
         </div> 
         <div id="tracklistDiv">
             <?php foreach ($templateParams["tracks"]->items as $track) {
@@ -77,7 +85,7 @@
             } ?>
         </div>
     </section>
-    <section class="mt-3">
+    <section class="mt-3 mb-5">
         <div class="d-flex">
             <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="showReviews">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
@@ -87,7 +95,19 @@
             <h2>Popular Reviews</h2>
         </div>
         <div id="reviewsDiv">
-
+            <?php/*
+                foreach ($templateParams["popularReviews"] as $review) {
+                    $templateParams['text'] = $review['text'];
+                    $templateParams['number_of_likes'] = $review['number_of_likes'];
+                    $templateParams['number_of_dislikes'] = $review['number_of_dislikes'];
+                    $templateParams['date'] = $review['date'];
+                    $templateParams['score'] = $review["score"];
+                    $templateParams['id'] = $review["album"];
+                    $templateParams["max-chars"] = 150;
+                    $templateParams["review_id"] = $review["review_id"];
+                    require('reviewPage.php');
+                }*/
+            ?>
         </div>
     </section>
     

@@ -6,8 +6,17 @@
     transition: all 0.3s ease;
 }
 
+ .exterior-top{
+    width: 100vw;
+    height:100vh;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    background-color: #f3edf7;
+} 
+
 .top-navigation{
-    background:#f3edf7;
+    /*background:#f3edf7;*/
     padding: 0 1rem;
     border-radius:0.75rem;
     display: flex;
@@ -27,7 +36,11 @@
     position:relative;
 }
 
-.active{
+.top-links:hover{
+    color:#6750a4;
+}
+
+.top-links:active{
     color:#6750a4;
     font-weight:bold;
 }
@@ -38,7 +51,7 @@
     left: 0;
     width: 0;
     height: 5px;
-    background: #6750a4;
+    background-color: #6750a4;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
 
