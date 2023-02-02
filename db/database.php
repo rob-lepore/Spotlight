@@ -78,8 +78,8 @@ class DatabaseHelper{
     }
 
     public function getFriendsCount($username) {
-        $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE Friend_username=? OR username=?");
-        $stmt->bind_param("ss", $username, $username);
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE Friend_username=?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -129,6 +129,9 @@ class DatabaseHelper{
         $this->eliminateFriendRequest($sender, $receiver);
         $stmt = $this->db->prepare("INSERT INTO friends (Friend_username, username) VALUES (?,?) ");
         $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+        $stmt = $this->db->prepare("INSERT INTO friends (Friend_username, username) VALUES (?,?) ");
+        $stmt->bind_param("ss", $sender, $receiver);
         $stmt->execute();
     }
 
@@ -236,7 +239,9 @@ class DatabaseHelper{
         if($index == 0){
             return;
         }
-        $stmt = $this->db->prepare($command . " WHERE 1");
+        $parametric = $parametric . 's';
+        array_push($upd, $username);
+        $stmt = $this->db->prepare($command . " WHERE username=?");
         $stmt->bind_param($parametric, ...$upd);
         $stmt->execute();
     }
@@ -318,6 +323,26 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUsersMatchRelationship($username_owner, $username_search, $type) {
+        $regex_owner = "%" . $username_owner . "%";
+        $regex_search = "%" . $username_search . "%";
+        $stmt = null;
+        if($type == 'Friend'){
+            $stmt = $this->db->prepare("SELECT user.username, user.first_name, user.last_name, user.profile_pic FROM user, friends WHERE  (Friend_username LIKE ?) and (friends.username LIKE ?) and (user.username = friends.username)");
+            $stmt->bind_param("ss", $regex_owner, $regex_search);
+        }elseif($type == 'Follower'){
+            $stmt = $this->db->prepare("SELECT user.username, user.first_name, user.last_name, user.profile_pic FROM user, follows WHERE (Follower_username LIKE ?) and (follows.username LIKE ?) and (user.username = follows.username)");
+            $stmt->bind_param("ss", $regex_owner, $regex_search);
+        }elseif($type == 'Following'){
+            $stmt = $this->db->prepare("SELECT user.username, user.first_name, user.last_name, user.profile_pic FROM user, follows WHERE (follows.username LIKE ?) and (Follower_username LIKE ?) and (user.username = Follower_username)");
+            $stmt->bind_param("ss", $regex_owner, $regex_search);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+        return $result;
     }
 
     function checkbrute($username) {
