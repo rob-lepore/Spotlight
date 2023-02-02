@@ -1,9 +1,5 @@
 <?php 
 
-//function mapToUsernames($el) {
-    //return $el["username"];
-//}
-
 require_once("bootstrap.php");
 
 $postId = $_GET["id"];

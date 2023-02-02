@@ -5,7 +5,7 @@ $id = $_GET["id"];
 
 if(isUserLoggedIn()){
     $templateParams["title"] = "Spotlight - Home";
-    require "template/esempioSpotifyAPI.php";
+    require "home.php";
 }
 else{
     $templateParams["title"] = "Spotlight - Login";

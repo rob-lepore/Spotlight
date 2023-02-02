@@ -14,7 +14,9 @@ function fillWithGlobal50() {
                 if (input.getAttribute("search-type") == "track") {
                     results.innerHTML += buildListElement(track.name, track.artists[0].name, track.album.images[0].url, track.id)
                 } else {
-                    results.innerHTML += buildListElement(track.album.name, track.artists[0].name, track.album.images[0].url, track.album.id)
+                    if(track.album.album_type == "album"){
+                        results.innerHTML += buildListElement(track.album.name, track.artists[0].name, track.album.images[0].url, track.album.id)
+                    }
                 }
             });
 
@@ -42,7 +44,9 @@ input.addEventListener("input", e => {
             } else {
                 response.albums.items.forEach(album => {
                     console.log(album)
-                    results.innerHTML += buildListElement(album.name, album.artists[0].name, album.images[0].url, album.id)
+                    if(album.album_type == "album"){
+                        results.innerHTML += buildListElement(album.name, album.artists[0].name, album.images[0].url, album.id)
+                    }
                 });
             }
 
