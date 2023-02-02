@@ -1,5 +1,7 @@
 <?php
 
+require_once("sendEmail.php");
+
 class DatabaseHelper{
     private $db;
 
@@ -153,7 +155,7 @@ class DatabaseHelper{
     }
 
     public function getAlbumReviews($albumId){
-        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY SUM(number_of_likes)+SUM(number_of_dislikes) DESC LIMIT 10");
+        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, (number_of_likes + number_of_dislikes) AS total_likes, username FROM review WHERE album=? ORDER BY total_likes DESC LIMIT 10");
         $stmt->bind_param("s", $albumId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -265,10 +267,15 @@ class DatabaseHelper{
                 if($this->checkbrute($username) == true) { 
                  // Account disabilitato
                  // Invia un e-mail all'utente avvisandolo che il suo account è stato disabilitato.
-                    /*$mail = "We inform you that your account is currently suspended due to too many failed logins using your email.\nThe Spotlight Team";
-                    $mail = wordwrap($mail,70);
-                    $headers = 'From: spotlight@example.com'."\r\n" .'X-Mailer: PHP/' . phpversion();
-                    mail($email, "Spotlight: Security Warning", $mail, $headers);*/
+                    $body = "We inform you that your account is currently suspended due to too many failed logins using your email.\nThe Spotlight Team";
+                    $emailData = array(
+                        "toEmail" => $email,
+                        "toName" => $username,
+                        "subject" => "Spotlight: Security Warning",
+                        "body" => wordwrap($body,70),
+                        "headers"  => 'From: spotlight@example.com'."\r\n" .'X-Mailer: PHP/' . phpversion()
+                    );
+                    sendEmail($emailData);
                     return 0;
             } else {
                 if($db_password == $password) { // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
