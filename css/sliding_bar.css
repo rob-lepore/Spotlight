@@ -29,11 +29,11 @@
 .top-links{
     padding: 1.5rem 1rem;
     display: inline-block;
+    flex: 1 1 0px;
     text-decoration: none;
     color: #a1a1a1;
-    /* width: 180px; */
-    width: 10rem;
     text-align: center;
+    position:relative;
 }
 
 .top-links:hover{
@@ -46,11 +46,10 @@
 }
 
 .active-link{
-    content: '';
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     left: 0;
-    width: 80px;
+    width: 0;
     height: 5px;
     background-color: #6750a4;
     border-top-right-radius: 5px;

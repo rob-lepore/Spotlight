@@ -35,7 +35,7 @@ input.addEventListener("input", e => {
             success: (response) => {
                 results.innerHTML = "";
                 response.forEach(user => {
-                    results.innerHTML += buildListElement(user.username, user.first_name + " " + user.last_name, "upload/" + user.profile_pic, user.username, "getUsersInfo.php?user=")
+                    results.innerHTML += buildListElement(user.username, user.first_name + " " + user.last_name, "upload/" + user.profile_pic, user.username, "profile.php?user=")
                 })
             }
         })

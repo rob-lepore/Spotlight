@@ -26,12 +26,21 @@
             ?>
         </div>
             <div>
-            <div class='d-flex my-2 surface align-items-center' data-type="template" style="visibility:hidden">
-                <img class='album-cover-img' style="width:4rem" src="" />
+            <div class='d-flex my-2 surface align-items-center' data-type="template" style="<?php isset($_GET["id"])?'visibility:visible':'visibility:hidden'?>"">
+                <img class='album-cover-img' style="width:7rem" src="<?php echo isset($_GET["id"])?$data["image"]:''?>" />
                 <div style="width:65%" class="overflow-hidden d-block">
-                    <span class="text-truncate albumName"></span>
-                    <br>
-                    <span class="text-truncate artistname"></span>
+                    <h1 class=" albumName"><?php echo isset($_GET["id"])?$data["name"]:''?></h1>
+                    
+                    <h4 class=" artistname">
+                        <?php if(isset($_GET["id"])):?>
+                            <?php foreach($data["artists"] as $artist):?>
+                                <?php echo "$artist->name";?>
+                                <?php if($data["artists"][count($data["artists"]) -1] != $artist){
+                                    echo ", ";
+                                }?>
+                            <?php endforeach;?>
+                        <?php endif; ?>
+                    </h4>
                 </div>
             </div>
 
@@ -75,7 +84,7 @@
             <div class="my-2"><p class="username mr-2 label-medium"><?php echo $templateParams["username"]?></p><p class="date text-medium"><?php echo $templateParams["date"]?></p></div>
         </section>
         <section class="">
-            <textArea class = "col-12 review" rows="20"></textArea>
+            <textArea class = "col-12 review" style="resize:none;border-radius:0.4;box-sizing:border-box;border: 1.2% solid #ccc;" rows="20"></textArea>
         </section>
         <div class="d-flex flex-row-reverse">
             <button class="primary elevation submit" style="border-radius:30px;border:none">Submit</button>
