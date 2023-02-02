@@ -6,15 +6,6 @@
     transition: all 0.3s ease;
 }
 
- .exterior-top{
-    width: 100vw;
-    height:100vh;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    background: #f3edf7;
-} 
-
 .top-navigation{
     background:#f3edf7;
     padding: 0 1rem;
@@ -29,28 +20,23 @@
 .top-links{
     padding: 1.5rem 1rem;
     display: inline-block;
+    flex: 1 1 0px;
     text-decoration: none;
     color: #a1a1a1;
-    /* width: 180px; */
-    width: 10rem;
     text-align: center;
+    position:relative;
 }
 
-.top-links:hover{
-    background: #f3edf7;
-}
-
-.top-links:active{
+.active{
     color:#6750a4;
     font-weight:bold;
 }
 
 .active-link{
-    content: '';
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     left: 0;
-    width: 80px;
+    width: 0;
     height: 5px;
     background: #6750a4;
     border-top-right-radius: 5px;

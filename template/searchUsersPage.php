@@ -48,8 +48,9 @@
             <div class="d-flex justify-content-around py-3 border-bottom">
                 <button class="sl-btn primary elevation-1" onclick="setSearch('Follower',this)">Follower</button>
                 <button class="sl-btn secondary elevation-1" onclick="setSearch('Following', this)">Following</button>
+                <?php if($templateParams["isfriend"] || $templateParams["user"] == $_COOKIE["username"]):?>
                 <button class="sl-btn secondary elevation-1" onclick="setSearch('Friend', this)">Friend</button>
-
+                <?php endif;?>
             </div>
         </header>
 

@@ -89,6 +89,9 @@
                         $templateParams['id'] = $userReview["album"];
                         $templateParams["max-chars"] = 1000;
                         $templateParams["review_id"] = $userReview["review_id"];
+                        //$templateParams["is_friend"]
+                        //$templateParams["is_follower"]
+                        //$templateParams["username"]
                         require('reviewPage.php');
                     }
                 ?>

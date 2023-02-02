@@ -12,11 +12,10 @@
     <title><?php echo $templateParams["title"] ?></title>
 </head>
 
-<body theme="light" class="container">
+<body theme="light">
     <div class="top-navigation">
         <div class="active-link"></div>
-            <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
-            <a class = "top-links" data-value = "Reviews" href="#">Reviews</a>
+        <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
     </div>
 
 
