@@ -175,8 +175,16 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostsOfUser($username){
+        $stmt = $this->db->prepare("SELECT post_id, text, song, date, number_of_likes, username FROM post WHERE username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getAlbumReviews($albumId){
-        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, (number_of_likes + number_of_dislikes) AS total_likes, username FROM review WHERE album=? ORDER BY total_likes DESC LIMIT 10");
+        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY (number_of_likes + number_of_dislikes) DESC LIMIT 10");
         $stmt->bind_param("s", $albumId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -576,6 +584,14 @@ class DatabaseHelper{
         return $result;
     }
 
-    
+    public function getFollowersReviews($username){
+        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

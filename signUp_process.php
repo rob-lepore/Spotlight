@@ -22,6 +22,7 @@ if(isset($_POST["username"], $_POST["email"], $_POST["p"], $_POST["first_name"],
                 $dbh->createFullUser($_POST["username"], $_POST["email"], $password, $random_salt, $_POST["first_name"], $_POST["last_name"], $propic);
                 registerLoggedUser($_POST["username"], $_POST["email"]);
                 $msg = "Inserimento completato correttamente!";
+                sendEmailToNewAccount($_POST["email"], $_POST["username"]);
                 header('Location: ./signup.php?id=1');
                 exit;
             }
@@ -33,6 +34,7 @@ if(isset($_POST["username"], $_POST["email"], $_POST["p"], $_POST["first_name"],
             $dbh->createUser($_POST["username"], $_POST["email"], $password, $random_salt, $_POST["first_name"], $_POST["last_name"]);
             registerLoggedUser($_POST["username"], $_POST["email"]);
             $msg = "Inserimento completato correttamente!";
+            sendEmailToNewAccount($_POST["email"], $_POST["username"]);
             header('Location: ./signup.php?id=1');
             exit;
         }
