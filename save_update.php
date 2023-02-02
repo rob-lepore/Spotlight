@@ -21,7 +21,7 @@ if(isUserLoggedIn()){
     }
     $dbh->updateUserData($user[0]["username"], $data);
 
-    header('Location: ' . '/Spotlight/getUsersInfo.php?user=' . $_POST['username']);
+    header('Location: ' . '/Spotlight/profile.php?user=' . $_POST['username']);
 }else{
     header('Location: ./');
 }

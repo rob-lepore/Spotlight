@@ -39,6 +39,11 @@ create table FRIENDS (
      username char(15) not null,
      constraint ID_FRIENDS_ID primary key (username, Friend_username));
 
+create table FRIEND_REQUEST (
+     Friend_username char(15) not null,
+     username char(15) not null,
+     constraint ID_FRIENDS_ID primary key (username, Friend_username));
+
 create table LIKES (
      element_link char(128) not null,
      username char(15) not null,
