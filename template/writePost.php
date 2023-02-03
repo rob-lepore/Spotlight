@@ -34,16 +34,16 @@
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
             </svg>
         </button>
-        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn primary"><i class="fa fa-search"> Search a song </i></button>
+        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn primary"><em class="fa fa-search"> Search a song </em></button>
         <?php
-            $templateParams["searchType"] = "track"; // oppure "album"
+            $templateParams["searchType"] = "track";
             require("template/modal.php");
         ?>
     </div>
     <?php if(isset($templateParams["albumImage"])):?>
     <header class="py-2 d-flex">
         <div class="mx-2 align-self-center">
-            <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="..">
+            <img class="album-image" src=<?php echo $templateParams["albumImage"] ?> alt="Album Image">
         </div>
         <div>
             <h1><?php echo $templateParams["trackName"]?></h1>
@@ -60,9 +60,9 @@
     <?php endif; ?>
     <main class="mt-3">
         <form <?php if(isset($_GET["id"])):?>action="post_creation.php?id=<?php echo $_GET["id"]?>" <?php endif; ?>id="create-post-form" method="POST" name="post_form">
-            <textarea id="post_text" class="post_text" name="post_text" placeholder="Write here..."></textarea>
+            <label for="post_text" class="mx-2">Tell everyone what you think of this song!</label><textarea id="post_text" class="post_text" name="post_text" placeholder="Write here..." required maxlength="200"></textarea>
             <div class="col-12 text-end">
-                <input type="submit" class="btn btn-sm primary elevation-1" value="Post"/>
+                <input type="submit" class="btn btn-sm primary elevation-1 mx-2" value="Post"/>
             </div>
         </form>
     </main>
