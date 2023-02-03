@@ -15,8 +15,5 @@ if(isset($_POST['email'], $_POST['p'])) {
         // Login fallito
         header("Location: ./login.php?id=2");
     }
-} else { 
-   // Le variabili corrette non sono state inviate a questa pagina dal metodo POST.
-   echo 'Invalid Request';
 }
 ?>

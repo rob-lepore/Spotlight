@@ -20,7 +20,7 @@
         $templateParams["isLiked"] = in_array($_COOKIE["username"], $likes);
         $templateParams["tracks"] = $tracks;
         $templateParams["popularReviews"] = $dbh->getAlbumReviews($albumId);
-        $templateParams["newReviewUrl"] = "newReview.php?id=" . $albumId;
+        $templateParams["newReviewUrl"] = "newReview.php?id=";
         $templateParams["newPostUrl"] = "newPost.php?id=";
     
         require("template/albumPage.php");

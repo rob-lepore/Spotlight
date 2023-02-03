@@ -32,16 +32,17 @@
             <a class ="text-decoration-none text-reset" href="<?php echo $templateParams["albumUrl"]?>" >
                 <h1><?php echo $templateParams["albumName"]?></h1> 
             </a>
-            <h4>
+            <h2>
                 <?php foreach($templateParams["artists"] as $artist):?>
-                   <a class ="text-decoration-none text-reset" href="./artist.php?id=<?php echo $artist->id?>"><?php echo "$artist->name";?><a>
-                   <?php if($templateParams["artists"][count($templateParams["artists"]) -1] != $artist){
-                       echo ", ";
-                    }?>
+                   <a class ="text-decoration-none text-reset" href="./artist.php?id=<?php echo $artist->id?>"><?php echo "$artist->name";
+                        if($templateParams["artists"][count($templateParams["artists"]) -1] != $artist){
+                            echo ", ";
+                        }?>
+                    </a>
                 <?php endforeach;?>
-            </h4>
-            <h5><?php echo substr($templateParams["releaseDate"],0,4)?></h5>
-            <h5>
+            </h2>
+            <h6><?php echo substr($templateParams["releaseDate"],0,4)?></h6>
+            <h6>
                 <span id="likesNumber"><?php echo $templateParams["likes"]?></span> likes
                 <a onclick="toggleLike('<?php echo $templateParams['albumId'] ?>')">
                     <?php
@@ -56,7 +57,7 @@
                         )
                     ?>
                 </a>
-            </h5>
+            </h6>
         </div>
     </header>
     <section class="mt-3">
@@ -69,9 +70,9 @@
                 </button>
                 <h2>Tracklist</h2>
             </div>
-            <a href=<?php echo $templateParams["newReviewUrl"]?>>
-                <button type="button" id="review" class="btn btn-sm primary elevation-1 align-self-center">Write a reveiw about this album</button>
-            </a>
+            <form action="<?php echo $templateParams["newReviewUrl"].$templateParams["albumId"]?>" method="POST" name="newReview">
+                <input type="submit" id="review" class="btn btn-sm primary elevation-1 align-self-center" value="Write a reveiw about this album">
+            </form>
         </div> 
         <div id="tracklistDiv">
             <?php foreach ($templateParams["tracks"]->items as $track) {
