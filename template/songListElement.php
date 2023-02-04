@@ -10,10 +10,11 @@
         <?php endif; ?>
         <?php if(isset($templateParams["trackArtists"])): ?>
             <?php foreach($templateParams["trackArtists"] as $artist):?>
-                <span class="text-truncate"><?php echo "$artist->name" ?></span>
-                <?php if($templateParams["trackArtists"][count($templateParams["trackArtists"]) -1] != $artist){
-                    echo ", ";
-                }?>
+                <span class="text-truncate"><?php echo "$artist->name";
+                    if($templateParams["trackArtists"][count($templateParams["trackArtists"]) -1] != $artist){
+                        echo ", ";
+                    }?>
+                </span>
             <?php endforeach;?>
         <?php endif; ?>
     </div>
