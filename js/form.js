@@ -23,7 +23,7 @@ function formHashLogin(form, password) {
  }
 
  function formHashSignup(form, password) {
-    if (password.value.length > 5 && password.value.toLowerCase() != password.value && password.value.toUpperCase() != password.value && containsNumber(password.value)){
+    if (password.value.length > 5 && password.value.toLowerCase() != password.value && password.value.toUpperCase() != password.value && containsNumber(password.value) && password.value == password.value.replace(/\s/g, '')){
         password.removeAttribute("required");
         // Crea un elemento di input che verrà usato come campo di output per la password criptata.
         var p = document.createElement("input");
