@@ -1,0 +1,15 @@
+
+.gradient-0 {
+    background: linear-gradient(to left top, #7b349c, #fd518f);
+    color: #FFFFFF;
+}
+
+.gradient-1 {
+    background: linear-gradient(to left top, #92f0db, #0f5abd);
+    color: #FFFFFF;
+}
+
+.gradient-2 {
+    background: linear-gradient(to left top, #ddedb6, #969dd3);
+    color: #000;
+}
