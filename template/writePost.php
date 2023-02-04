@@ -10,24 +10,23 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title><?php echo $templateParams["title"]; ?></title>
-</head>
-
-<body theme="light" class="container">
-<style>
-        .album-image {
-            width: 4rem;
-        }
-        .post_text{
-            width: 98%;
-            height: 150px;
-            padding: 0.5rem 0.5rem;
-            box-sizing: border-box;
-            border: 1.2% solid #ccc;
-            border-radius: 0.4rem;
-            margin: 0% 1%;
-            resize: none;
-        }
+    <style>
+    .album-image {
+        width: 4rem;
+    }
+    .post_text{
+        width: 98%;
+        height: 150px;
+        padding: 0.5rem 0.5rem;
+        box-sizing: border-box;
+        border: 1.2% solid #ccc;
+        border-radius: 0.4rem;
+        margin: 0% 1%;
+        resize: none;
+    }
     </style>
+</head>
+<body theme="light" class="container">
     <div class="topnav mx-2 mt-3 d-flex justify-content-between">
         <button onclick="history.back()" class="btn overlayBackground">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">

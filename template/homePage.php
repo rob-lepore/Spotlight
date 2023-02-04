@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="css/sliding_bar.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
+    <style>
+    .profile-pic {
+        width: 2rem;
+        border-radius: 50%;
+    }
+    </style>
 </head>
 <body theme="light" class="container">
-    <style>
-        .profile-pic {
-            width: 2rem;
-            border-radius: 50%;
-        }
-    </style>
     <header class="fixed-top overlayBackground py-2 elevation-1">
         <?php require ("headerElement.php");?>
         <div class="top-navigation">

@@ -66,7 +66,7 @@
 				    </div>
 				    <div class="row">
 					    <div class="col-11 text-end">
-                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Create a new account" onclick="formhash(this.form, this.form.password);">
+                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Create a new account" onclick="formHashSignup(this.form, this.form.password);">
 		    			</div>
 			    			<div class="col-1"></div>
 				    </div>
