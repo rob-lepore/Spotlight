@@ -13,17 +13,13 @@
 </head>
 
 <body theme="light">
-    <h1 class="headline-large"><?php echo $templateParams["header"] ?></h1>
-
-    <button data-bs-toggle="modal" data-bs-target="#selectionModal">
-        Launch demo modal
-    </button>
-
-    <?php
-
-    $templateParams["searchType"] = "track"; // oppure "album"
-    require("template/modal.php");
-    ?>
+    <?php 
+    $postData = array(
+        "isLiked" => false,
+        "likes" => array(),
+        "track" => $track,
+    );
+    require("template/postElement.php") ?>
 
 </body>
 
