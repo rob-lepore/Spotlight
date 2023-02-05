@@ -20,6 +20,12 @@
             }elseif(isset($notifications[$i]["post_id"])){
                 $data[$i]["type"] = "Post";
                 $data[$i]["post_id"] = $notifications[$i]["post_id"];
+                $like = $dbh->getIsLikeOrCommentPost($notifications[$i]["post_id"], $notifications[$i]["notification_id"]);
+                if(isset($like[0]["isLike"])){
+                    $data[$i]["isLike"] = $like[0]["isLike"];
+                }else{
+                    $data[$i]["isLike"] = 0;
+                }
             }elseif(isset($notifications[$i]["friend_request_id"])){
                 $data[$i]["type"] = "Friend_request";
             }else{

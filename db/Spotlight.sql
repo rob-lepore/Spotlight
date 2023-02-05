@@ -129,7 +129,7 @@ create table USER (
 create table NOTIFICATION_FROM_POST(
      notification_id int not null,
      post_id int not null,
-     is_like  boolean not null,
+     isLike  boolean not null,
      constraint ID_NOTIFICATION_FROM_POST_ID primary key (post_id, notification_id));
 
 
@@ -258,11 +258,11 @@ alter table REVIEW add constraint FKPUBLISHES_REVIEW_FK
 
 alter table NOTIFICATION_FROM_POST add constraint FKNOTIFICATION_ID
      foreign key (notification_id)
-     references NOTIFICATION (notification_id)
+     references NOTIFICATION (notification_id);
 
 alter table NOTIFICATION_FROM_POST add constraint FKPOST_ID
      foreign key (post_id)
-     references POST (post_id)
+     references POST (post_id);
 
 -- Not implemented
 -- alter table SPOTIFY_ELEMENT add constraint ID_SPOTIFY_ELEMENT_CHK

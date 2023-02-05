@@ -85,6 +85,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getIsLikeOrCommentPost($postId, $notId){
+        $stmt = $this->db->prepare("SELECT isLike FROM notification_from_post WHERE post_id=? AND notification_id=?");
+        $stmt->bind_param("ii", $postId, $notId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getAllNotificationsOfUser($username){
         $stmt = $this->db->prepare("SELECT * FROM notification WHERE username_target=?");
         $stmt->bind_param("s", $username);
@@ -458,6 +466,12 @@ class DatabaseHelper{
         return $result;
     }
 
+    public function eliminateNotificationFromPost($id,$notId){
+        $stmt = $this->db->prepare("DELETE FROM notification_from_post WHERE post_id=? AND notification_id=?");
+        $stmt->bind_param("ii", $id, $notId);
+        $stmt->execute();
+    }
+
     function checkbrute($username) {
         // Recupero il timestamp
         $now = time();
@@ -628,8 +642,10 @@ class DatabaseHelper{
     public function createComment($postId, $user, $text) {
         $date = date("Y/m/d");
 
-        $stmt = $this->db->prepare("INSERT INTO `notification` (`date`,`username`) VALUES (?,?)");
-        $stmt->bind_param("ss", $date,$user);
+        $r = $this->getPostData($postId);
+
+        $stmt = $this->db->prepare("INSERT INTO `notification` (`date`,`username_source`, username_target) VALUES (?,?,?)");
+        $stmt->bind_param("sss", $date,$user, $r[0]["username"]);
         $stmt->execute();
 
         $notId = $this->getLastInsertId();
@@ -641,6 +657,12 @@ class DatabaseHelper{
 
         $stmt = $this->db->prepare("UPDATE `notification` SET `post_id` = ? WHERE `notification_id` = ?");
         $stmt->bind_param("ii", $postId,$notId);
+        $stmt->execute();
+
+        //add to notification_from_post
+        $stmt = $this->db->prepare("INSERT INTO notification_from_post (post_id, notification_id, isLike) VALUES (?, ?, ?)");
+        $isLike = false;
+        $stmt->bind_param("iii", $postId,$notId, $isLike);
         $stmt->execute();
 
     }
@@ -669,6 +691,22 @@ class DatabaseHelper{
             $stmt = $this->db->prepare("INSERT INTO `likes_post` VALUES (?, ?)");
             $stmt->bind_param("ss", $id, $_COOKIE["username"]);
             $stmt->execute();
+
+            //insert notification after like of post
+            $r = $this->getPostData($id);
+
+            $stmt = $this->db->prepare("INSERT INTO notification (username_source, username_target, post_id, date) VALUES (?,?,?,?)");
+            $date = date("Y/m/d");
+            $stmt->bind_param("ssis", $_COOKIE["username"], $r[0]["username"], $id, $date);
+            $stmt->execute();
+
+            $notId = $this->getLastInsertId();
+
+            $stmt = $this->db->prepare("INSERT INTO notification_from_post (post_id, notification_id, isLike) VALUES (?, ?, ?)");
+            $isLike = true;
+            $stmt->bind_param("iii", $id, $notId, $isLike);
+            $stmt->execute();
+
             return 1;
         } 
     }
