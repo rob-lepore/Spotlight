@@ -21,6 +21,14 @@ class DatabaseHelper{
     }
     */
 
+    public function getAlbumReviews($albumId){
+        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY SUM(number_of_likes)+SUM(number_of_dislikes) DESC LIMIT 10");
+        $stmt->bind_param("s", $albumId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getArtistLikes($artistId){
         $stmt = $this->db->prepare("SELECT username FROM `likes` WHERE element_link=?");
         $stmt->bind_param("s", $artistId);
@@ -77,6 +85,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAllNotificationsOfUser($username){
+        $stmt = $this->db->prepare("SELECT * FROM notification WHERE username_target=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getFriendsCount($username) {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM friends WHERE Friend_username=?");
         $stmt->bind_param("s", $username);
@@ -105,24 +121,64 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO follows (Follower_username, username) VALUES (?,?) ");
         $stmt->bind_param("ss", $receiver, $sender);
         $stmt->execute();
+        
+
+        $stmt = $this->db->prepare("SELECT COUNT(*) as follows FROM notification WHERE username_target=? and username_source=? and mood_id is NULL and review_id is NULL and post_id is NULL and friend_request_id is NULL");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+
+        if($res[0]["follows"] == 0){
+            $stmt = $this->db->prepare("INSERT INTO notification (username_target, username_source, date) VALUES (?,?,?)");
+            $date = date("Y-m-d");
+            $stmt->bind_param("sss", $receiver, $sender, $date);
+            $stmt->execute();
+        }
     }
 
     public function unfollowUser($sender, $receiver){
         $stmt = $this->db->prepare("DELETE FROM follows WHERE Follower_username=? AND username=? ");
         $stmt->bind_param("ss", $receiver, $sender);
         $stmt->execute();
+        //eliminate the notification if present?
     }
 
     public function sendFriendRequest($sender, $receiver){
         $stmt = $this->db->prepare("INSERT INTO friend_request (Friend_username, username) VALUES (?,?) ");
         $stmt->bind_param("ss", $receiver, $sender);
         $stmt->execute();
+
+        $stmt = $this->db->prepare("SELECT friend_request_id FROM friend_request WHERE Friend_username=? and username=? ");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+
+        
+        $stmt = $this->db->prepare("INSERT INTO notification (username_target, username_source, friend_request_id, date) VALUES (?,?,?,?)");
+        $date = date("Y-m-d");
+        $stmt->bind_param("ssis", $receiver, $sender, $res[0]["friend_request_id"], $date);
+        $stmt->execute();
+
     }
 
     public function eliminateFriendRequest($sender, $receiver){
-        $stmt = $this->db->prepare("DELETE FROM `friend_request` WHERE (Friend_username=? AND username=?) OR (Friend_username=? AND username=?) ");
+        $stmt = $this->db->prepare("SELECT friend_request_id FROM friend_request WHERE (Friend_username=? AND username=?) OR (Friend_username=? AND username=?) ");
         $stmt->bind_param("ssss", $receiver, $sender, $sender, $receiver);
         $stmt->execute();
+        $result = $stmt->get_result();
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+
+        $friend_request_id= $res[0]["friend_request_id"];
+        $stmt = $this->db->prepare("DELETE FROM notification WHERE  friend_request_id =?");
+        $stmt->bind_param("i", $friend_request_id);
+        $stmt->execute();
+
+        $stmt = $this->db->prepare("DELETE FROM `friend_request` WHERE friend_request_id=?");
+        $stmt->bind_param("i", $friend_request_id);
+        $stmt->execute();
+
     }
 
     public function acceptFriendRequest($sender, $receiver){
@@ -268,8 +324,8 @@ class DatabaseHelper{
         $likes = $result->fetch_all(MYSQLI_ASSOC);
         // check if the like_review already exist and if it is.Is it different to respect to the new value
         if(isset($res[0]['isLike']) && $res[0]['isLike'] != $rating){
-            $stmt = $this->db->prepare("UPDATE likes_review SET isLike=? WHERE review_id=? AND username=?");
-            $stmt->bind_param("iss", $rating, $review_id, $username_session);
+            $stmt = $this->db->prepare("DELETE FROM likes_review WHERE review_id=? AND username=?");
+            $stmt->bind_param("is", $review_id, $username_session);
             $stmt->execute();
 
             if($rating){
@@ -282,11 +338,7 @@ class DatabaseHelper{
             $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
             $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username);
             $stmt->execute();
-        }else{//create the like to the review
-            $stmt = $this->db->prepare("INSERT INTO likes_review (review_id, username, isLike) VALUES (?, ?, ?)");
-            $stmt->bind_param("ssi", $review_id, $username_session, $rating);
-            $stmt->execute();
-
+        }else{//if not existing we modify the review
             if($rating){
                 $number_of_likes = $likes[0]['number_of_likes'] + 1;
                 $number_of_dislikes = $likes[0]['number_of_dislikes'];
@@ -297,8 +349,69 @@ class DatabaseHelper{
             $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
             $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username);
             $stmt->execute();
+        }//create the like to the review
 
+        $stmt = $this->db->prepare("INSERT INTO likes_review (review_id, username, isLike) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $review_id, $username_session, $rating);
+        $stmt->execute();
+
+        if($username != $username_session){
+            //verify if the notification exist in that case do not create a new one
+            $stmt = $this->db->prepare("SELECT COUNT(*) AS nnot FROM notification WHERE username_target=? and username_source=? and review_id=?");
+            $stmt->bind_param("ssi", $username, $username_session, $review_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $res = $result->fetch_all(MYSQLI_ASSOC);
+
+            if($res[0]["nnot"] == 0){
+                $stmt = $this->db->prepare("INSERT INTO notification (username_target, username_source, review_id, date) VALUES (?,?,?,?)");
+                $date = date("Y-m-d");
+                $stmt->bind_param("ssis", $username, $username_session, $review_id, $date);
+                $stmt->execute();
+            }
         }
+
+    }
+
+    public function eliminateLikeReview($username, $username_session, $review_id){
+        $stmt = $this->db->prepare("SELECT isLike FROM likes_review WHERE review_id=? AND username=?");
+        $stmt->bind_param("ss", $review_id, $username_session);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt = $this->db->prepare("SELECT number_of_likes, number_of_dislikes FROM review WHERE review_id=? AND username=?");
+        $stmt->bind_param("ss", $review_id, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $likes = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt = $this->db->prepare("DELETE FROM likes_review WHERE review_id=? AND username=?");
+        $stmt->bind_param("is",$review_id, $username_session);
+        $stmt->execute();
+
+        if($res[0]["isLike"]){
+            $number_of_likes = $likes[0]['number_of_likes'] - 1;
+            $number_of_dislikes = $likes[0]['number_of_dislikes'];
+        }else{
+            $number_of_dislikes = $likes[0]['number_of_dislikes'] -1;
+            $number_of_likes = $likes[0]['number_of_likes'];
+        }
+        //maybe we can even remove the notification if still existant?
+
+        $stmt = $this->db->prepare("DELETE FROM notification WHERE review_id=?");
+        $stmt->bind_param("i", $review_id);
+        $stmt->execute();
+
+        $stmt = $this->db->prepare("UPDATE `review` SET number_of_likes=?,number_of_dislikes=? WHERE review_id=? AND username=?");
+        $stmt->bind_param("iiss", $number_of_likes, $number_of_dislikes, $review_id, $username);
+        $stmt->execute();
+    }
+
+    public function eliminateNotification($id){
+        $stmt = $this->db->prepare("DELETE FROM notification WHERE notification_id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
     }
 
     public function getLikesAndDislikesOfReview($review_id, $username){

@@ -40,9 +40,10 @@ create table FRIENDS (
      constraint ID_FRIENDS_ID primary key (username, Friend_username));
 
 create table FRIEND_REQUEST (
+     friend_request_id int not null AUTO_INCREMENT,
      Friend_username char(15) not null,
      username char(15) not null,
-     constraint ID_FRIENDS_ID primary key (username, Friend_username));
+     constraint ID_FRIEND_REQUEST_ID primary key (friend_request_id));
 
 create table LIKES (
      element_link char(128) not null,
@@ -76,10 +77,12 @@ create table MOOD (
 create table NOTIFICATION (
      notification_id int not null AUTO_INCREMENT,
      date date not null,
-     username char(15) not null,
+     username_target char(15) not null,
+     username_source char(15) not null,
      review_id int,
      post_id int,
      mood_id int,
+     friend_request_id int,
      constraint ID_NOTIFICATION_ID primary key (notification_id));
 
 create table POST (
@@ -122,6 +125,12 @@ create table USER (
      last_name char(20) not null,
      profile_pic char(128) DEFAULT "default_icon.png",
      constraint ID_USER_ID primary key (username));
+
+create table NOTIFICATION_FROM_POST(
+     notification_id int not null,
+     post_id int not null,
+     is_like  boolean not null,
+     constraint ID_NOTIFICATION_FROM_POST_ID primary key (post_id, notification_id));
 
 
 -- Constraints Section
@@ -167,6 +176,14 @@ alter table FRIENDS add constraint FKFRI_USE_FK
      foreign key (Friend_username)
      references USER (username);
 
+alter table FRIEND_REQUEST add constraint FKFRIEND_REQUEST
+     foreign key (username)
+     references USER (username);
+
+alter table FRIEND_REQUEST add constraint FKFRI_REQUEST_USE_FK
+     foreign key (Friend_username)
+     references USER (username);
+
 alter table LIKES add constraint FKLIK_USE_2_FK
      foreign key (username)
      references USER (username);
@@ -199,8 +216,12 @@ alter table MOOD add constraint FKPOSTS_MOOD_FK
      foreign key (username)
      references USER (username);
 
-alter table NOTIFICATION add constraint FKRECEIVES_FK
-     foreign key (username)
+alter table NOTIFICATION add constraint FKRECEIVESTARGET_FK
+     foreign key (username_target)
+     references USER (username);
+
+alter table NOTIFICATION add constraint FKRECEIVESSOURCE_FK
+     foreign key (username_source)
      references USER (username);
 
 alter table NOTIFICATION add constraint FKFROM_REVIEW_FK
@@ -214,6 +235,10 @@ alter table NOTIFICATION add constraint FKFROM_POST_FK
 alter table NOTIFICATION add constraint FKFROM_MOOD_FK
      foreign key (mood_id)
      references MOOD (mood_id);
+
+alter table NOTIFICATION add constraint FKFROM_FRIEND_REQUEST_FK
+     foreign key (friend_request_id)
+     references FRIEND_REQUEST (friend_request_id);
 
 alter table POST add constraint FKPOSTS_FK
      foreign key (username)
@@ -230,6 +255,14 @@ alter table REACTS_TO_MOOD add constraint FKREA_MOO
 alter table REVIEW add constraint FKPUBLISHES_REVIEW_FK
      foreign key (username)
      references USER (username);
+
+alter table NOTIFICATION_FROM_POST add constraint FKNOTIFICATION_ID
+     foreign key (notification_id)
+     references NOTIFICATION (notification_id)
+
+alter table NOTIFICATION_FROM_POST add constraint FKPOST_ID
+     foreign key (post_id)
+     references POST (post_id)
 
 -- Not implemented
 -- alter table SPOTIFY_ELEMENT add constraint ID_SPOTIFY_ELEMENT_CHK
@@ -264,6 +297,15 @@ create unique index ID_FRIENDS_IND
 create index FKFRI_USE_IND
      on FRIENDS (Friend_username);
 
+create unique index ID_FRIEND_REQUEST_IND
+     on FRIEND_REQUEST (friend_request_id);
+
+create index FKFRIEND_REQUESTR_IND
+     on FRIEND_REQUEST (Friend_username);
+
+create index FKFRIEND_REQUESTS_IND
+     on FRIEND_REQUEST (username);
+
 create unique index ID_LIKES_IND
      on LIKES (element_link, username);
 
@@ -295,7 +337,10 @@ create unique index ID_NOTIFICATION_IND
      on NOTIFICATION (notification_id);
 
 create index FKRECEIVES_IND
-     on NOTIFICATION (username);
+     on NOTIFICATION (username_target);
+
+create index FKSENDS_IND
+     on NOTIFICATION (username_source);
 
 create index FKFROM_REVIEW_IND
      on NOTIFICATION (review_id);
@@ -305,6 +350,9 @@ create index FKFROM_POST_IND
 
 create index FKFROM_MOOD_IND
      on NOTIFICATION (mood_id);
+
+create index FKFROM_FRIEND_REQUEST_IND
+     on NOTIFICATION (friend_request_id);
 
 create unique index ID_POST_IND
      on POST (post_id);
@@ -330,3 +378,5 @@ create unique index ID_SPOTIFY_ELEMENT_IND
 create unique index ID_USER_IND
      on USER (username);
 
+create unique index ID_NOTIFICATION_FROM_POST_IND
+     on NOTIFICATION_FROM_POST (post_id, notification_id);

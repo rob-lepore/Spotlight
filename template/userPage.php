@@ -41,13 +41,14 @@
         <?php if($templateParams["received_request"]){
             echo '<button class="btn-profile" data-type="received-request-decline" type="button">Decline request</button>';
         }?>
+    <a href="/Spotlight/logout.php" class="logout" style="text-decoration:none;otline:none;"><button class="btn-profile">Logout</button></a>
     </div>
 
         <div class="d-flex justify-content-between m-3">
             <img class="profile-pic" style="margin-right:2rem;" alt='<?php UPLOAD_DIR . "default.jpg"?>' src='<?php echo $templateParams["profilePicPath"] == ""? UPLOAD_DIR . "default.jpg": UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
-                <input class="name-holder username" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
-                <input class="name-holder realname" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
+                <input class="name-holder username " id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
+                <input class="name-holder realname " value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>    
             <label class="edit ms-auto" for="user"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                     <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
@@ -61,7 +62,6 @@
             <a class=" info" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
             <a class=" info" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
         </div>
-        <div class="">
         <div class="top-navigation">
             <div class="active-link"></div>
                 <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
@@ -69,51 +69,51 @@
                 <a class = "top-links" data-value = "Artists" href="#">Artists</a>
                 <a class = "top-links" data-value = "Albums" href="#">Albums</a> 
         </div>
-        </div>
     </nav>
 
-    <main>
+    <main style="padding-bottom:3rem;">
         <div class="content">
             <?php if($templateParams['is_follower'] || $templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
-            <div class="Posts">
+                <div class="Posts">
 
-            </div>
-            <div class="Reviews" style="visibility:hidden;display:none">
-                <?php
-                    foreach($userReviews as $userReview){
-                        $templateParams['text'] = $userReview['text'];
-                        $templateParams['number_of_likes'] = $userReview['number_of_likes'];
-                        $templateParams['number_of_dislikes'] = $userReview['number_of_dislikes'];
-                        $templateParams['date'] = $userReview['date'];
-                        $templateParams['score'] = $userReview["score"];
-                        $templateParams['id'] = $userReview["album"];
-                        $templateParams["max-chars"] = 1000;
-                        $templateParams["review_id"] = $userReview["review_id"];
-                        //$templateParams["is_friend"]
-                        //$templateParams["is_follower"]
-                        //$templateParams["username"]
-                        require('reviewPage.php');
-                    }
-                ?>
-            </div>
-            <div class="Albums" style="visibility:hidden;display:none">
-                    
-            </div>
-            <div class="Artists" style="visibility:hidden;display:none">
-            </div>
+                </div>
+                <div class="Reviews" style="visibility:hidden;display:none">
+                    <?php
+                        foreach($userReviews as $userReview){
+                            $templateParams['text'] = $userReview['text'];
+                            $templateParams['number_of_likes'] = $userReview['number_of_likes'];
+                            $templateParams['number_of_dislikes'] = $userReview['number_of_dislikes'];
+                            $templateParams['date'] = $userReview['date'];
+                            $templateParams['score'] = $userReview["score"];
+                            $templateParams['id'] = $userReview["album"];
+                            $templateParams["max-chars"] = 1000;
+                            $templateParams["review_id"] = $userReview["review_id"];
+                            //$templateParams["is_friend"]
+                            //$templateParams["is_follower"]
+                            //$templateParams["username"]
+                            require('reviewPage.php');
+                        }
+                    ?>
+                </div>
+                <div class="Albums" style="visibility:hidden;display:none">
+                        
+                </div>
+                <div class="Artists" style="visibility:hidden;display:none">
+                </div>
             <?php endif;?>
             <button class="create-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
             </svg>
             </button>
         </div>
     </main>
 
-    <footer></footer>
+    <?php require("footerElement.php"); ?>
 
     <script src="./js/sliding_bar.js"></script>
     <script src="./js/profilePage.js"></script>
+    <script src="/Spotlight/js/reviewPage.js"></script>
 </body>
 
 </html>
