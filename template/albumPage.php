@@ -8,20 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <title><?php echo $templateParams["title"] ?></title>
-</head>
-
-<body theme="light" class="container">
     <style>
-        .album-image {
-            width: 9rem;
+    .album-image {
+        width: 9rem;
+    }
+    @media only screen and (min-width: 600px) {
+        .buttons {
+            justify-content: left;
+            gap: 1rem;
         }
-        @media only screen and (min-width: 600px) {
-            .buttons {
-                justify-content: left;
-                gap: 1rem;
-            }
-        }
+    }
     </style>
+</head>
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <header class="py-2 d-flex">
         <div class="mx-2">
             <a class ="text-decoration-none text-reset align-self-center" href="<?php echo $templateParams["albumUrl"]?>" >

@@ -35,7 +35,7 @@
     </style>
 </head>
 
-<body theme="light">
+<body theme="<?php echo $_COOKIE["theme"]?>">
 
     <main style="margin-top:50%;">
         <div class='d-flex my-2 align-items-center elevation-1 mx-auto p-3' id="card" style="border-radius: 10px;  width:90%" onclick="changeGradient()">

@@ -10,7 +10,7 @@
     <title><?php echo $templateParams["title"] ?></title>
 </head>
 
-<body theme="light" class="container">
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <style>
         .artist-image {
             width: 3rem;

@@ -11,6 +11,22 @@ function registerLoggedUser($username){
     setcookie("username", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 }
 
+function setTheme(){
+    if (!isset($_COOKIE["theme"])){
+        $cookie_value = "light";
+        setcookie("theme", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+    }
+}
+
+function changeTheme(){
+    if($_COOKIE["username"] == "light"){
+        $cookie_value = "dark";
+    }else{
+        $cookie_value = "light";
+    }
+    setcookie("theme", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+}
+
 function uploadImage($path, $image){
     $imageName = basename($image["name"]);
     $fullPath = $path.$imageName;

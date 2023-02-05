@@ -12,7 +12,7 @@
     <title><?php echo $templateParams["title"]; ?></title>
 </head>
 
-<body theme="light" class="container">
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <header class="container">
         <a class ="text-decoration-none text-reset" href="./login.php?id=1"><h1 class="mt-5 text-center">Spotlight</h1></a>
     </header>
@@ -66,7 +66,7 @@
 				    </div>
 				    <div class="row">
 					    <div class="col-11 text-end">
-                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Create a new account" onclick="formhash(this.form, this.form.password);">
+                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Create a new account" onclick="formHashSignup(this.form, this.form.password);">
 		    			</div>
 			    			<div class="col-1"></div>
 				    </div>
