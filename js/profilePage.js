@@ -13,20 +13,7 @@ function getCookie(cname) {
     }
     return "";
   }
-(()=>{
-    var createbtn = document.querySelector('.create-btn')
-    var search = new URLSearchParams(window.location.search)
-    var logout_btn = document.querySelector('.logout')
-    if(!(getCookie('username') == search.get('user'))){
-        document.querySelector('.edit').removeChild(document.querySelector('.edit').lastChild);
-        document.querySelector('.edit').remove();
-        logout_btn.remove()
-        createbtn.remove();
-    }else{
-        document.querySelector('.follow').remove();
-        document.querySelector('.friend').remove();
-    }
-})()
+
 var edit = document.querySelector(".edit");
 var username = document.querySelector(".username")
 var name_surname = document.querySelector(".realname")
@@ -54,8 +41,6 @@ if(edit != null){
 edit.addEventListener("click", e=>{
     e.preventDefault();
     profile_pic.style.visibility = "visible";
-    // username.disabled=false;
-    // username.style.border = "1px solid #000000"
     name_surname.disabled = false;
     name_surname.style.border = "1px solid #000000"
     save_btn.style.visibility = "visible"

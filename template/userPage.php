@@ -21,14 +21,49 @@
             position: absolute;
         }
         .dropdown:hover .dropdown-content {display: block;}
+
+        .profile-pic{
+            margin-top:1rem;
+            border-radius: 100%;
+            width:9rem;
+            height:9rem;
+        }
+
+        @media screen and (max-width: 500px) {
+        .profile-pic{
+            border-radius: 100%;
+            max-width: 3rem;
+            max-height: 3rem;
+         }
+}
+
+        .select-file{
+            font-size: smaller;
+            visibility: hidden;
+        }
+
+        .create-btn{
+            min-width: 60px;
+            min-height:60px;
+            border-radius: 30%;
+            border:none;
+            box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
+            color:#6750a4;
+            background:#f8f4fa2f;
+            position:fixed;
+            bottom: 5rem;
+            left: 1rem;
+        }
+
     </style>
 </head>
 
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <nav class ="surface">
     <div class ="d-flex flex-row-reverse">
-        <button class=" btn-profile follow <?php echo $templateParams["is_follower"]?"following":"not_follow"?>" type="button"><?php echo $templateParams["is_follower"]?"Unfollow":"Follow"?></button>
-        <button class=" btn-profile friend" type="button" data-type="<?php 
+        <?php if($_COOKIE["username"] != $_GET["user"]):?>
+        <button class="primary sl-btn follow <?php echo $templateParams["is_follower"]?"following":"not_follow"?>" type="button"><?php echo $templateParams["is_follower"]?"Unfollow":"Follow"?></button>
+        <button class="primary sl-btn friend" type="button" data-type="<?php 
             if($templateParams["is_friend"]){
                 echo "friend";
             }elseif($templateParams["sent_request"]){
@@ -49,18 +84,19 @@
             echo "Send request";
         }
         ?></button>
+        <?php endif;?>
         <?php if($templateParams["received_request"]){
-            echo '<button class="btn-profile" data-type="received-request-decline" type="button">Decline request</button>';
+            echo '<button class="sl-btn primary" data-type="received-request-decline" type="button">Decline request</button>';
         }?>
-    <a href="/Spotlight/logout.php" class="logout" style="text-decoration:none;otline:none;"><button class="btn-profile">Logout</button></a>
     </div>
 
         <div class="d-flex justify-content-between m-3">
-            <img class="profile-pic" style="margin-right:2rem;" alt='<?php UPLOAD_DIR . "default.jpg"?>' src='<?php echo $templateParams["profilePicPath"] == ""? UPLOAD_DIR . "default.jpg": UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
+            <img class="profile-pic" style="margin-right:2rem;" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
-                <input class="name-holder username" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
-                <input class="name-holder realname" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
+                <input class="name-holder username surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
+                <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>
+            <?php if($_COOKIE["username"] == $_GET["user"]):?>
             <div class="dropdown">
                 <button class="btn primary btn-lg elevation-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
@@ -76,21 +112,22 @@
                     </form>
                 </div>
             </div>
+            <?php endif;?>
             <div class="col-1"></div>
         </div>
         <input class="select-file" name="propic" type="file"/>
         <button class="save-btn">save</button>
         <div class = "d-flex justify-content-center">
-            <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
-            <a class=" info" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
-            <a class=" info" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
+            <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info text-on-primary text-reset text-decoration-none mx-3' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
+            <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
+            <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
         </div>
         <div class="top-navigation">
             <div class="active-link"></div>
                 <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
-                <a class = "top-links" data-value = "Reviews" href="#">Reviews</a>
-                <a class = "top-links" data-value = "Artists" href="#">Artists</a>
-                <a class = "top-links" data-value = "Albums" href="#">Albums</a> 
+                <a class = "top-links " data-value = "Reviews" href="#">Reviews</a>
+                <a class = "top-links " data-value = "Artists" href="#">Artists</a>
+                <a class = "top-links " data-value = "Albums" href="#">Albums</a> 
         </div>
     </nav>
 
