@@ -17,7 +17,7 @@
     }
     </style>
 </head>
-<body theme="light" class="container">
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <header class="fixed-top overlayBackground py-2 elevation-1">
         <?php require ("headerElement.php");?>
         <div class="top-navigation">

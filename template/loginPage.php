@@ -12,7 +12,7 @@
     <title><?php echo $templateParams["title"]; ?></title>
 </head>
 
-<body theme="light" class="container">
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <header class="container">
         <h1 class="mt-5 text-center">Spotlight</h1>
     </header>

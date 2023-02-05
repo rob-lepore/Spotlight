@@ -20,7 +20,7 @@
     }
     </style>
 </head>
-<body theme="light" class="container">
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <header class="py-2 d-flex">
         <div class="mx-2">
             <a class ="text-decoration-none text-reset align-self-center" href="<?php echo $templateParams["albumUrl"]?>" >

@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body theme="light">
+<body theme="<?php echo $_COOKIE["theme"]?>">
 
     <header class="m-3">
         <a href="./">

@@ -26,7 +26,7 @@
     }
     </style>
 </head>
-<body theme="light" class="container">
+<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <div class="topnav mx-2 mt-3 d-flex justify-content-between">
         <button onclick="history.back()" class="btn overlayBackground">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
