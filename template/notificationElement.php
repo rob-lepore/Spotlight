@@ -5,7 +5,7 @@
         <img src="<?php echo UPLOAD_DIR.$templateParams["source_profile_pic"]?>" style="border-radius:100%;width:4rem;" alt="profile foto of the user"/>
         <p class="ms-2 label-large username"><?php echo $templateParams["source_username"]?></p>
         </a>
-        <a id="<?php echo isset($templateParams["post_id"])?$templateParams["post_id"]:"none"?>" href="<?php 
+        <a id="<?php echo isset($templateParams["post_id"])?$templateParams["post_id"]:"none"?>" data-type="<?php echo isset($templateParams["post_id"]) && !$templateParams["isLike"]?"comment":"like"?>" href="<?php 
             if($templateParams["type"] == "Post"){
                 echo '/Spotlight/post.php?id=' . $templateParams["post_id"]; 
             }elseif($templateParams["type"] == "Review"){
@@ -25,7 +25,7 @@
             }elseif($templateParams["type"] == "Review"){
                 echo $templateParams["isLike"]?'has liked your review':'has disliked your review';
             }elseif($templateParams["type"] == "Post"){
-                echo $templateParams["isLike"]?'has liked our post':"has commented to your post";
+                echo $templateParams["isLike"]?'has liked your post':"has commented to your post";
             }
         ?></p></a>
     </div>

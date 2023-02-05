@@ -98,7 +98,27 @@
         <div class="content">
             <?php if($templateParams['is_follower'] || $templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
                 <div class="Posts">
-
+                    <?php
+                        // foreach($userPosts as $userPost){
+                        //     $postData["profilePic"] = $templateParams["profilePicPath"];
+                        //     $postData["username"] = $templateParams["username"];
+                        //     $postData["likes"] = $userPost["number_of_likes"];
+                        //     if($templateParams["is_friend"]){
+                        //         $postData["friendship"] = "friends";
+                        //     }elseif($templateParams["is_follower"]){
+                        //         $postData["friendship"] = "follower";//?
+                        //     }elseif($templateParams["username"] == $_COOKIE["username"]){
+                        //         $postData["friendship"] = "";
+                        //     }else{
+                        //         $postData["friendship"] = "not following";
+                        //     }
+                        //     $trackId = $userPost["song"];
+                        //     require('fetchTrackData.php');
+                        //     $postData["track"] = $track;
+                        //     $postData['text'] = $userPost['text'];
+                        //     require('postElement.php');
+                        // }
+                    ?> 
                 </div>
                 <div class="Reviews" style="visibility:hidden;display:none">
                     <?php

@@ -83,7 +83,7 @@ create table NOTIFICATION (
      post_id int,
      mood_id int,
      friend_request_id int,
-     deleted boolean,
+     deleted boolean DEFAULT false,
      constraint ID_NOTIFICATION_ID primary key (notification_id));
 
 create table POST (

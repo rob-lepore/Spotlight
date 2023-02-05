@@ -247,14 +247,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getAlbumReviews($albumId){
-        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY (number_of_likes + number_of_dislikes) DESC LIMIT 10");
-        $stmt->bind_param("s", $albumId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
     public function getReviewsOfUser($username){
         $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE username=?");
         $stmt->bind_param("s", $username);
@@ -317,6 +309,13 @@ class DatabaseHelper{
         array_push($upd, $username);
         $stmt = $this->db->prepare($command . " WHERE username=?");
         $stmt->bind_param($parametric, ...$upd);
+        $stmt->execute();
+    }
+
+    public function eliminateNotificationComment($id){
+        $stmt = $this->db->prepare("UPDATE notification SET deleted=? WHERE notification_id=?");
+        $flag = true;
+        $stmt->bind_param("ii", $flag, $id);
         $stmt->execute();
     }
 
