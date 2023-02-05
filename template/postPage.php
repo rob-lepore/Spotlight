@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body theme="light">
+<body theme="<?php echo $_COOKIE["theme"]?>">
 
     <header class="d-flex justify-content-between mt-2 container">
         <div class="d-flex">

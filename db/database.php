@@ -593,5 +593,13 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function createMood($username, $song, $emoji, $gradient) {
+        $date = date("Y/m/d");
+        $stmt = "INSERT INTO `mood` (`username`,`emoji`,`song`,`date`,`gradient`) VALUES (?,?,?,?,?)";
+        $stmt = $this->db->prepare($stmt);
+        $stmt->bind_param('ssssi',$username, $emoji, $song, $date, $gradient);
+        $stmt->execute();
+    }
 }
 ?>
