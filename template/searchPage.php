@@ -41,7 +41,7 @@
     </style>
 </head>
 
-<body theme="light">
+<body theme="<?php echo $_COOKIE["theme"]?>">
     <main>
         <header class="m-4">
             <input type="text" class="form-control" placeholder="Search">

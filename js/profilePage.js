@@ -37,6 +37,19 @@ var follow_btn = document.querySelector('.follow')
 var create_btn = document.querySelector('.create-btn')
 var decline_friend = document.querySelector('[data-type=received-request-decline]')
 
+function changeTheme() {
+    $.ajax({
+        type: "POST",
+        url: "changeTheme.php",
+        data: {
+            
+        },
+        success: (response) => {
+        document.location.reload();
+        }
+    })
+}
+
 if(edit != null){
 edit.addEventListener("click", e=>{
     e.preventDefault();
