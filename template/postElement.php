@@ -1,7 +1,7 @@
 <div>
     <header class="d-flex justify-content-between">
         <div class="d-flex align-items-center">
-            <img src=<?php echo $postData["profilePic"] ?> alt="" style=" width: 4rem; height: 4rem; border-radius:50%" class="me-2">
+            <img src=<?php echo UPLOAD_DIR . $postData["profilePic"] ?> alt="" style=" width: 4rem; height: 4rem; border-radius:50%" class="me-2">
             <div>
                 <h1 class="title-large">
                 <?php echo $postData["username"] ?>

@@ -12,9 +12,13 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
     <style>
+        .choices {
+
+        }
         .dropdown {
             position: relative;
             display: inline-block;
+            z-index:1;
         }
         .dropdown-content {
             display: none;
@@ -117,10 +121,10 @@
                     </svg>
                 </button>
                 <div class="dropdown-content">
-                    <button class="btn edit secondary">Edit Profile</button>
-                    <button class="btn secondary" onclick="changeTheme()">Change theme</button>
+                    <button class="btn edit ml-btn">Edit Profile</button>
+                    <button class="btn ml-btn" onclick="changeTheme()">Change theme</button>
                     <form action="logout.php">
-                        <button class="btn secondary">Logout</button>
+                        <button class="btn ml-btn">Logout</button>
                     </form>
                 </div>
             </div>

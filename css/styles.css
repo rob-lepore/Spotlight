@@ -139,3 +139,24 @@ p {
     border-radius: 100px;
     letter-spacing: 0.05em;
 }
+
+.ml-btn {
+    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    letter-spacing: 0.05em;
+    background-color: var(--primary);
+}
+
+.ml-btn:hover{
+    background-color: var(--secondary);
+}
+
+.ov-btn{
+    background-color: var(--bg-color);
+    color: var(--text-on-surface);
+}
+
+.ov-btn:hover{
+    color: var(--text-on-primary);
+}
