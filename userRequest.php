@@ -1,6 +1,5 @@
 <?php
 require_once 'bootstrap.php';
-sec_session_start();
 if(isUserLoggedIn()){
     if($_GET["type"] == 0){
         $dbh->followUser($_COOKIE["username"], $_GET["user"]);

@@ -3,8 +3,6 @@ require_once 'bootstrap.php';
 if(isUserLoggedIn()){
     $user = $dbh->getUserData($_COOKIE["username"]);
 
-    var_dump($_FILES);
-
     if($_POST['username'] != $user[0]["username"]){
         $data['username'] = $_POST['username'];
         registerLoggedUser($_POST['username']);

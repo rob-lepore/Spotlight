@@ -17,14 +17,7 @@ function setSearch(value, btn) {
 
 }
 
-input.addEventListener("input", e => {
-    e.preventDefault();
-
-
-    if (input.value == "") {
-        results.innerHTML = "";
-        return;
-    }
+function getUsers(){
 
     $.ajax({
         url: 'searchFriendsOrFollowers.php',
@@ -55,6 +48,22 @@ input.addEventListener("input", e => {
             }
             }
         })
+
+}
+
+getUsers()
+
+document.querySelectorAll("button").forEach(b=>{
+    b.addEventListener("click", e=>{
+        getUsers()
+    })
+})
+
+
+input.addEventListener("input", e => {
+    e.preventDefault();
+
+    getUsers()
     }
 )
 

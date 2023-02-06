@@ -1,4 +1,7 @@
 <?php
+
+require_once("sendEmail.php");
+
 function isUserLoggedIn(){
     return isset($_COOKIE["username"]);
 }
@@ -6,6 +9,22 @@ function isUserLoggedIn(){
 function registerLoggedUser($username){
     $cookie_value = $username;
     setcookie("username", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+}
+
+function setTheme(){
+    if (!isset($_COOKIE["theme"])){
+        $cookie_value = "light";
+        setcookie("theme", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+    }
+}
+
+function changeTheme(){
+    if($_COOKIE["username"] == "light"){
+        $cookie_value = "dark";
+    }else{
+        $cookie_value = "light";
+    }
+    setcookie("theme", $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 }
 
 function uploadImage($path, $image){
@@ -70,5 +89,16 @@ function sec_session_start() {
 
 function mapToUsernames($el) {
     return $el["username"];
+}
+
+function sendEmailToNewAccount($email, $username){
+    $body = "Hi " . $username . ", your account has been succesfully created.<br>The Spotlight Team";
+    $emailData = array(
+        "toEmail" => $email,
+        "toName" => $username,
+        "subject" => "Welcome to Spotlight",
+        "body" => wordwrap($body,70)
+        );
+    sendEmail($emailData);
 }
 ?>
