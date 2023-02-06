@@ -32,7 +32,7 @@ function changeTheme() {
             
         },
         success: (response) => {
-        document.location.reload();
+            document.location.reload();
         }
     })
 }

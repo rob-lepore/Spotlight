@@ -5,6 +5,7 @@ if(isUserLoggedIn()){
     $_username = $_GET["user"];
 
     $user = $dbh->getUserData($_username);
+    $templateParams["title"] = "Profile: " . $user[0]["username"];
     $templateParams["username"] = $user[0]["username"];
     $templateParams["firstname"] = $user[0]["first_name"];
     $templateParams["lastname"] = $user[0]["last_name"];

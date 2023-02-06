@@ -11,4 +11,4 @@ function getNumberNotifications(){
     })
 }
 getNumberNotifications()
-window.setInterval(getNumberNotifications, 5000)
+window.setInterval(getNumberNotifications, 1000)

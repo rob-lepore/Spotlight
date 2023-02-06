@@ -11,7 +11,7 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/styles.css">
-        <title>Document</title>
+        <title><?php echo $title?></title>
 
     </head>
 
