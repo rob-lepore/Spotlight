@@ -1,8 +1,9 @@
 <?php
     require_once("bootstrap.php");
     if(isUserLoggedIn()){
-        $title = "notifications"
+        $title = "notifications";
         $notifications = $dbh->getAllNotificationsOfUser($_COOKIE["username"]);
+        $data = array();
         for($i=0;$i<count($notifications);$i++){
             if($notifications[$i]["deleted"]){continue;}
             $user = $dbh->getUserData($notifications[$i]["username_source"]);
