@@ -15,6 +15,29 @@
         width: 2rem;
         border-radius: 50%;
     }
+    main{
+        margin-top:40%;
+    }
+    @media only screen and (min-width: 395px){
+        main {
+            margin-top: 30%;
+        }
+    }
+    @media only screen and (min-width: 900px){
+        main {
+            margin-top: 20%;
+        }
+    }
+    @media only screen and (min-width: 1100px){
+        main {
+            margin-top: 15%;
+        }
+    }
+    @media only screen and (min-width: 1500px){
+        main {
+            margin-top: 12%;
+        }
+    }
     </style>
 </head>
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">
@@ -28,7 +51,25 @@
     </header>
     <main>
         <div class="content">
-            <div class="Posts"></div>
+            <div class="Posts" style="visibility:hidden;display:none">
+            <?php
+                    foreach($templateParams["friendsPosts"] as $post){
+                        $trackId = $post['song'];
+                        require("fetchTrackData.php");
+                        $postData['track'] = $track;
+                        $likes = $dbh->getPostLikes($post["post_id"]);
+                        $postData['likes'] = $likes;
+                        $postData['date'] = $post['date'];
+                        $postData['id'] = $post["post_id"];
+                        $postData['username'] = $post["username"];
+                        $postData["friendship"] = $dbh->isFriend($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
+                        $postData["profilePic"] = $dbh->getUserData($postData['username'])[0]["profile_pic"];
+                        $likes = array_map("mapToUsernames", $likes);
+                        $postData['isLiked'] = (in_array($_COOKIE["username"],array_values($likes)));
+                        require('postElement.php');
+                    }
+                ?>
+            </div>
             <div class="Reviews" style="visibility:hidden;display:none">
                 <?php
                     foreach($templateParams["followersReviews"] as $review){
