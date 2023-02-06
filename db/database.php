@@ -728,10 +728,20 @@ class DatabaseHelper{
         return $result;
     }
 
-    public function getFollowersReviews($username){
-        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?)";
+    public function getFollowersReviews($username, $offset){
+        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s',$username);
+        $stmt->bind_param('si',$username, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFriendsPosts($username, $offset){
+        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('si',$username, $offset);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -744,6 +754,26 @@ class DatabaseHelper{
         $stmt = $this->db->prepare($stmt);
         $stmt->bind_param('ssssi',$username, $emoji, $song, $date, $gradient);
         $stmt->execute();
+    }
+
+    public function getTotalPosts($username){
+        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getTotalReviews($username){
+        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 ?>

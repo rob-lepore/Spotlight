@@ -38,7 +38,7 @@ function formHashLogin(form, password) {
         // Come ultimo passaggio, esegui il 'submit' del form.
         form.submit;
     } else{
-        alert("Password not valid\nA password must be 6-20 characters long and contain at least\n-1 Capital letter\n-1 Lowercase letter\n-1 Number");
+        alert("Password not valid\nA password must be 6-20 characters long and contain (at least)\n-1 Capital letter\n-1 Lowercase letter\n-1 Number\n-No spaces");
         password.required = true;
         password.value = "";
     }
