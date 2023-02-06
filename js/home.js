@@ -1,4 +1,4 @@
-var activeLinks = document.querySelector('.top-navigation');
+let activeLinks = document.querySelector('.top-navigation');
 activeLinks = activeLinks.querySelectorAll('a');
 
 activeLinks.forEach(el=>{
@@ -15,3 +15,19 @@ activeLinks.forEach(el=>{
         }
     })
 })
+
+let morePosts = document.querySelector("#loadMorePosts");
+let moreReviews = document.querySelector("#loadMoreReviews");
+
+morePosts.addEventListener("click", e =>{
+    e.preventDefault();
+    $.ajax({
+        url: 'processNewPosts.php',
+        type: 'POST',
+        data: {},
+        success: (response) => {
+            document.querySelector("#postList").innerHTML += response;
+        }
+    })
+    
+});
