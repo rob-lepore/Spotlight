@@ -585,7 +585,17 @@ class DatabaseHelper{
     }
 
     public function getFollowersReviews($username){
-        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?)";
+        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?) ORDER BY `date` DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFriendsPosts($username){
+        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s',$username);
         $stmt->execute();
