@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/sliding_bar.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title><?php echo $templateParams["title"] ?></title>
     <style>
     .profile-pic {
@@ -16,6 +17,7 @@
         border-radius: 50%;
     }
     main{
+        margin-bottom:15%;
         margin-top:40%;
     }
     @media only screen and (min-width: 395px){
@@ -51,48 +53,34 @@
     </header>
     <main>
         <div class="content">
-            <div class="Posts" style="visibility:hidden;display:none">
-            <?php
-                    foreach($templateParams["friendsPosts"] as $post){
-                        $trackId = $post['song'];
-                        require("fetchTrackData.php");
-                        $postData['track'] = $track;
-                        $likes = $dbh->getPostLikes($post["post_id"]);
-                        $postData['likes'] = $likes;
-                        $postData['date'] = $post['date'];
-                        $postData['id'] = $post["post_id"];
-                        $postData['username'] = $post["username"];
-                        $postData["friendship"] = $dbh->isFriend($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
-                        $postData["profilePic"] = $dbh->getUserData($postData['username'])[0]["profile_pic"];
-                        $likes = array_map("mapToUsernames", $likes);
-                        $postData['isLiked'] = (in_array($_COOKIE["username"],array_values($likes)));
-                        require('postElement.php');
-                    }
-                ?>
+            <div class="Posts" style="display:block;visibility:visible">
+                <div id="postList">
+                    <?php
+                        $postsNumber = $dbh->getTotalPosts($_COOKIE["username"]);
+                        $_SESSION["offset"] = 0;
+                        require("processNewPosts.php");
+                    ?>
+                </div>
+                <?php if(count($postsNumber)>$_SESSION["offset"]): ?>
+                    <button class="btn secondary" id="loadMorePosts">Load more posts</button>
+                <?php endif?>
             </div>
             <div class="Reviews" style="visibility:hidden;display:none">
-                <?php
-                    foreach($templateParams["followersReviews"] as $review){
-                        $templateParams['text'] = $review['text'];
-                        $templateParams['number_of_likes'] = $review['number_of_likes'];
-                        $templateParams['number_of_dislikes'] = $review['number_of_dislikes'];
-                        $templateParams['date'] = $review['date'];
-                        $templateParams['score'] = $review["score"];
-                        $templateParams['id'] = $review["album"];
-                        $templateParams['username'] = $review["username"];
-                        $templateParams["is_follower"] = $dbh->isFollower($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
-                        $templateParams["max-chars"] = 150;
-                        $templateParams["review_id"] = $review["review_id"];
-                        $templateParams["profilePicPath"] = $dbh->getUserData($templateParams['username'])[0]["profile_pic"];
-                        require('reviewPage.php');
-                    }
-                ?>
+                <div id="reviewList">
+                    <?php
+                        $reviewsNumber = $dbh->getTotalReviews($_COOKIE["username"]);
+                        $_SESSION["offset"] = 0;
+                        require("processNewReviews.php");
+                    ?>
+                </div>
+                <?php if(count($reviewsNumber)>$_SESSION["offset"]): ?>
+                    <button class="btn secondary" id="loadMoreReviews">Load more reviews</button>
+                <?php endif?>
             </div>
         </div>
     </main>
-
+    <?php require("footerElement.php"); ?>
     <script src="js/sliding_bar.js"></script>
     <script src="js/home.js"></script>
-    <?php require("footerElement.php"); ?>
 </body>
 </html>
