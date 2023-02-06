@@ -1,4 +1,4 @@
-<div class="mx-2 d-flex flex-row justify-content-between">
+<div class="mx-3 d-flex flex-row justify-content-between">
     <a href="profile.php?user=<?php echo $templateParams["username"]?>" class="btn">
         <img class="profile-pic" src='<?php echo UPLOAD_DIR .  $templateParams["profilePic"]?>' alt="Profile picture">
     </a>
