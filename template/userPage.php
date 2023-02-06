@@ -30,12 +30,12 @@
         }
 
         @media screen and (max-width: 500px) {
-        .profile-pic{
-            border-radius: 100%;
-            max-width: 3rem;
-            max-height: 3rem;
-         }
-}
+            .profile-pic{
+                border-radius: 100%;
+                max-width: 3rem;
+                max-height: 3rem;
+            }
+        }
 
         .select-file{
             font-size: smaller;
@@ -53,6 +53,18 @@
             position:fixed;
             bottom: 5rem;
             left: 1rem;
+        }
+
+        .name-holder{
+            border:none;
+            width: 10rem;
+            background: transparent;
+        }
+
+        main{
+            position:relative;
+            width: 100%;
+            height: 100%;
         }
 
     </style>
@@ -93,7 +105,7 @@
         <div class="d-flex justify-content-between m-3">
             <img class="profile-pic" style="margin-right:2rem;" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
-                <input class="name-holder username surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
+                <input class="name-holder username mb-0 mt-2 surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
                 <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>
             <?php if($_COOKIE["username"] == $_GET["user"]):?>
@@ -116,7 +128,7 @@
             <div class="col-1"></div>
         </div>
         <input class="select-file" name="propic" type="file"/>
-        <button class="save-btn">save</button>
+        <button class="save-btn primary sl-btn" style="visibility:hidden;">save</button>
         <div class = "d-flex justify-content-center">
             <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info text-on-primary text-reset text-decoration-none mx-3' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
             <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>

@@ -269,12 +269,6 @@ class DatabaseHelper{
         $parametric = '';
         $upd = array();
         //potrei fare una funzione generale
-        if(isset($data['username'])){
-            $command = $command . " username=?";
-            $parametric = $parametric . 's';
-            array_push($upd, $data['username']);
-            $index += 1;
-        }
         if(isset($data['first_name'])){
             if($index > 0){
                 $command = $command . ",";
