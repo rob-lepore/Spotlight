@@ -10,6 +10,8 @@ if(isUserLoggedIn()){
     }
     $templateParams["username"] = $_COOKIE["username"];
     $templateParams["date"] = date("Y-m-d");
+    $templateParams["hidden-date"] = date("Y-m-d H:i:s");
+    $templateParams["title"] = "Create Review";
     require("template/createReviewPage.php");
     //echo json_encode($data);
 }else{
