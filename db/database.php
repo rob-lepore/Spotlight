@@ -96,7 +96,7 @@ class DatabaseHelper{
     }
 
     public function getAllNotificationsOfUser($username){
-        $stmt = $this->db->prepare("SELECT * FROM notification WHERE username_target=?");
+        $stmt = $this->db->prepare("SELECT * FROM notification WHERE username_target=? AND deleted=false");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -152,6 +152,9 @@ class DatabaseHelper{
         $stmt->bind_param("ss", $receiver, $sender);
         $stmt->execute();
         //eliminate the notification if present?
+        $stmt = $this->db->prepare("DELETE FROM notification WHERE username_target=? AND username_source=? and mood_id is NULL and review_id is NULL and post_id is NULL and friend_request_id is NULL ");
+        $stmt->bind_param("ss", $receiver, $sender);
+        $stmt->execute();
     }
 
     public function sendFriendRequest($sender, $receiver){

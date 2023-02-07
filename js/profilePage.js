@@ -193,10 +193,10 @@ if(follow_btn != null){
         if(follow_btn.classList.contains('not_follow')){
             //console.log(username.value)
             axios.get("/Spotlight/userRequest.php?type=0&user="+username.value).then(res=>{
+                console.log("prova")
                 follow_btn.innerHTML = "unfollow";
                 follow_btn.classList.remove("not_follow");
                 follow_btn.classList.add("following");
-                console.log(res["data"])
             }).catch(err=>{console.log(err)})
         }else if(follow_btn.classList.contains('following')){
             axios.get("/Spotlight/userRequest.php?type=1&user="+username.value).then(res=>{

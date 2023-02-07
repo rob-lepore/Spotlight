@@ -14,7 +14,7 @@ if(isUserLoggedIn()){
     }else if($_GET["type"] == 5){
         $dbh->acceptFriendRequest($_COOKIE["username"], $_GET["user"]);
     }
-    header("Location: /Spotlight/profile.php?user=".$_GET["user"]);
+    //header("Location: /Spotlight/profile.php?user=".$_GET["user"]);
 }
 else{
     header("Location: ./");
