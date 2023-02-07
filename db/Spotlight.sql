@@ -71,6 +71,7 @@ create table MOOD (
      emoji char(12) not null,
      song char(50) not null,
      date date not null,
+     gradient int not null,
      constraint ID_MOOD_ID primary key (mood_id),
      constraint FKPOSTS_MOOD_ID unique (username));
 
