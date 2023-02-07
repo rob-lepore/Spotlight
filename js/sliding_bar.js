@@ -3,7 +3,6 @@ var navigationLinks = document.querySelectorAll('.top-links');
 var activeLink = document.querySelector('a.active')
 var slide = document.querySelector(".active-link");
 
-
 function slideToLink(e){
     removeActiveClass();
     setActiveSlide(e.target);
@@ -16,7 +15,8 @@ function removeActiveClass(){
 }
 
 function setActiveSlide(target){
-
+    console.log(target.offsetLeft)
+    console.log(target.offsetWidth)
     slide.style.left = `${target.offsetLeft}px`;
     slide.style.width = `${target.offsetWidth}px`;
 }
@@ -34,5 +34,5 @@ engage_slidebar()
 
 addEventListener("resize", (event) => {
     var activeLink = document.querySelector('a.active')
-        setActiveSlide(activeLink);
+    setActiveSlide(activeLink);
 });

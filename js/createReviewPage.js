@@ -35,14 +35,15 @@ stars.forEach(el=>{
 })
 
 var submit = document.querySelector(".submit")
-
+console.log( document.querySelector("#hidden-date").value)
 submit.addEventListener("click", e=>{
     e.preventDefault();
     var data = new FormData()
     var id = new URLSearchParams(window.location.search)
     data.append("text", document.querySelector("textarea").value)
     data.append("album", id.get("id"))
-    data.append("date", document.querySelector(".date").innerHTML)
+    console.log( document.querySelector("#hidden-date").value)
+    data.append("date", document.querySelector("#hidden-date").value)
     data.append("score", document.querySelector(".rating").getAttribute("id"))
     data.append("number_of_likes", 0)
     data.append("number_of_dislikes", 0)
@@ -50,7 +51,7 @@ submit.addEventListener("click", e=>{
     axios.post("/Spotlight/reviewCreated.php", data)
     .then(res=>{
         if(res["data"] == "SUCCESS"){
-            window.location.replace("http://localhost/Spotlight/")
+            //window.location.replace("http://localhost/Spotlight/")
         }else{
             var div = document.createElement("div")
             div.setAttribute("class", "alert alert-danger alert-dismissible fade show")

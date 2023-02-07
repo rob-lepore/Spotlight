@@ -65,12 +65,9 @@
             background: transparent;
         }
 
-        main{
-            position:relative;
-            width: 100%;
-            height: 100%;
+        .save-btn{
+            visibility:hidden;
         }
-
     </style>
 </head>
 
@@ -107,7 +104,7 @@
     </div>
 
         <div class="d-flex justify-content-between m-3">
-            <img class="profile-pic" style="margin-right:2rem;" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
+            <img class="profile-pic me-2" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
                 <input class="name-holder username mb-0 mt-2 surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
                 <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
@@ -132,7 +129,7 @@
             <div class="col-1"></div>
         </div>
         <input class="select-file" name="propic" type="file"/>
-        <button class="save-btn primary sl-btn" style="visibility:hidden;">save</button>
+        <button class="save-btn primary sl-btn">save</button>
         <div class = "d-flex justify-content-center">
             <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info text-on-primary text-reset text-decoration-none mx-3' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
             <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
@@ -147,7 +144,7 @@
         </div>
     </nav>
 
-    <main style="padding-bottom:3rem;">
+    <main class="pb-5">
         <div class="content">
             <?php if($templateParams['is_follower'] || $templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
                 <div class="Posts">
