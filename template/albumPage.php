@@ -94,7 +94,6 @@
             <h2>Popular Reviews</h2>
         </div>
         <div id="reviewsDiv"><?php
-        var_dump($templateParams["popularReviews"]);
             if($templateParams["popularReviews"][0]["review_id"]!=NULL){
                 foreach ($templateParams["popularReviews"] as $review) {
                     $templateParams['text'] = $review['text'];

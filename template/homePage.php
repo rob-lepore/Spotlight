@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/sliding_bar.css">
+    <link rel="stylesheet" href="css/gradients.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title><?php echo $templateParams["title"] ?></title>
@@ -20,9 +21,15 @@
         margin-bottom:15%;
         margin-top:40%;
     }
+    .album-cover {
+            width: 10%;
+            min-width: 100px;
+            height: auto;
+            margin-right: 0.8rem;
+    }
     @media only screen and (min-width: 395px){
         main {
-            margin-top: 30%;
+            margin-top: 32%;
         }
     }
     @media only screen and (min-width: 900px){

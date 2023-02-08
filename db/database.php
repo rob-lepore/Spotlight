@@ -770,6 +770,17 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getLastMood($username){
+        $date = date("Y/m/d");
+        $query = "SELECT * FROM `mood` WHERE `username`= ? ORDER BY `date` DESC LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getTotalPosts($username){
         $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?)";
         $stmt = $this->db->prepare($query);
