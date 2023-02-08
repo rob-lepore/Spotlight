@@ -24,7 +24,7 @@ class DatabaseHelper{
     */
 
     public function getAlbumReviews($albumId){
-        $stmt = $this->db->prepare("SELECT review_id, text, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY SUM(number_of_likes)+SUM(number_of_dislikes) DESC LIMIT 10");
+        $stmt = $this->db->prepare("SELECT review_id, `text`, album, date, score, number_of_likes, number_of_dislikes, username FROM review WHERE album=? ORDER BY (number_of_likes)+(number_of_dislikes) DESC LIMIT 7");
         $stmt->bind_param("s", $albumId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -757,6 +757,17 @@ class DatabaseHelper{
         $stmt = $this->db->prepare($stmt);
         $stmt->bind_param('ssssi',$username, $emoji, $song, $date, $gradient);
         $stmt->execute();
+    }
+
+    public function getFriendsMoods($username, $offset){
+        $date = date("Y/m/d");
+        $query = "SELECT * FROM `mood` WHERE DATEDIFF(?,`date`)=0 AND `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssi',$date,$username, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getTotalPosts($username){
