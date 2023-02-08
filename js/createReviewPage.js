@@ -51,7 +51,7 @@ submit.addEventListener("click", e=>{
     axios.post("/Spotlight/reviewCreated.php", data)
     .then(res=>{
         if(res["data"] == "SUCCESS"){
-            //window.location.replace("http://localhost/Spotlight/")
+            window.location.replace("http://localhost/Spotlight/")
         }else{
             var div = document.createElement("div")
             div.setAttribute("class", "alert alert-danger alert-dismissible fade show")
