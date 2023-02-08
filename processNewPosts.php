@@ -12,6 +12,7 @@
             $postData['likes'] = $likes;
             $postData['date'] = $post['date'];
             $postData['id'] = $post["post_id"];
+            $postData['text'] = $post["text"];
             $postData['username'] = $post["username"];
             $postData["friendship"] = $dbh->isFriend($postData['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
             $postData["profilePic"] = $dbh->getUserData($postData['username'])[0]["profile_pic"];

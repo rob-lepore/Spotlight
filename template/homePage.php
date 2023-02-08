@@ -82,5 +82,6 @@
     <?php require("footerElement.php"); ?>
     <script src="js/sliding_bar.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/postPage.js"></script>
 </body>
 </html>
