@@ -56,26 +56,24 @@
             <div class="Posts" style="display:block;visibility:visible">
                 <div id="postList">
                     <?php
+                        $_SESSION["postOffset"] = 0;
+                        $moods = $dbh->getFriendsMoods($_COOKIE["username"], $_SESSION["postOffset"]);
                         $postsNumber = $dbh->getTotalPosts($_COOKIE["username"]);
-                        $_SESSION["offset"] = 0;
                         require("processNewPosts.php");
+                        require("processNewMoods.php");
                     ?>
                 </div>
-                <?php if(count($postsNumber)>$_SESSION["offset"]): ?>
-                    <button class="btn secondary" id="loadMorePosts">Load more posts</button>
-                <?php endif?>
+                <button class="btn secondary" id="loadMorePosts" style="visibility:<?php echo (count($postsNumber)>$_SESSION["postOffset"] ? "visible" : "hidden")?>">Load more posts</button>
             </div>
             <div class="Reviews" style="visibility:hidden;display:none">
                 <div id="reviewList">
                     <?php
                         $reviewsNumber = $dbh->getTotalReviews($_COOKIE["username"]);
-                        $_SESSION["offset"] = 0;
+                        $_SESSION["reviewOffset"] = 0;
                         require("processNewReviews.php");
                     ?>
                 </div>
-                <?php if(count($reviewsNumber)>$_SESSION["offset"]): ?>
-                    <button class="btn secondary" id="loadMoreReviews">Load more reviews</button>
-                <?php endif?>
+                <button class="btn secondary" id="loadMoreReviews" style="visibility:<?php echo (count($reviewsNumber)>$_SESSION["reviewOffset"] ? "visible" : "hidden")?>">Load more reviews</button>
             </div>
         </div>
     </main>

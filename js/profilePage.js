@@ -13,20 +13,7 @@ function getCookie(cname) {
     }
     return "";
   }
-(()=>{
-    //vulnerability se l'utente cambiasse il valore del cookie potrebbe modificare il profilo di un utente
-    //contollare il cookie atraverso il db
-    var createbtn = document.querySelector('.create-btn')
-    var search = new URLSearchParams(window.location.search)
-    if(!(getCookie('username') == search.get('user'))){
-        document.querySelector('.edit').removeChild(document.querySelector('.edit').lastChild);
-        document.querySelector('.edit').remove();
-        createbtn.remove();
-    }else{
-        document.querySelector('.follow').remove();
-        document.querySelector('.friend').remove();
-    }
-})()
+
 var edit = document.querySelector(".edit");
 var username = document.querySelector(".username")
 var name_surname = document.querySelector(".realname")
@@ -45,7 +32,7 @@ function changeTheme() {
             
         },
         success: (response) => {
-        document.location.reload();
+            document.location.reload();
         }
     })
 }
@@ -54,8 +41,6 @@ if(edit != null){
 edit.addEventListener("click", e=>{
     e.preventDefault();
     profile_pic.style.visibility = "visible";
-    username.disabled=false;
-    username.style.border = "1px solid #000000"
     name_surname.disabled = false;
     name_surname.style.border = "1px solid #000000"
     save_btn.style.visibility = "visible"
@@ -159,23 +144,24 @@ if(friend_btn != null){
         e.preventDefault()
         if(friend_btn.getAttribute('data-type') == 'not_friend'){
             axios.get("/Spotlight/userRequest.php?type=2&user="+username.value).then(res=>{
-                friend_btn.innerHTML = "cancel request";
+                friend_btn.innerHTML = "Cancel request";
                 friend_btn.setAttribute("data-type","wait-acceptance");
-                console.log(res)
+                console.log(res["data"])
             })
         }else if(friend_btn.getAttribute('data-type') == 'wait-acceptance'){
             axios.get("/Spotlight/userRequest.php?type=3&user="+username.value).then(res=>{
-                friend_btn.innerHTML = "friend request";
+                friend_btn.innerHTML = "Friend request";
                 friend_btn.setAttribute("data-type","not_friend");
+                console.log(res["data"]);
             })
         }else if(friend_btn.getAttribute('data-type') == 'friend'){
             axios.get("/Spotlight/userRequest.php?type=4&user="+username.value).then(res=>{
-                friend_btn.innerHTML = "friend request"
+                friend_btn.innerHTML = "Friend request"
                 friend_btn.setAttribute("data-type","not_friend");
             })
         }else if(friend_btn.getAttribute('data-type') == 'request-received'){
             axios.get("/Spotlight/userRequest.php?type=5&user="+username.value).then(res=>{
-                friend_btn.innerHTML = "remove friend"
+                friend_btn.innerHTML = "Remove friend"
                 friend_btn.setAttribute("data-type","friend")
                 if(decline_friend != null){
                     decline_friend.remove()
@@ -207,10 +193,10 @@ if(follow_btn != null){
         if(follow_btn.classList.contains('not_follow')){
             //console.log(username.value)
             axios.get("/Spotlight/userRequest.php?type=0&user="+username.value).then(res=>{
+                console.log("prova")
                 follow_btn.innerHTML = "unfollow";
                 follow_btn.classList.remove("not_follow");
                 follow_btn.classList.add("following");
-                console.log(res["data"])
             }).catch(err=>{console.log(err)})
         }else if(follow_btn.classList.contains('following')){
             axios.get("/Spotlight/userRequest.php?type=1&user="+username.value).then(res=>{

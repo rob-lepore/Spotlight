@@ -25,14 +25,58 @@
             position: absolute;
         }
         .dropdown:hover .dropdown-content {display: block;}
+
+        .profile-pic{
+            margin-top:1rem;
+            border-radius: 100%;
+            width:9rem;
+            height:9rem;
+        }
+
+        @media screen and (max-width: 500px) {
+            .profile-pic{
+                border-radius: 100%;
+                max-width: 3rem;
+                max-height: 3rem;
+            }
+        }
+
+        .select-file{
+            font-size: smaller;
+            visibility: hidden;
+        }
+
+        .create-btn{
+            min-width: 60px;
+            min-height:60px;
+            border-radius: 30%;
+            border:none;
+            box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
+            color:#6750a4;
+            background:#f8f4fa2f;
+            position:fixed;
+            bottom: 5rem;
+            left: 1rem;
+        }
+
+        .name-holder{
+            border:none;
+            width: 10rem;
+            background: transparent;
+        }
+
+        .save-btn{
+            visibility:hidden;
+        }
     </style>
 </head>
 
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <nav class ="surface">
     <div class ="d-flex flex-row-reverse">
-        <button class=" btn-profile follow <?php echo $templateParams["is_follower"]?"following":"not_follow"?>" type="button"><?php echo $templateParams["is_follower"]?"Unfollow":"Follow"?></button>
-        <button class=" btn-profile friend" type="button" data-type="<?php 
+        <?php if($_COOKIE["username"] != $_GET["user"]):?>
+        <button class="primary sl-btn follow <?php echo $templateParams["is_follower"]?"following":"not_follow"?>" type="button"><?php echo $templateParams["is_follower"]?"Unfollow":"Follow"?></button>
+        <button class="primary sl-btn friend" type="button" data-type="<?php 
             if($templateParams["is_friend"]){
                 echo "friend";
             }elseif($templateParams["sent_request"]){
@@ -53,19 +97,21 @@
             echo "Send request";
         }
         ?></button>
+        <?php endif;?>
         <?php if($templateParams["received_request"]){
-            echo '<button class="btn-profile" data-type="received-request-decline" type="button">Decline request</button>';
+            echo '<button class="sl-btn primary" data-type="received-request-decline" type="button">Decline request</button>';
         }?>
     </div>
 
         <div class="d-flex justify-content-between m-3">
-            <img class="profile-pic" style="margin-right:2rem;" alt='<?php UPLOAD_DIR . "default.jpg"?>' src='<?php echo $templateParams["profilePicPath"] == ""? UPLOAD_DIR . "default.jpg": UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
+            <img class="profile-pic me-2" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
-                <input class="name-holder username" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
-                <input class="name-holder realname" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
+                <input class="name-holder username mb-0 mt-2 surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
+                <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>
-            <div class="dropdown m-3">
-                <button class="btn primary elevation-1">
+            <?php if($_COOKIE["username"] == $_GET["user"]):?>
+            <div class="dropdown">
+                <button class="btn primary btn-lg elevation-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
                         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
                         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
@@ -79,68 +125,89 @@
                     </form>
                 </div>
             </div>
+            <?php endif;?>
+            <div class="col-1"></div>
         </div>
         <input class="select-file" name="propic" type="file"/>
-        <button class="save-btn">save</button>
+        <button class="save-btn primary sl-btn">save</button>
         <div class = "d-flex justify-content-center">
-            <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
-            <a class=" info" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
-            <a class=" info" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
+            <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info text-on-primary text-reset text-decoration-none mx-3' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
+            <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
+            <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
         </div>
-        <div class="">
         <div class="top-navigation">
             <div class="active-link"></div>
                 <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
-                <a class = "top-links" data-value = "Reviews" href="#">Reviews</a>
-                <a class = "top-links" data-value = "Artists" href="#">Artists</a>
-                <a class = "top-links" data-value = "Albums" href="#">Albums</a> 
-        </div>
+                <a class = "top-links " data-value = "Reviews" href="#">Reviews</a>
+                <a class = "top-links " data-value = "Artists" href="#">Artists</a>
+                <a class = "top-links " data-value = "Albums" href="#">Albums</a> 
         </div>
     </nav>
 
-    <main>
+    <main class="pb-5">
         <div class="content">
             <?php if($templateParams['is_follower'] || $templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
-            <div class="Posts">
-
-            </div>
-            <div class="Reviews" style="visibility:hidden;display:none">
-                <?php
-                    foreach($userReviews as $userReview){
-                        $templateParams['text'] = $userReview['text'];
-                        $templateParams['number_of_likes'] = $userReview['number_of_likes'];
-                        $templateParams['number_of_dislikes'] = $userReview['number_of_dislikes'];
-                        $templateParams['date'] = $userReview['date'];
-                        $templateParams['score'] = $userReview["score"];
-                        $templateParams['id'] = $userReview["album"];
-                        $templateParams["max-chars"] = 1000;
-                        $templateParams["review_id"] = $userReview["review_id"];
-                        //$templateParams["is_friend"]
-                        //$templateParams["is_follower"]
-                        //$templateParams["username"]
-                        require('reviewPage.php');
-                    }
-                ?>
-            </div>
-            <div class="Albums" style="visibility:hidden;display:none">
-                    
-            </div>
-            <div class="Artists" style="visibility:hidden;display:none">
-            </div>
+                <div class="Posts">
+                    <?php
+                        // foreach($userPosts as $userPost){
+                        //     $postData["profilePic"] = $templateParams["profilePicPath"];
+                        //     $postData["username"] = $templateParams["username"];
+                        //     $postData["likes"] = $userPost["number_of_likes"];
+                        //     if($templateParams["is_friend"]){
+                        //         $postData["friendship"] = "friends";
+                        //     }elseif($templateParams["is_follower"]){
+                        //         $postData["friendship"] = "follower";//?
+                        //     }elseif($templateParams["username"] == $_COOKIE["username"]){
+                        //         $postData["friendship"] = "";
+                        //     }else{
+                        //         $postData["friendship"] = "not following";
+                        //     }
+                        //     $trackId = $userPost["song"];
+                        //     require('fetchTrackData.php');
+                        //     $postData["track"] = $track;
+                        //     $postData['text'] = $userPost['text'];
+                        //     require('postElement.php');
+                        // }
+                    ?> 
+                </div>
+                <div class="Reviews" style="visibility:hidden;display:none">
+                    <?php
+                        foreach($userReviews as $userReview){
+                            $templateParams['text'] = $userReview['text'];
+                            $templateParams['number_of_likes'] = $userReview['number_of_likes'];
+                            $templateParams['number_of_dislikes'] = $userReview['number_of_dislikes'];
+                            $templateParams['date'] = $userReview['date'];
+                            $templateParams['score'] = $userReview["score"];
+                            $templateParams['id'] = $userReview["album"];
+                            $templateParams["max-chars"] = 1000;
+                            $templateParams["review_id"] = $userReview["review_id"];
+                            //$templateParams["is_friend"]
+                            //$templateParams["is_follower"]
+                            //$templateParams["username"]
+                            require('reviewPage.php');
+                        }
+                    ?>
+                </div>
+                <div class="Albums" style="visibility:hidden;display:none">
+                        
+                </div>
+                <div class="Artists" style="visibility:hidden;display:none">
+                </div>
             <?php endif;?>
             <button class="create-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
             </svg>
             </button>
         </div>
     </main>
 
-    <footer></footer>
+    <?php require("footerElement.php"); ?>
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="./js/sliding_bar.js"></script>
     <script src="./js/profilePage.js"></script>
+    <script src="/Spotlight/js/reviewPage.js"></script>
 </body>
 
 </html>

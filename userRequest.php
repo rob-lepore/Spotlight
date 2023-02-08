@@ -1,6 +1,5 @@
 <?php
 require_once 'bootstrap.php';
-sec_session_start();
 if(isUserLoggedIn()){
     if($_GET["type"] == 0){
         $dbh->followUser($_COOKIE["username"], $_GET["user"]);
@@ -15,7 +14,7 @@ if(isUserLoggedIn()){
     }else if($_GET["type"] == 5){
         $dbh->acceptFriendRequest($_COOKIE["username"], $_GET["user"]);
     }
-    header("Location: /Spotlight/profile.php?user=".$_GET["user"]);
+    //header("Location: /Spotlight/profile.php?user=".$_GET["user"]);
 }
 else{
     header("Location: ./");

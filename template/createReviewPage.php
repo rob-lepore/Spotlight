@@ -10,7 +10,14 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title><?php echo $templateParams["title"]?></title>
     </head>
+
+    <style>
+        .album-cover-img{
+            width:7rem;
+        }
+    </style>
 
     <body class="container" theme="<?php echo $_COOKIE["theme"]?>">
         <div class="topnav mx-2 mt-3 d-flex justify-content-between">
@@ -27,8 +34,8 @@
         </div>
             <div>
             <div class='d-flex my-2 surface align-items-center' data-type="template" style="<?php isset($_GET["id"])?'visibility:visible':'visibility:hidden'?>"">
-                <img class='album-cover-img' style="width:7rem" src="<?php echo isset($_GET["id"])?$data["image"]:''?>" />
-                <div style="width:65%" class="overflow-hidden d-block">
+                <img class='album-cover-img'  src="<?php echo isset($_GET["id"])?$data["image"]:''?>" />
+                <div class="overflow-hidden d-block">
                     <h1 class=" albumName"><?php echo isset($_GET["id"])?$data["name"]:''?></h1>
                     
                     <h4 class=" artistname">
@@ -82,6 +89,7 @@
                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
             </svg>
             <div class="my-2"><p class="username mr-2 label-medium"><?php echo $templateParams["username"]?></p><p class="date text-medium"><?php echo $templateParams["date"]?></p></div>
+            <input type="hidden" id="hidden-date" value="<?php echo $templateParams["hidden-date"]?>"/>
         </section>
         <section class="">
             <textArea class = "col-12 review" style="resize:none;border-radius:0.4;box-sizing:border-box;border: 1.2% solid #ccc;" rows="20"></textArea>

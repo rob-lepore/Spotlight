@@ -1,35 +1,46 @@
+
 <style>
     .profile-pic-review{
         border-radius: 100%;
         width:3rem;
         height:3rem;
     }
+
+    .album-cover-img{
+        width:4rem;
+        border-radius:0.5rem;
+    }
+    .album-section{
+        border-radius:0.5rem;
+        height:5rem;
+    }
 </style>
-<main class="review container my-3" id="<?php echo $templateParams["review_id"]?>">
+
+<article class="review container my-3" id="<?php echo $templateParams["review_id"]?>">
     <header class="d-flex flex-row ">
         <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>">
         <img class="col-3 profile-pic-review mr-3" alt="" src="<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>"/>
         </a>
         <div class="col-5 flex-column">
-            <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>" class="label-large" style="text-decoration:none;outline:none;color:black"> <p class="label-large ms-3 username"><?php echo $templateParams["username"]?></p> </a>
+            <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>" class="label-large text-decoration-none text-reset"> <p class="label-large ms-3 username"><?php echo $templateParams["username"]?></p> </a>
             <p><?php echo $templateParams["is_follower"]?"following":($templateParams["username"] == $_COOKIE["username"]?"":"not following");?></p>
         </div>
-        <p class=" ms-auto text-small"><?php echo $templateParams["date"]?></p>
+        <p class=" ms-auto text-small"><?php echo substr($templateParams["date"],0,10)?></p>
     </header>
     <?php 
         $albumId = $templateParams["id"];
         require("fetchAlbumInfo.php");
-        //var_dump($album_data)
-        //var_dump($templateParams)
     ?>
-    <section class='d-flex my-2 surface align-items-center' style="border-radius:0.5rem;height:5rem" data-type="template" >
-        <img class='album-cover-img mx-2' style="width:4rem;border-radius:0.5rem;" src="<?php echo $album_data->images[0]->url?>" />
-        <div style="width:65%" class="overflow-hidden d-block">
+    <a href=<?php echo '/Spotlight/album.php?id='.$album_data->id?> class="text-decoration-none text-reset">
+    <section class='d-flex my-2 surface align-items-center album-section' data-type="template" >
+            <img class='album-cover-img mx-2' src="<?php echo $album_data->images[0]->url?>" />
+        <div  class="overflow-hidden d-block">
             <span class="text-truncate albumName ml-2 label-large"><?php echo $album_data->name ?></span>
             <br>
             <span class="text-truncate artistname ml-2 text-small"><?php foreach($album_data->artists as $data){ echo $data->name;} ?></span>
         </div>
     </section>
+    </a>
     <section class="rating d-flex flex-row align-items-center my-2">
         <?php
             for($i=1;$i<=$templateParams['score'];$i++){
@@ -52,8 +63,8 @@
     </section>
     <section class="col-12" >
         <p class="review-text" data-show=<?php echo $templateParams["max-chars"]?>><?php echo $templateParams["text"]?>
-    <section>
-    <section class="rating-users d-flex flex-row justify-content-end">
+    </section>
+    <section class="rating-users d-flex flex-row justify-content-end mb-3">
     <p class="thumbs-up-value"><?php echo $templateParams["number_of_likes"]?></p>
     <?php
     require('isLikedReview.php'); 
@@ -107,5 +118,4 @@
     </svg>';
     }?>
     </section>
-</main>
-<script src="/Spotlight/js/reviewPage.js"></script>
+</article>

@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <title><?php echo $templateParams["title"] ?></title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
     .album-image {
         width: 9rem;
@@ -92,8 +93,9 @@
             </button>
             <h2>Popular Reviews</h2>
         </div>
-        <div id="reviewsDiv">
-            <?php
+        <div id="reviewsDiv"><?php
+        var_dump($templateParams["popularReviews"]);
+            if($templateParams["popularReviews"][0]["review_id"]!=NULL){
                 foreach ($templateParams["popularReviews"] as $review) {
                     $templateParams['text'] = $review['text'];
                     $templateParams['number_of_likes'] = $review['number_of_likes'];
@@ -105,10 +107,10 @@
                     $templateParams["is_follower"] = $dbh->isFollower($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
                     $templateParams["max-chars"] = 150;
                     $templateParams["review_id"] = $review["review_id"];
-                    $templateParams["profilePicPath"] = $dbh->getUserData($templateParams['username'])[0]["profile_pic"];
+                    $templateParams["profilePicPath"] = $dbh->getUserData($templateParams["username"])[0]["profile_pic"];
                     require('reviewPage.php');
                 }
-            ?>
+            }?>
         </div>
     </section>
     
