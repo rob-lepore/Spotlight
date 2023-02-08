@@ -145,6 +145,7 @@ p {
     padding: 0.4rem 0.8rem;
     border: none;
     letter-spacing: 0.05em;
+    border-radius: 1px;
     background-color: var(--primary);
 }
 
@@ -154,9 +155,11 @@ p {
 
 .ov-btn{
     background-color: var(--bg-color);
+    border-radius: 5px;
     color: var(--text-on-surface);
 }
 
 .ov-btn:hover{
     color: var(--text-on-primary);
+    background-color: var(--bg-color);
 }

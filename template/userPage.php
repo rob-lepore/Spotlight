@@ -12,9 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
     <style>
-        .choices {
-
-        }
         .dropdown {
             position: relative;
             display: inline-block;
