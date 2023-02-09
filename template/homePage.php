@@ -83,4 +83,5 @@
     <script src="js/sliding_bar.js"></script>
     <script src="js/home.js"></script>
 </body>
+<script src="/Spotlight/js/reviewPage.js"></script>
 </html>

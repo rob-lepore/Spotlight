@@ -148,6 +148,11 @@
         <div class="content">
             <?php if($templateParams['is_follower'] || $templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
                 <div class="Posts">
+                    <?php if($templateParams['is_friend']):?>
+                        <?php
+                           
+                        ?>
+                    <?php endif;?>
                     <?php
                         // foreach($userPosts as $userPost){
                         //     $postData["profilePic"] = $templateParams["profilePicPath"];
