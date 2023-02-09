@@ -167,6 +167,6 @@ textarea {
 }
 
 .ov-btn:hover {
-    color: var(--text-on-primary);
+    color: var(--primary);
     background-color: var(--bg-color);
 }
