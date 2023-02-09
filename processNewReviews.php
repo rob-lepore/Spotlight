@@ -2,8 +2,8 @@
     require_once("bootstrap.php");
     if(isUserLoggedIn()){
         $username = $_COOKIE["username"];
-        $templateParams["followersReviews"] = $dbh->getFollowersReviews($username, $_SESSION["offset"]);
-        $_SESSION["offset"]  = $_SESSION["offset"]  + 5;
+        $templateParams["followersReviews"] = $dbh->getFollowersReviews($username, $_SESSION["reviewOffset"]);
+        $_SESSION["reviewOffset"]  = $_SESSION["reviewOffset"]  + 5;
         foreach($templateParams["followersReviews"] as $review){
             $templateParams['text'] = $review['text'];
             $templateParams['number_of_likes'] = $review['number_of_likes'];

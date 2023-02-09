@@ -93,8 +93,8 @@
             </button>
             <h2>Popular Reviews</h2>
         </div>
-        <div id="reviewsDiv">
-            <?php
+        <div id="reviewsDiv"><?php
+            if($templateParams["popularReviews"][0]["review_id"]!=NULL){
                 foreach ($templateParams["popularReviews"] as $review) {
                     $templateParams['text'] = $review['text'];
                     $templateParams['number_of_likes'] = $review['number_of_likes'];
@@ -106,10 +106,10 @@
                     $templateParams["is_follower"] = $dbh->isFollower($templateParams['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
                     $templateParams["max-chars"] = 150;
                     $templateParams["review_id"] = $review["review_id"];
-                    $templateParams["profilePicPath"] = $dbh->getUserData($templateParams['username'])[0]["profile_pic"];
+                    $templateParams["profilePicPath"] = $dbh->getUserData($templateParams["username"])[0]["profile_pic"];
                     require('reviewPage.php');
                 }
-            ?>
+            }?>
         </div>
     </section>
     
@@ -118,4 +118,5 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="js/albumPage.js"></script>
 </body>
+<script src="/Spotlight/js/reviewPage.js"></script>
 </html>

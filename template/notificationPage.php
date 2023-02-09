@@ -10,7 +10,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="css/styles.css">
-        <title><?php echo $title?></title>
+        <title><?php echo $templateParams["title"]?></title>
 
     </head>
 
@@ -23,7 +23,8 @@
             }
         ?>
         </main>
+        <?php require("template/footerElement.php") ?>
+        <script src="/Spotlight/js/notificationPage.js"></script>
     </body>
-<script src="/Spotlight/js/notificationPage.js"></script>
 
 </html>

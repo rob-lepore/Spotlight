@@ -98,6 +98,6 @@
             <button class="primary elevation submit" style="border-radius:30px;border:none">Submit</button>
         </div>
         <script src="/Spotlight/js/createReviewPage.js"></script>
-        
+        <?php require("template/footerElement.php") ?>
     </body>
 </html>

@@ -2,8 +2,8 @@
 <style>
     .profile-pic-review{
         border-radius: 100%;
-        width:3rem;
-        height:3rem;
+        width:4rem;
+        height:4rem;
     }
 
     .album-cover-img{
@@ -16,7 +16,7 @@
     }
 </style>
 
-<article class="review container my-3" id="<?php echo $templateParams["review_id"]?>">
+<article class="review container mb-3" id="<?php echo $templateParams["review_id"]?>">
     <header class="d-flex flex-row ">
         <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>">
         <img class="col-3 profile-pic-review mr-3" alt="" src="<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>"/>

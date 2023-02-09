@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/sliding_bar.css">
+    <link rel="stylesheet" href="css/gradients.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title><?php echo $templateParams["title"] ?></title>
@@ -20,9 +21,15 @@
         margin-bottom:15%;
         margin-top:40%;
     }
+    .album-cover {
+            width: 10%;
+            min-width: 100px;
+            height: auto;
+            margin-right: 0.8rem;
+    }
     @media only screen and (min-width: 395px){
         main {
-            margin-top: 30%;
+            margin-top: 32%;
         }
     }
     @media only screen and (min-width: 900px){
@@ -56,31 +63,31 @@
             <div class="Posts" style="display:block;visibility:visible">
                 <div id="postList">
                     <?php
+                        $_SESSION["postOffset"] = 0;
+                        $moods = $dbh->getFriendsMoods($_COOKIE["username"], $_SESSION["postOffset"]);
                         $postsNumber = $dbh->getTotalPosts($_COOKIE["username"]);
-                        $_SESSION["offset"] = 0;
                         require("processNewPosts.php");
+                        require("processNewMoods.php");
                     ?>
                 </div>
-                <?php if(count($postsNumber)>$_SESSION["offset"]): ?>
-                    <button class="btn secondary" id="loadMorePosts">Load more posts</button>
-                <?php endif?>
+                <button class="btn secondary" id="loadMorePosts" style="visibility:<?php echo (count($postsNumber)>$_SESSION["postOffset"] ? "visible" : "hidden")?>">Load more posts</button>
             </div>
             <div class="Reviews" style="visibility:hidden;display:none">
                 <div id="reviewList">
                     <?php
                         $reviewsNumber = $dbh->getTotalReviews($_COOKIE["username"]);
-                        $_SESSION["offset"] = 0;
+                        $_SESSION["reviewOffset"] = 0;
                         require("processNewReviews.php");
                     ?>
                 </div>
-                <?php if(count($reviewsNumber)>$_SESSION["offset"]): ?>
-                    <button class="btn secondary" id="loadMoreReviews">Load more reviews</button>
-                <?php endif?>
+                <button class="btn secondary" id="loadMoreReviews" style="visibility:<?php echo (count($reviewsNumber)>$_SESSION["reviewOffset"] ? "visible" : "hidden")?>">Load more reviews</button>
             </div>
         </div>
     </main>
     <?php require("footerElement.php"); ?>
     <script src="js/sliding_bar.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/postPage.js"></script>
 </body>
+<script src="/Spotlight/js/reviewPage.js"></script>
 </html>

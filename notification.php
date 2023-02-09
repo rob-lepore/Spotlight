@@ -1,7 +1,7 @@
 <?php
     require_once("bootstrap.php");
     if(isUserLoggedIn()){
-        $title = "notifications";
+        $templateParams["title"] = "notifications";
         $notifications = $dbh->getAllNotificationsOfUser($_COOKIE["username"]);
         $data = array();
         for($i=0;$i<count($notifications);$i++){
