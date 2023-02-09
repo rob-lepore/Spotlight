@@ -2,8 +2,8 @@
     require_once("bootstrap.php");
     if(isUserLoggedIn()){
         $username = $_COOKIE["username"];
-        $templateParams["friendsPosts"] = $dbh->getFriendsPosts($username, $_SESSION["offset"]);
-        $_SESSION["offset"]  = $_SESSION["offset"]  + 5;
+        $templateParams["friendsPosts"] = $dbh->getFriendsPosts($username, $_SESSION["postOffset"]);
+        $_SESSION["postOffset"]  = $_SESSION["postOffset"]  + 5;
         foreach($templateParams["friendsPosts"] as $post){
             $trackId = $post['song'];
             require("fetchTrackData.php");
