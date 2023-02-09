@@ -27,9 +27,24 @@
             height: auto;
             margin-right: 0.8rem;
     }
+    @media only screen and (min-width: 320px){
+        main {
+            margin-top: 45%;
+        }
+    }
     @media only screen and (min-width: 395px){
         main {
             margin-top: 32%;
+        }
+    }
+    @media only screen and (min-width: 400px){
+        main {
+            margin-top: 35%;
+        }
+    }
+    @media only screen and (min-width: 770px){
+        main {
+            margin-top: 25%;
         }
     }
     @media only screen and (min-width: 900px){

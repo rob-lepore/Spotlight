@@ -16,11 +16,15 @@
 
 
     <body theme="<?php echo $_COOKIE["theme"]?>">
+        <div class="d-flex flex-row justify-content-center mb-3 elevation-1">
+            <h1>Notifications</h1>
+        </div>
         <main class="container">
         <?php 
             foreach($data as $templateParams){
                 require('notificationElement.php');
             }
+            $templateParams["title"] = "notifications";
         ?>
         </main>
         <?php require("template/footerElement.php") ?>
