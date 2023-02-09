@@ -2,7 +2,6 @@
     require_once("bootstrap.php");
     if(isUserLoggedIn()){
         $username = $_COOKIE["username"];
-        $_SESSION["postOffset"]  = $_SESSION["postOffset"]  + 5;
         foreach($moods as $mood){
             $trackId = $mood['song'];
             require("fetchTrackData.php");

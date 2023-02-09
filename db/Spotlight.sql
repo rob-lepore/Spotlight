@@ -72,8 +72,7 @@ create table MOOD (
      song char(50) not null,
      date date not null,
      gradient int not null,
-     constraint ID_MOOD_ID primary key (mood_id),
-     constraint FKPOSTS_MOOD_ID unique (username));
+     constraint ID_MOOD_ID primary key (mood_id));
 
 create table NOTIFICATION (
      notification_id int not null AUTO_INCREMENT,
@@ -332,7 +331,7 @@ create index FKTRIES_IND
 create unique index ID_MOOD_IND
      on MOOD (mood_id);
 
-create unique index FKPOSTS_MOOD_IND
+create index FKPOSTS_MOOD_IND
      on MOOD (username);
 
 create unique index ID_NOTIFICATION_IND
