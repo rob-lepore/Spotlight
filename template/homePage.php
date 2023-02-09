@@ -79,10 +79,10 @@
                 <div id="postList">
                     <?php
                         $_SESSION["postOffset"] = 0;
-                        $moods = $dbh->getFriendsMoods($_COOKIE["username"], $_SESSION["postOffset"]);
+                        $moods = $dbh->getFriendsMoods($_COOKIE["username"]);
+                        require("processNewMoods.php");
                         $postsNumber = $dbh->getTotalPosts($_COOKIE["username"]);
                         require("processNewPosts.php");
-                        require("processNewMoods.php");
                     ?>
                 </div>
                 <button class="btn secondary" id="loadMorePosts" style="visibility:<?php echo (count($postsNumber)>$_SESSION["postOffset"] ? "visible" : "hidden")?>">Load more posts</button>
