@@ -13,9 +13,9 @@
 
 </style>
 
-<div class="modal fade" id="selectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content p-0">
+<div class="modal fade" id="selectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+        <div class="modal-content p-0 overlayBackground">
             <div class="modal-header" style="border-bottom: none;">
                 <div class="form-floating w-100">
                     <input type="text" class="form-control" id="searchInput" placeholder="Search" search-type=<?php echo $templateParams["searchType"] ?>>

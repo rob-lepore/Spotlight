@@ -2,8 +2,8 @@
     require_once("bootstrap.php");
     if(isUserLoggedIn()){
         $username = $_COOKIE["username"];
-        $templateParams["friendsPosts"] = $dbh->getFriendsPosts($username, $_SESSION["offset"]);
-        $_SESSION["offset"]  = $_SESSION["offset"]  + 5;
+        $templateParams["friendsPosts"] = $dbh->getFriendsPosts($username, $_SESSION["postOffset"]);
+        $_SESSION["postOffset"]  = $_SESSION["postOffset"]  + 5;
         foreach($templateParams["friendsPosts"] as $post){
             $trackId = $post['song'];
             require("fetchTrackData.php");
@@ -12,6 +12,7 @@
             $postData['likes'] = $likes;
             $postData['date'] = $post['date'];
             $postData['id'] = $post["post_id"];
+            $postData['text'] = $post["text"];
             $postData['username'] = $post["username"];
             $postData["friendship"] = $dbh->isFriend($postData['username'], $_COOKIE["username"])[0]["COUNT(*)"] >= 1;
             $postData["profilePic"] = $dbh->getUserData($postData['username'])[0]["profile_pic"];
