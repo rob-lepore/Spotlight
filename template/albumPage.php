@@ -13,6 +13,9 @@
     .album-image {
         width: 9rem;
     }
+    .popular-reviews{
+        margin-bottom:20%;
+    }
     @media only screen and (min-width: 600px) {
         .buttons {
             justify-content: left;
@@ -84,7 +87,7 @@
             } ?>
         </div>
     </section>
-    <section class="mt-3 mb-5">
+    <section class="mt-3 popular-reviews">
         <div class="d-flex">
             <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="showReviews">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">

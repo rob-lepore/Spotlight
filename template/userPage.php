@@ -13,6 +13,12 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
     <style>
+        .album-cover {
+            width: 10%;
+            min-width: 100px;
+            height: auto;
+            margin-right: 0.8rem;
+        }
         .dropdown {
             position: relative;
             display: inline-block;
@@ -146,14 +152,14 @@
         <div class="content">
             <?php if($templateParams['is_follower'] || $templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
                 <div class="Posts">
-                    <?php if(($templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]) && isset($userLastMood["song"])):?>
+                    <?php if(($templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]) && isset($userLastMood[0]["song"])):?>
                         <?php
-                            $trackId = $userLastMood['song'];
+                            $trackId = $userLastMood[0]['song'];
                             require("fetchTrackData.php");
                             $moodData["track"] = $track;
-                            $moodData["username"] = $userLastMood["username"];
-                            $moodData["emo"] = $userLastMood["emoji"];
-                            $moodData["gradient"] = $userLastMood["gradient"];
+                            $moodData["username"] = $userLastMood[0]["username"];
+                            $moodData["emo"] = $userLastMood[0]["emoji"];
+                            $moodData["gradient"] = $userLastMood[0]["gradient"];
                             require('template/moodElement.php');
                         ?>
                     <?php endif;?>
