@@ -35,9 +35,9 @@
     </style>
 </head>
 
-<body theme="<?php echo $_COOKIE["theme"]?>">
+<body theme="<?php echo $_COOKIE["theme"]?>" style="height:90vh; display:flex">
 
-    <main style="margin-top:50%;">
+    <main style="margin: auto">
         <div class='d-flex my-2 align-items-center elevation-1 mx-auto p-3' id="card" style="border-radius: 10px;  width:90%" onclick="changeGradient()">
             <img class='album-cover' src=<?php echo $track->album->images[0]->url ?>>
             <div class="overflow-hidden d-block">
