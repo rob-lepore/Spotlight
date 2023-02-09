@@ -132,6 +132,13 @@ p {
     background-color: var(--bg-color);
 }
 
+input,
+textarea {
+    background-color: var(--surface) !important;
+    border: none !important;
+    color: var(--text-on-surface) !important;
+}
+
 .sl-btn {
     font-weight: bold;
     padding: 0.4rem 0.8rem;
@@ -149,17 +156,17 @@ p {
     background-color: var(--primary);
 }
 
-.ml-btn:hover{
+.ml-btn:hover {
     background-color: var(--secondary);
 }
 
-.ov-btn{
+.ov-btn {
     background-color: var(--bg-color);
     border-radius: 5px;
     color: var(--text-on-surface);
 }
 
-.ov-btn:hover{
+.ov-btn:hover {
     color: var(--text-on-primary);
     background-color: var(--bg-color);
 }

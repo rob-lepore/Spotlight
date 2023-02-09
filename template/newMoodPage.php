@@ -15,6 +15,10 @@
         body {
             background-color: var(--list-item-bg);
             margin: 0;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         [id^=emo]{
@@ -24,20 +28,24 @@
             height: auto;
             
         }
+
+        main {
+            max-width: 700px;
+        }
     </style>
 </head>
 
-<body theme="<?php echo $_COOKIE["theme"]?>">
+<body theme="<?php echo $_COOKIE["theme"]?>" >
 
     <header class="m-3">
-        <a href="./">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+        <a href="./" style="color:inherit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
             </svg>
         </a>
     </header>
 
-    <main class="overlayBackground elevation-1 w-75 mx-auto p-3" style="border-radius: 10px; margin-top:50%">
+    <main class="overlayBackground elevation-1 w-75 mx-auto p-3 d-flex flex-column" style="border-radius: 10px;">
         <?php
         $templateParams["searchType"] = "track"; // oppure "album"
         require("template/modal.php");
