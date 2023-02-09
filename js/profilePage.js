@@ -21,7 +21,6 @@ var profile_pic = document.querySelector(".select-file")
 var save_btn = document.querySelector(".save-btn")
 var friend_btn = document.querySelector('.friend')
 var follow_btn = document.querySelector('.follow')
-var create_btn = document.querySelector('.create-btn')
 var decline_friend = document.querySelector('[data-type=received-request-decline]')
 
 function changeTheme() {
@@ -45,18 +44,6 @@ edit.addEventListener("click", e=>{
     name_surname.style.border = "1px solid #000000"
     save_btn.style.visibility = "visible"
 })
-}
-
-if(create_btn != null){
-    create_btn.addEventListener("click", e=>{
-        e.preventDefault();
-        activeLink = document.querySelector('a.active');
-        if(activeLink.getAttribute('data-value') == "Posts"){
-            window.location.replace("/Spotlight/newPost.php")
-        }else if(activeLink.getAttribute('data-value') == "Reviews"){
-            window.location.replace("/Spotlight/newReview.php")
-        }
-    })
 }
 
 function lowerFirstLetter(string) {
