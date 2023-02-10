@@ -11,60 +11,11 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/sliding_bar.css">
     <link rel="stylesheet" href="css/gradients.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title><?php echo $templateParams["title"] ?></title>
-    <style>
-    .profile-pic {
-        width: 2rem;
-        border-radius: 50%;
-    }
-    main{
-        margin-bottom:15%;
-        margin-top:40%;
-    }
-    .album-cover {
-            width: 10%;
-            min-width: 100px;
-            height: auto;
-            margin-right: 0.8rem;
-    }
-    @media only screen and (min-width: 320px){
-        main {
-            margin-top: 45%;
-        }
-    }
-    @media only screen and (min-width: 395px){
-        main {
-            margin-top: 32%;
-        }
-    }
-    @media only screen and (min-width: 400px){
-        main {
-            margin-top: 35%;
-        }
-    }
-    @media only screen and (min-width: 770px){
-        main {
-            margin-top: 25%;
-        }
-    }
-    @media only screen and (min-width: 900px){
-        main {
-            margin-top: 20%;
-        }
-    }
-    @media only screen and (min-width: 1100px){
-        main {
-            margin-top: 15%;
-        }
-    }
-    @media only screen and (min-width: 1500px){
-        main {
-            margin-top: 12%;
-        }
-    }
-    </style>
 </head>
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">
     <header class="fixed-top overlayBackground py-2 elevation-1">

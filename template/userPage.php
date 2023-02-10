@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/sliding_bar.css">
     <link rel="stylesheet" href="css/profile-page.css">
     <link rel="stylesheet" href="css/gradients.css">
+    <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
     <style>
