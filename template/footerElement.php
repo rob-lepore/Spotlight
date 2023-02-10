@@ -1,41 +1,3 @@
-<style>
-    .icon-button{
-        position: relative;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        width:50px;
-        height:50px;
-
-    }
-    .icon-button_badge{
-        position: absolute;
-        top:5px;
-        right:5px;
-        width:20px;
-        height:20px;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        border-radius:50%;
-    }
-
-    .newPost {
-        position: relative;
-        display: inline-block;
-    }
-
-    .postTypes {
-        display: none;
-        position: absolute;
-        left: -165%;
-    }
-
-    .newPost:hover .postTypes {
-        display: block;
-        bottom: 100%;
-    } 
-</style>
 <footer class="fixed-bottom overlayBackground py-2 elevation-1">
     <div class="d-flex flex-row justify-content-around">
         <a href="<?php echo ($templateParams["title"] == "Spotlight - Home" ? "#" : "home.php")?>" class="btn ov-btn" title="Home page">
@@ -55,7 +17,7 @@
                     <button class="btn ov-btn">New Post</button>
                 </form>
                 <?php if(!empty($dbh->getLastMood($_COOKIE["username"])) && ((time() - strtotime($dbh->getLastMood($_COOKIE["username"])[0]["date"])) < (60 * 60 * 24))) :?>
-                    <button class="btn ov-btn">Daily Mood</button>
+                    <button class="btn ov-btn" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-container="body" data-bs-placement="top" title="You already posted your daily mood!" data-bs-content="Wait until midnight to let everyone know how you feel">Daily Mood</button>
                 <?php else:?>
                     <form action="mood.php">
                         <button class="btn ov-btn">Daily Mood</button>
@@ -76,4 +38,7 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script src="js/footerElement.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>

@@ -1,0 +1,49 @@
+.profile-pic {
+    width: 2rem;
+    border-radius: 50%;
+}
+main{
+    margin-bottom:15%;
+    margin-top:40%;
+}
+.album-cover {
+        width: 10%;
+        min-width: 100px;
+        height: auto;
+        margin-right: 0.8rem;
+}
+@media only screen and (min-width: 320px){
+    main {
+        margin-top: 45%;
+    }
+}
+@media only screen and (min-width: 395px){
+    main {
+        margin-top: 32%;
+    }
+}
+@media only screen and (min-width: 400px){
+    main {
+        margin-top: 35%;
+    }
+}
+@media only screen and (min-width: 770px){
+    main {
+        margin-top: 25%;
+    }
+}
+@media only screen and (min-width: 900px){
+    main {
+        margin-top: 20%;
+    }
+}
+@media only screen and (min-width: 1100px){
+    main {
+        margin-top: 15%;
+    }
+}
+@media only screen and (min-width: 1500px){
+    main {
+        margin-top: 12%;
+    }
+}
