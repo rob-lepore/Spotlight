@@ -1,4 +1,4 @@
-<div>
+<div class="mt-2">
     <header class="d-flex justify-content-between">
         <div class="d-flex align-items-center">
             <img src=<?php echo UPLOAD_DIR . $postData["profilePic"] ?> alt="" style=" width: 4rem; height: 4rem; border-radius:50%" class="me-2">
@@ -7,7 +7,7 @@
                 <?php echo $postData["username"] ?>
                 </h1>
                 <h2 class="title-medium">
-                <?php echo $postData["friendship"] ? "Friend" : "Following" ?>
+                <?php echo $postData["friendship"] ? "Friend" :($postData["username"] == $_COOKIE["username"]?"":"Following") ?>
                 </h2>
             </div>
         </div>
