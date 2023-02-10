@@ -5,11 +5,9 @@ activeLinks.forEach(el=>{
     el.addEventListener("click", e=>{
         e.preventDefault();
         if(document.querySelector('a.active').getAttribute('data-value') == "Posts"){
-            console.log("post")
             document.querySelector('.Posts').setAttribute('style', 'display:block;visibility:visible')
             document.querySelector('.Reviews').setAttribute('style', 'display:none;visibility:hidden')
         }else if(document.querySelector('a.active').getAttribute('data-value') == "Reviews"){
-            console.log("reviews")
             document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden' )
             document.querySelector('.Reviews').setAttribute('style', 'display:block;visibility:visible')
         }
@@ -18,6 +16,37 @@ activeLinks.forEach(el=>{
 
 let morePosts = document.querySelector("#loadMorePosts");
 let moreReviews = document.querySelector("#loadMoreReviews");
+//style="visibility:<?php echo (count($postsNumber)>$_SESSION["postOffset"] ? "visible" : "hidden")?>"
+function postButton(){
+    if(document.querySelector('a.active').getAttribute('data-value') == "Posts"){
+        $.ajax({
+            url: 'homePostButton.php',
+            type: 'POST',
+            data: {},
+            success: (response) => {
+                morePosts.setAttribute('style', 'visibility:'.concat(response));
+            }
+        })
+    }
+}
+
+function reviewButton(){
+    if(document.querySelector('a.active').getAttribute('data-value') == "Reviews"){
+        $.ajax({
+            url: 'homeReviewButton.php',
+            type: 'POST',
+            data: {},
+            success: (response) => {
+                moreReviews.setAttribute('style', 'visibility:'.concat(response));
+            }
+        })
+    }
+}
+
+reviewButton()
+window.setInterval(reviewButton, 500)
+postButton()
+window.setInterval(postButton, 500)
 
 morePosts.addEventListener("click", e =>{
     e.preventDefault();
@@ -29,5 +58,16 @@ morePosts.addEventListener("click", e =>{
             document.querySelector("#postList").innerHTML += response;
         }
     })
-    
+});
+
+moreReviews.addEventListener("click", e =>{
+    e.preventDefault();
+    $.ajax({
+        url: 'processNewReviews.php',
+        type: 'POST',
+        data: {},
+        success: (response) => {
+            document.querySelector("#reviewList").innerHTML += response;
+        }
+    })
 });
