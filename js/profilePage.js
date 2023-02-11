@@ -74,7 +74,7 @@ function createNewElements(type){
                     section.setAttribute('style', 'border-radius:0.5rem;height:5rem;')
                     var img = document.createElement('img')
                     img.setAttribute('class', 'mx-2')
-                    img.setAttribute('style',"width:4rem;border-radius:100%;")
+                    img.setAttribute('style',"width:4rem;border-radius:100%;object-fit: cover;")
                     img.setAttribute("src",res["data"]["images"][1]["url"])
                     var span = document.createElement('span')
                     span.setAttribute('class',"albumName ml-2 label-large")
@@ -212,7 +212,7 @@ save_btn.addEventListener("click", e=>{
     name_surname.style.border = "none"
     save_btn.style.visibility = "hidden"
     axios.post('/Spotlight/save_update.php', data, {headers:{'Content-Type':'multipart/form-data'}}).then(res=>{
-        console.log(res["data"])
+        location.reload()
     }).catch(err=>{
         console.log(err)
     })

@@ -18,6 +18,16 @@
         .album-cover-img{
             width:7rem;
         }
+        .post_text{
+        width: 98%;
+        height: 150px;
+        padding: 0.5rem 0.5rem;
+        box-sizing: border-box;
+        border: 1.2% solid #ccc;
+        border-radius: 0.4rem;
+        margin: 0% 1%;
+        resize: none;
+    }
     </style>
 
     <body class="container" theme="<?php echo $_COOKIE["theme"]?>">
@@ -34,7 +44,7 @@
             ?>
         </div>
             <div>
-            <div class='d-flex my-2 surface align-items-center' data-type="template" style="<?php isset($_GET["id"])?'visibility:visible':'visibility:hidden'?>"">
+            <div class='d-flex my-2 align-items-center' data-type="template" style="<?php isset($_GET["id"])?'visibility:visible':'visibility:hidden'?>"">
                 <img class='album-cover-img'  src="<?php echo isset($_GET["id"])?$data["image"]:''?>" />
                 <div class="overflow-hidden d-block">
                     <h1 class=" albumName"><?php echo isset($_GET["id"])?$data["name"]:''?></h1>
@@ -93,10 +103,10 @@
             <input type="hidden" id="hidden-date" value="<?php echo $templateParams["hidden-date"]?>"/>
         </section>
         <section class="">
-            <textArea class = "col-12 review" style="resize:none;border-radius:0.4;box-sizing:border-box;border: 1.2% solid #ccc;" rows="10"></textArea>
+            <textArea class = "col-12 review post_text" placeholder="Write here..." rows="10"></textArea>
         </section>
         <div class="d-flex flex-row-reverse">
-            <button class="primary elevation submit" style="border-radius:30px;border:none">Submit</button>
+            <button class="btn bn-sm primary elevation submit" style="border-radius:30px;border:none">Submit</button>
         </div>
         <script src="/Spotlight/js/createReviewPage.js"></script>
         <?php require("template/footerElement.php") ?>
