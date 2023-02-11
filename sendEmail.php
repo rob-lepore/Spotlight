@@ -16,7 +16,7 @@ function sendEmail($emailData){
         $mail->Host       = 'smtp.gmail.com';                    
         $mail->SMTPAuth   = true;                                   
         $mail->Username   = 'app.web.spotlight@gmail.com';                     
-        $mail->Password   = 'sghhxkzvxvjynuvn';                               
+        $mail->Password   = 'vqvvokqsabrxmgpy';                               
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
         $mail->Port       = 587;
 

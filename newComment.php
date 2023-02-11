@@ -8,6 +8,11 @@
        $postId = $_GET["id"];
        print_r($_POST);
        if($_POST["userReply"] == ""){
+        $posd = $dbh->getPostData($postId);
+        $username = $posd[0]["username"];
+        $us = $dbh->getUserData($username);
+        $email = $us[0]["email"];
+        sendEmailToCommentOnyourPost($email, $username, $postId);
         $dbh->createComment($postId, $user, $text);
        } else {
         $replyTo = $_POST["userReply"];
