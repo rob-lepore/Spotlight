@@ -13,67 +13,7 @@
     <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
-    <style>
-        .album-cover {
-            width: 10%;
-            min-width: 100px;
-            height: auto;
-            margin-right: 0.8rem;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            z-index:1;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-        }
-        .dropdown:hover .dropdown-content {display: block;}
 
-        .profile-pic{
-            margin-top:1rem;
-            border-radius: 100%;
-            width:9rem;
-            height:9rem;
-        }
-
-        @media screen and (max-width: 500px) {
-            .profile-pic{
-                border-radius: 100%;
-                max-width: 3rem;
-                max-height: 3rem;
-            }
-        }
-
-        .select-file{
-            font-size: smaller;
-            visibility: hidden;
-        }
-
-        .create-btn{
-            min-width: 60px;
-            min-height:60px;
-            border-radius: 30%;
-            border:none;
-            box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
-            color:#6750a4;
-            background:#f8f4fa2f;
-            position:fixed;
-            bottom: 5rem;
-            left: 1rem;
-        }
-
-        .name-holder{
-            border:none;
-            width: 10rem;
-            background: transparent;
-        }
-
-        .save-btn{
-            visibility:hidden;
-        }
-    </style>
 </head>
 
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">

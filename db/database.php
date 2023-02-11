@@ -794,7 +794,7 @@ class DatabaseHelper{
     public function getTotalReviews($username){
         $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i',$username);
+        $stmt->bind_param('s',$username);
         $stmt->execute();
         $result = $stmt->get_result();
 

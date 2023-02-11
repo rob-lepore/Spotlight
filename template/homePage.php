@@ -37,7 +37,7 @@
                         require("processNewPosts.php");
                     ?>
                 </div>
-                <button class="btn secondary" id="loadMorePosts">Load more posts</button>
+                <button class="btn secondary" id="loadMorePosts" style="visibility:hidden">Load more posts</button>
             </div>
             <div class="Reviews" style="visibility:hidden;display:none">
                 <div id="reviewList">
@@ -46,7 +46,7 @@
                         require("processNewReviews.php");
                     ?>
                 </div>
-                <button class="btn secondary" id="loadMoreReviews">Load more reviews</button>
+                <button class="btn secondary" id="loadMoreReviews" style="visibility:hidden">Load more reviews</button>
             </div>
         </div>
     </main>
