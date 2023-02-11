@@ -772,9 +772,9 @@ class DatabaseHelper{
 
     public function getLastMood($username){
         $date = date("Y/m/d");
-        $query = "SELECT * FROM `mood` WHERE `username`= ? ORDER BY `date` DESC LIMIT 1";
+        $query = "SELECT * FROM `mood` WHERE `username`= ? AND `date`=?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('ss', $username, $date);
         $stmt->execute();
         $result = $stmt->get_result();
 

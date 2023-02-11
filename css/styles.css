@@ -191,3 +191,21 @@ textarea {
     color: var(--text-on-surface);
     border: 1px solid var(--primary);
 }
+
+.newPost {
+    position: relative;
+    display: inline-block;
+}
+
+.postTypes {
+    display: none;
+    position: absolute;
+    left: -165%;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+}
+
+.newPost:hover .postTypes {
+    display: block;
+    bottom: 100%;
+} 
