@@ -164,7 +164,7 @@ if(decline_friend != null){
         e.preventDefault()
         axios.get("/Spotlight/userRequest.php?type=3&user="+username.value).then(res=>{
                 if(friend_btn != null){
-                    friend_btn.innerHTML = "friend request"
+                    friend_btn.innerHTML = "Friend request"
                     friend_btn.setAttribute("data-type","not_friend")
                 }
                 decline_friend.remove()
@@ -181,15 +181,17 @@ if(follow_btn != null){
             //console.log(username.value)
             axios.get("/Spotlight/userRequest.php?type=0&user="+username.value).then(res=>{
                 console.log("prova")
-                follow_btn.innerHTML = "unfollow";
+                follow_btn.innerHTML = "Unfollow";
                 follow_btn.classList.remove("not_follow");
                 follow_btn.classList.add("following");
+                location.reload()
             }).catch(err=>{console.log(err)})
         }else if(follow_btn.classList.contains('following')){
             axios.get("/Spotlight/userRequest.php?type=1&user="+username.value).then(res=>{
-                follow_btn.innerHTML = "follow";
+                follow_btn.innerHTML = "Follow";
                 follow_btn.classList.remove("following");
                 follow_btn.classList.add("not_follow");
+                location.reload()
             })
         }
     })

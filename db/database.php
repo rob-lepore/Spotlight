@@ -759,11 +759,11 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
-    public function getFriendsMoods($username, $offset){
+    public function getFriendsMoods($username){
         $date = date("Y/m/d");
-        $query = "SELECT * FROM `mood` WHERE DATEDIFF(?,`date`)=0 AND `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $query = "SELECT * FROM `mood` WHERE DATEDIFF(?,`date`)=0 AND `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssi',$date,$username, $offset);
+        $stmt->bind_param('ss',$date,$username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -794,7 +794,7 @@ class DatabaseHelper{
     public function getTotalReviews($username){
         $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i',$username);
+        $stmt->bind_param('s',$username);
         $stmt->execute();
         $result = $stmt->get_result();
 

@@ -138,6 +138,9 @@ textarea {
     border: none !important;
     color: var(--text-on-surface) !important;
 }
+::placeholder{
+    color: var(--text-on-surface);
+}
 
 .sl-btn {
     font-weight: bold;
@@ -167,6 +170,24 @@ textarea {
 }
 
 .ov-btn:hover {
-    color: var(--text-on-primary);
+    color: var(--primary);
     background-color: var(--bg-color);
+}
+
+.popover {
+    text-align: center;
+    background-color: var(--surface);
+    border: 1px solid var(--primary);
+}
+
+.popover-header{
+    background-color: var(--primary);
+    color: var(--text-on-primary);
+    border: 1px solid var(--primary);
+}
+
+.popover-body{
+    background-color: var(--surface);
+    color: var(--text-on-surface);
+    border: 1px solid var(--primary);
 }

@@ -10,69 +10,10 @@
     <link rel="stylesheet" href="css/sliding_bar.css">
     <link rel="stylesheet" href="css/profile-page.css">
     <link rel="stylesheet" href="css/gradients.css">
+    <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
-    <style>
-        .album-cover {
-            width: 10%;
-            min-width: 100px;
-            height: auto;
-            margin-right: 0.8rem;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            z-index:1;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-        }
-        .dropdown:hover .dropdown-content {display: block;}
 
-        .profile-pic{
-            margin-top:1rem;
-            border-radius: 100%;
-            width:9rem;
-            height:9rem;
-        }
-
-        @media screen and (max-width: 500px) {
-            .profile-pic{
-                border-radius: 100%;
-                max-width: 3rem;
-                max-height: 3rem;
-            }
-        }
-
-        .select-file{
-            font-size: smaller;
-            visibility: hidden;
-        }
-
-        .create-btn{
-            min-width: 60px;
-            min-height:60px;
-            border-radius: 30%;
-            border:none;
-            box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
-            color:#6750a4;
-            background:#f8f4fa2f;
-            position:fixed;
-            bottom: 5rem;
-            left: 1rem;
-        }
-
-        .name-holder{
-            border:none;
-            width: 10rem;
-            background: transparent;
-        }
-
-        .save-btn{
-            visibility:hidden;
-        }
-    </style>
 </head>
 
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">
@@ -114,7 +55,7 @@
                 <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>
             <?php if($_COOKIE["username"] == $_GET["user"]):?>
-            <div class="dropdown">
+            <div class="dropdown mx-4">
                 <button class="btn primary btn-lg elevation-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
                         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -130,7 +71,6 @@
                 </div>
             </div>
             <?php endif;?>
-            <div class="col-1"></div>
         </div>
         <input class="select-file" name="propic" type="file"/>
         <button class="save-btn primary sl-btn">save</button>

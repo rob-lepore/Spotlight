@@ -60,13 +60,13 @@
                     <div class="row mb-2">
 				    	<div class="col-1"></div>
                         <div class="col-10">
-                            <label for="propic">Profile Picture</label><input type="file" name="propic" id="propic">
+                            <label for="propic">Profile Picture</label><input type="file" name="propic" id="propic" class="ml-btn">
                         </div>
 			    		<div class="col-1"></div>
 				    </div>
 				    <div class="row">
 					    <div class="col-11 text-end">
-                            <input type="submit" id="submit" class="btn btn-sm primary elevation-1" value="Create a new account" onclick="formHashSignup(this.form, this.form.password);">
+                            <button id="submit" class="btn sl-btn primary elevation-1" onclick="formHashSignup(this.form, this.form.password);">Create a new account</button>
 		    			</div>
 			    			<div class="col-1"></div>
 				    </div>

@@ -1,0 +1,36 @@
+.icon-button{
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:50px;
+    height:50px;
+
+}
+.icon-button_badge{
+    position: absolute;
+    top:5px;
+    right:5px;
+    width:20px;
+    height:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+}
+
+.newPost {
+    position: relative;
+    display: inline-block;
+}
+
+.postTypes {
+    display: none;
+    position: absolute;
+    left: -165%;
+}
+
+.newPost:hover .postTypes {
+    display: block;
+    bottom: 100%;
+} 
