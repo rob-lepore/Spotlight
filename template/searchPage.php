@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Document</title>
 
@@ -45,7 +46,9 @@
 <body theme="<?php echo $_COOKIE["theme"]?>">
     <main>
         <header class="m-4">
-            <input type="text" class="form-control" placeholder="Search">
+            <form action="">
+                <input type="text" class="form-control" placeholder="Search">
+            </form>
             <div class="d-flex justify-content-around py-3 border-bottom">
                 <button class="sl-btn primary elevation-1" onclick="setSearch('user',this)">users</button>
                 <button class="sl-btn secondary elevation-1" onclick="setSearch('album', this)">albums</button>
