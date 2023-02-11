@@ -50,10 +50,10 @@
     left: 1rem;
 }
 
-.name-holder{
+input{
+    --surface:rgba(0,0,0,0);
     border:none;
     width: 10rem;
-    background: transparent;
 }
 
 .save-btn{

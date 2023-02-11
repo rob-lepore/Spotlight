@@ -212,7 +212,7 @@ save_btn.addEventListener("click", e=>{
     name_surname.style.border = "none"
     save_btn.style.visibility = "hidden"
     axios.post('/Spotlight/save_update.php', data, {headers:{'Content-Type':'multipart/form-data'}}).then(res=>{
-        console.log(res["data"])
+        location.reload()
     }).catch(err=>{
         console.log(err)
     })
