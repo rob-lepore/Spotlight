@@ -12,3 +12,14 @@
     background: linear-gradient(to left top, #ddedb6, #969dd3);
     color: #000;
 }
+
+.gradient-3 {
+    background: linear-gradient(to left top, #ed213a, #93291e); 
+    color: #fff;
+
+}
+
+.gradient-4 {
+    background: linear-gradient(to left top, #0f0c29, #302b63, #24243e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+}

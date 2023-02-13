@@ -742,7 +742,7 @@ class DatabaseHelper{
     }
 
     public function getFriendsPosts($username, $offset){
-        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date`,`post_id` DESC LIMIT ?,5";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('si',$username, $offset);
         $stmt->execute();

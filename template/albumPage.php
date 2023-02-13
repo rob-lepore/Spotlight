@@ -98,7 +98,7 @@
             <h2>Popular Reviews</h2>
         </div>
         <div id="reviewsDiv"><?php
-            if($templateParams["popularReviews"][0]["review_id"]!=NULL){
+            //if($templateParams["popularReviews"][0]["review_id"]!=NULL){
                 foreach ($templateParams["popularReviews"] as $review) {
                     $templateParams['text'] = $review['text'];
                     $templateParams['number_of_likes'] = $review['number_of_likes'];
@@ -113,7 +113,7 @@
                     $templateParams["profilePicPath"] = $dbh->getUserData($templateParams["username"])[0]["profile_pic"];
                     require('reviewPage.php');
                 }
-            }?>
+            //}?>
         </div>
     </section>
     

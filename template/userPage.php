@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/profile-page.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/sliding_bar.css">
-    <link rel="stylesheet" href="css/profile-page.css">
     <link rel="stylesheet" href="css/gradients.css">
     <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -51,8 +51,8 @@
         <div class="d-flex justify-content-between m-3">
             <img class="profile-pic me-2" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
-                <input class="name-holder username mb-0 mt-2 surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
-                <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
+                <input class="name-holder username mb-0 mt-2 label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
+                <input class="name-holder realname" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>
             <?php if($_COOKIE["username"] == $_GET["user"]):?>
                 <div class="nav-item dropdown">

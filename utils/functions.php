@@ -101,4 +101,37 @@ function sendEmailToNewAccount($email, $username){
         );
     sendEmail($emailData);
 }
+
+function sendEmailToCommentOnyourPost($email, $username, $postId){
+    $body = "Hi " . $username . ", someone commented under your <a href='http://localhost/Spotlight/post.php?id=" . $postId . "'>post</a> .<br>The Spotlight Team";
+    $emailData = array(
+        "toEmail" => $email,
+        "toName" => $username,
+        "subject" => "Comment received",
+        "body" => wordwrap($body,70)
+        );
+    sendEmail($emailData);
+}
+
+function sendEmailToFriendRequestReceived($email, $username_source, $username_target){
+    $body = "Hi " . $username_target . ", you have received a friend request from <a href='http://localhost/Spotlight/profile.php?user=". $username_source ."'>" . $username_source ."</a>.<br>The Spotlight Team";
+    $emailData = array(
+        "toEmail" => $email,
+        "toName" => $username_target,
+        "subject" => "Received Friend Request",
+        "body" => wordwrap($body,70)
+        );
+    sendEmail($emailData);
+}
+
+function sendEmailToFollowing($email, $username_source, $username_target){
+    $body = "Hi " . $username_target . ", you have been followed by <a href='http://localhost/Spotlight/profile.php?user=". $username_source ."'>" . $username_source ."</a>.<br>The Spotlight Team";
+    $emailData = array(
+        "toEmail" => $email,
+        "toName" => $username_target,
+        "subject" => "New Followers",
+        "body" => wordwrap($body,70)
+        );
+    sendEmail($emailData);
+}
 ?>

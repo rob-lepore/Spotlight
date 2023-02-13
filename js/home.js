@@ -24,6 +24,7 @@ function postButton(){
             type: 'POST',
             data: {},
             success: (response) => {
+                console.log(response)
                 morePosts.setAttribute('style', 'visibility:'.concat(response));
             }
         })

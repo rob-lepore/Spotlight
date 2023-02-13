@@ -138,9 +138,6 @@ textarea {
     border: none !important;
     color: var(--text-on-surface) !important;
 }
-::placeholder{
-    color: var(--text-on-surface);
-}
 
 .sl-btn {
     font-weight: bold;
