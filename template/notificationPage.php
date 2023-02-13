@@ -15,7 +15,14 @@
 
     </head>
 
-
+    <style>
+        .profile-alert{
+            border-radius:100%;
+            width:4rem;
+            height:4rem;
+            object-fit: cover;
+        }
+    </style>
     <body theme="<?php echo $_COOKIE["theme"]?>">
         <div class="d-flex flex-row justify-content-center mb-3 elevation-1">
             <h1>Notifications</h1>

@@ -9,7 +9,6 @@ function eliminateNotification(id, post_id, type){
     data.append("post_id",post_id)
     data.append("type", type)
     axios.post("/Spotlight/eliminateNotification.php",data)
-    .then(res=>console.log(res["data"]))
 }
 
 decline_btns.forEach(decline_btn=>{
@@ -44,7 +43,6 @@ close_btns.forEach(close_btn=>{
         var id = close_btn.parentNode.parentNode.getAttribute("id")
         var post_id = document.getElementById(id).querySelector('.link-ref').getAttribute('id')
         var type = document.getElementById(id).querySelector('.link-ref').getAttribute('data-type');
-        console.log(id)
         eliminateNotification(id, post_id, type)
     })
 })

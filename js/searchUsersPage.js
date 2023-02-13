@@ -28,7 +28,6 @@ function getUsers(){
             type: searchType
         },
         success: (response) => {
-            console.log(response)
             results.innerHTML = "";
             if (searchType == "Friend") {
                 response.forEach(user => {
@@ -37,7 +36,6 @@ function getUsers(){
             }
             if (searchType == "Follower") {
                 response.forEach(user => {
-                    console.log(response)
                     results.innerHTML += buildListElement(user.username, user.first_name + " " + user.last_name, "upload/" + user.profile_pic, user.username, "profile.php?user=")
                 });
             }
