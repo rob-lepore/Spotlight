@@ -49,14 +49,14 @@
     
     <header class="py-2 d-flex">
         <div class="mx-2">
-            <img class="artist-image" src=<?php echo $templateParams["artistImage"] ?> alt="">
+            <img class="artist-image" src=<?php echo $templateParams["artistImage"] ?> alt="artist image">
         </div>
         <div>
             <h1><?php echo $templateParams["artistName"] ?></h1>
             <span><?php echo $templateParams["followers"] ?> followers</span>
             <br>
             <span><span id="likesNumber"><?php echo $templateParams["likes"] ?></span> likes
-                <a onclick="toggleLike('<?php echo $templateParams['artistId'] ?>')">
+                <a title="toggle like to artist" onclick="toggleLike('<?php echo $templateParams['artistId'] ?>')">
                     <?php
                         echo ($templateParams["isLiked"] ?
                         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16" id="heartIcon">
