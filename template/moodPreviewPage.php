@@ -64,7 +64,7 @@
 
         function changeGradient() {
             $("#card").removeClass("gradient-" + currentGradient);
-            currentGradient = (currentGradient + 1) % 3;
+            currentGradient = (currentGradient + 1) % 5;
             $("#card").addClass("gradient-" + currentGradient);
 
         }
