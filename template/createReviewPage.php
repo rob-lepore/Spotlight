@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/footerElement.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"]?></title>
@@ -17,6 +18,16 @@
         .album-cover-img{
             width:7rem;
         }
+        .post_text{
+        width: 98%;
+        height: 150px;
+        padding: 0.5rem 0.5rem;
+        box-sizing: border-box;
+        border: 1.2% solid #ccc;
+        border-radius: 0.4rem;
+        margin: 0% 1%;
+        resize: none;
+    }
     </style>
 
     <body class="container" theme="<?php echo $_COOKIE["theme"]?>">
@@ -33,7 +44,7 @@
             ?>
         </div>
             <div>
-            <div class='d-flex my-2 surface align-items-center' data-type="template" style="<?php isset($_GET["id"])?'visibility:visible':'visibility:hidden'?>"">
+            <div class='d-flex my-2 align-items-center' data-type="template" style="<?php isset($_GET["id"])?'visibility:visible':'visibility:hidden'?>"">
                 <img class='album-cover-img'  src="<?php echo isset($_GET["id"])?$data["image"]:''?>" />
                 <div class="overflow-hidden d-block">
                     <h1 class=" albumName"><?php echo isset($_GET["id"])?$data["name"]:''?></h1>
@@ -92,10 +103,10 @@
             <input type="hidden" id="hidden-date" value="<?php echo $templateParams["hidden-date"]?>"/>
         </section>
         <section class="">
-            <textArea class = "col-12 review" style="resize:none;border-radius:0.4;box-sizing:border-box;border: 1.2% solid #ccc;" rows="20"></textArea>
+            <textArea class = "col-12 review post_text" placeholder="Write here..." rows="10"></textArea>
         </section>
         <div class="d-flex flex-row-reverse">
-            <button class="primary elevation submit" style="border-radius:30px;border:none">Submit</button>
+            <button class="btn bn-sm primary elevation submit" style="border-radius:30px;border:none">Submit</button>
         </div>
         <script src="/Spotlight/js/createReviewPage.js"></script>
         <?php require("template/footerElement.php") ?>

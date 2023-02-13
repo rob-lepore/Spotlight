@@ -67,7 +67,7 @@
     <section class="mt-3">
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex">
-                <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="tracklist">
+                <button type="button" class="btn btn-sm ov-btn elevation-1 align-self-start" id="tracklist">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
                         <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
                     </svg>
@@ -90,7 +90,7 @@
     </section>
     <section class="mt-3 popular-reviews">
         <div class="d-flex">
-            <button type="button" class="btn btn-sm btn-light elevation-1 align-self-start" id="showReviews">
+            <button type="button" class="btn btn-sm ov-btn elevation-1 align-self-start" id="showReviews">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
                     <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
                 </svg>
@@ -98,7 +98,7 @@
             <h2>Popular Reviews</h2>
         </div>
         <div id="reviewsDiv"><?php
-            if($templateParams["popularReviews"][0]["review_id"]!=NULL){
+            //if($templateParams["popularReviews"][0]["review_id"]!=NULL){
                 foreach ($templateParams["popularReviews"] as $review) {
                     $templateParams['text'] = $review['text'];
                     $templateParams['number_of_likes'] = $review['number_of_likes'];
@@ -113,7 +113,7 @@
                     $templateParams["profilePicPath"] = $dbh->getUserData($templateParams["username"])[0]["profile_pic"];
                     require('reviewPage.php');
                 }
-            }?>
+            //}?>
         </div>
     </section>
     

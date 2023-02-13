@@ -46,13 +46,14 @@
 <body theme="<?php echo $_COOKIE["theme"]?>">
     <main>
         <header class="m-4">
-            <input type="text" class="form-control" placeholder="Search">
+            <div>
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
             <div class="d-flex justify-content-around py-3 border-bottom">
                 <button class="sl-btn primary elevation-1" onclick="setSearch('user',this)">users</button>
                 <button class="sl-btn secondary elevation-1" onclick="setSearch('album', this)">albums</button>
                 <button class="sl-btn secondary elevation-1" onclick="setSearch('artist', this)">artists</button>
                 <button class="sl-btn secondary elevation-1" onclick="setSearch('track', this)">songs</button>
-
             </div>
         </header>
 

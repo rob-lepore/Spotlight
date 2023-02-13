@@ -6,74 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/profile-page.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/sliding_bar.css">
-    <link rel="stylesheet" href="css/profile-page.css">
     <link rel="stylesheet" href="css/gradients.css">
     <link rel="stylesheet" href="css/footerElement.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title><?php echo $templateParams["title"] ?></title>
-    <style>
-        .album-cover {
-            width: 10%;
-            min-width: 100px;
-            height: auto;
-            margin-right: 0.8rem;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            z-index:1;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-        }
-        .dropdown:hover .dropdown-content {display: block;}
 
-        .profile-pic{
-            margin-top:1rem;
-            border-radius: 100%;
-            width:9rem;
-            height:9rem;
-        }
-
-        @media screen and (max-width: 500px) {
-            .profile-pic{
-                border-radius: 100%;
-                max-width: 3rem;
-                max-height: 3rem;
-            }
-        }
-
-        .select-file{
-            font-size: smaller;
-            visibility: hidden;
-        }
-
-        .create-btn{
-            min-width: 60px;
-            min-height:60px;
-            border-radius: 30%;
-            border:none;
-            box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.15);
-            color:#6750a4;
-            background:#f8f4fa2f;
-            position:fixed;
-            bottom: 5rem;
-            left: 1rem;
-        }
-
-        .name-holder{
-            border:none;
-            width: 10rem;
-            background: transparent;
-        }
-
-        .save-btn{
-            visibility:hidden;
-        }
-    </style>
 </head>
 
 <body theme="<?php echo $_COOKIE["theme"]?>" class="container">
@@ -111,25 +51,25 @@
         <div class="d-flex justify-content-between m-3">
             <img class="profile-pic me-2" alt="profile picture" src='<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>' />
             <div class = "d-flex flex-column me-auto">
-                <input class="name-holder username mb-0 mt-2 surface label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
-                <input class="name-holder realname surface" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
+                <input class="name-holder username mb-0 mt-2 label-large text-on-primary" id="user" value="<?php echo $templateParams["username"];?>" type="text" disabled/>
+                <input class="name-holder realname" value="<?php echo $templateParams["firstname"]; echo " ";echo $templateParams["lastname"];?>" disabled/>
             </div>
             <?php if($_COOKIE["username"] == $_GET["user"]):?>
-            <div class="dropdown mx-4">
-                <button class="btn primary btn-lg elevation-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-                    </svg>
-                </button>
-                <div class="dropdown-content">
-                    <button class="btn edit ml-btn">Edit Profile</button>
-                    <button class="btn ml-btn" onclick="changeTheme()">Change theme</button>
-                    <form action="logout.php">
-                        <button class="btn ml-btn">Logout</button>
-                    </form>
+                <div class="nav-item dropdown">
+                    <a class="nav-link mx-4 p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu overlayBackground">
+                        <li><button class="ov-btn dropdown-item edit">Edit Profile</button></li>
+                        <li><button class="ov-btn dropdown-item" onclick="changeTheme()">Change theme</button></li>
+                        <li><form action="logout.php">
+                            <button class="ov-btn dropdown-item">Logout</button>
+                        </li></form>
+                    </ul>
                 </div>
-            </div>
             <?php endif;?>
         </div>
         <input class="select-file" name="propic" type="file"/>
