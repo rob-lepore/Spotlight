@@ -15,7 +15,6 @@ function getCookie(cname) {
   }
 
 var paragraphs = document.querySelectorAll(".review-text");
-console.log(paragraphs.length)
 paragraphs.forEach(paragraph=>{
 
     var max_l = paragraph.getAttribute("data-show")
@@ -24,7 +23,6 @@ paragraphs.forEach(paragraph=>{
 
     if(len_p > max_l){
         var showed_part = paragraph.innerHTML.substring(0,max_l)
-        console.log(showed_part)
         var second_part = paragraph.innerHTML.substring(max_l)
         paragraph.innerHTML = showed_part + "<span class='read-more-span' style='display:none'>" + second_part + "</span><span class='read-more' data-type='read-more' style='font-weight:bold'>...read more</span>";
     }
@@ -57,7 +55,6 @@ like_btns.forEach(el=>{
     el.addEventListener("click", e=>{
         e.preventDefault();
         var id = el.parentNode.parentNode.getAttribute('id')
-        console.log(id)
         if(el.getAttribute('data-type') == 'thumbs-up'){
             el.setAttribute('style', 'visibility:hidden')
             el.setAttribute('width', '0')
@@ -80,11 +77,8 @@ like_btns.forEach(el=>{
             data.append('username_session', getCookie('username'));
             data.append('review_id', id);
             data.append('rating',1);
-            console.log("USERNAME: "+document.getElementById(id).querySelector('p.username').innerHTML)
-            console.log("USERNAME LOGGED IN : "+getCookie('username'))
             axios.post('/Spotlight/updateLikesReviews.php',data)
             .then(res=>{
-                console.log(res["data"])
                 document.getElementById(id).querySelector('.thumbs-up-value').innerHTML = res["data"][0]["number_of_likes"]
                 document.getElementById(id).querySelector('.thumbs-down-value').innerHTML = res["data"][0]["number_of_dislikes"]
             })

@@ -15,8 +15,6 @@ function removeActiveClass(){
 }
 
 function setActiveSlide(target){
-    console.log(target.offsetLeft)
-    console.log(target.offsetWidth)
     slide.style.left = `${target.offsetLeft}px`;
     slide.style.width = `${target.offsetWidth}px`;
 }

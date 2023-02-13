@@ -2,7 +2,7 @@
     <div class="d-flex flex-row align-items-center">    
     <button type="button" class="btn-close ms-auto close" data-bs-dismiss="alert" aria-albel="Close"></button>
         <a  class="d-flex flex-row align-items-center text-decoration-none text-reset " href="<?php echo "/Spotlight/profile.php?user=".$templateParams["source_username"]?>">
-        <img src="<?php echo UPLOAD_DIR.$templateParams["source_profile_pic"]?>" style="border-radius:100%;width:4rem;object-fit: cover;" alt="profile foto of the user"/>
+        <img src="<?php echo UPLOAD_DIR.$templateParams["source_profile_pic"]?>" class="profile-alert" alt="profile photo of the user"/>
         <p class="ms-2 label-large username"><?php echo $templateParams["source_username"]?></p>
         </a>
         <a id="<?php echo isset($templateParams["post_id"])?$templateParams["post_id"]:"none"?>" data-type="<?php echo isset($templateParams["post_id"]) && !$templateParams["isLike"]?"comment":"like"?>" href="<?php 

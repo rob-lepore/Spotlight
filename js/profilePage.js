@@ -64,7 +64,6 @@ function createNewElements(type){
                 elements.slice(elements.indexOf(element["element_link"]),1)
                 axios.get('fetch'+type+'Data.php?'+lowerFirstLetter(type)+'Id='+element["element_link"])
                 .then(res=>{
-                    console.log(res["data"])
                     var a = document.createElement('a',element["element_link"])
                     a.setAttribute('href', lowerFirstLetter(type)+'.php?id='+element["element_link"])
                     a.setAttribute('style','text-decoration:none;outline:none')
@@ -104,7 +103,7 @@ activeLinks.forEach(el=>{
             document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
             document.querySelector('.Albums').setAttribute('style', 'display:none;visibility:hidden')
         }else if(document.querySelector('a.active').getAttribute('data-value') == "Reviews" && document.querySelector('.Posts') != null){
-            console.log("review show")
+
             document.querySelector('.Posts').setAttribute('style', 'display:none;visibility:hidden' )
             document.querySelector('.Reviews').setAttribute('style', 'display:block;visibility:visible')
             document.querySelector('.Artists').setAttribute('style', 'display:none;visibility:hidden')
@@ -133,13 +132,13 @@ if(friend_btn != null){
             axios.get("/Spotlight/userRequest.php?type=2&user="+username.value).then(res=>{
                 friend_btn.innerHTML = "Cancel request";
                 friend_btn.setAttribute("data-type","wait-acceptance");
-                console.log(res["data"])
+
             })
         }else if(friend_btn.getAttribute('data-type') == 'wait-acceptance'){
             axios.get("/Spotlight/userRequest.php?type=3&user="+username.value).then(res=>{
                 friend_btn.innerHTML = "Friend request";
                 friend_btn.setAttribute("data-type","not_friend");
-                console.log(res["data"]);
+
             })
         }else if(friend_btn.getAttribute('data-type') == 'friend'){
             axios.get("/Spotlight/userRequest.php?type=4&user="+username.value).then(res=>{
@@ -168,7 +167,6 @@ if(decline_friend != null){
                     friend_btn.setAttribute("data-type","not_friend")
                 }
                 decline_friend.remove()
-                console.log("decline friend request")
                 window.location.replace("/Spotlight/profile.php?user="+username.value)
         })
     })
@@ -178,9 +176,7 @@ if(follow_btn != null){
     follow_btn.addEventListener("click", e=>{
         e.preventDefault()
         if(follow_btn.classList.contains('not_follow')){
-            //console.log(username.value)
             axios.get("/Spotlight/userRequest.php?type=0&user="+username.value).then(res=>{
-                console.log("prova")
                 follow_btn.innerHTML = "Unfollow";
                 follow_btn.classList.remove("not_follow");
                 follow_btn.classList.add("following");
@@ -204,7 +200,6 @@ save_btn.addEventListener("click", e=>{
     data.append('first_name',names[0])
     data.append("last_name",names[1])
     data.append('profile_pic', profile_pic.files[0])
-    console.log(profile_pic.files[0])
     profile_pic.style.visibility = "hidden";
     username.disabled=true;
     username.style.border = "none"
