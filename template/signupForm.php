@@ -60,7 +60,7 @@
                     <div class="row mb-2">
 				    	<div class="col-1"></div>
                         <div class="col-10">
-                            <label for="propic">Profile Picture</label><input type="file" name="propic" id="propic" class="ml-btn">
+                            <label for="propic">Profile Picture </label><input type="file" name="propic" id="propic" class="sl-btn">
                         </div>
 			    		<div class="col-1"></div>
 				    </div>
