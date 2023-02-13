@@ -732,7 +732,7 @@ class DatabaseHelper{
     }
 
     public function getFollowersReviews($username, $offset){
-        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?) ORDER BY `date`,`review_id`  DESC LIMIT ?,5";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('si',$username, $offset);
         $stmt->execute();

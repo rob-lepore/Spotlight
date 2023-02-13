@@ -24,7 +24,7 @@
         </a>
         <div class="col-5 flex-column">
             <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>" class="label-large text-decoration-none text-reset"> <p class="label-large ms-3 username"><?php echo $templateParams["username"]?></p> </a>
-            <p><?php echo $templateParams["is_follower"]?"following":($templateParams["username"] == $_COOKIE["username"]?"":"not following");?></p>
+            <p class="ms-3"><?php echo $templateParams["is_follower"]?"following":($templateParams["username"] == $_COOKIE["username"]?"":"not following");?></p>
         </div>
         <p class=" ms-auto text-small"><?php echo substr($templateParams["date"],0,10)?></p>
     </header>
