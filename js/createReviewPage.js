@@ -17,7 +17,6 @@ stars.forEach(el=>{
         }
 
         for(let i = num+1; i <=5; i++){
-            console.log("#star-fill-"+String(i))
             var s = document.querySelector("#star-fill-"+String(i))
             s.setAttribute("width", "0")
             s.setAttribute("height", "0")
@@ -35,14 +34,12 @@ stars.forEach(el=>{
 })
 
 var submit = document.querySelector(".submit")
-console.log( document.querySelector("#hidden-date").value)
 submit.addEventListener("click", e=>{
     e.preventDefault();
     var data = new FormData()
     var id = new URLSearchParams(window.location.search)
     data.append("text", document.querySelector("textarea").value)
     data.append("album", id.get("id"))
-    console.log( document.querySelector("#hidden-date").value)
     data.append("date", document.querySelector("#hidden-date").value)
     data.append("score", document.querySelector(".rating").getAttribute("id"))
     data.append("number_of_likes", 0)
