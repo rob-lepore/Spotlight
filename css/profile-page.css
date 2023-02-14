@@ -6,16 +6,6 @@
     height: auto;
     margin-right: 0.8rem;
 }
-.dropdown {
-    position: relative;
-    display: inline-block;
-    z-index:1;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-}
-.dropdown:hover .dropdown-content {display: block;}
 
 .profile-pic{
     margin-top:1rem;

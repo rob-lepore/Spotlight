@@ -18,19 +18,3 @@
     align-items:center;
     border-radius:50%;
 }
-
-.newPost {
-    position: relative;
-    display: inline-block;
-}
-
-.postTypes {
-    display: none;
-    position: absolute;
-    left: -165%;
-}
-
-.newPost:hover .postTypes {
-    display: block;
-    bottom: 100%;
-} 

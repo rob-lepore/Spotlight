@@ -17,36 +17,45 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title><?php echo $templateParams["title"] ?></title>
 </head>
-<body theme="<?php echo $_COOKIE["theme"]?>" class="container">
+
+<body theme="<?php echo $_COOKIE["theme"] ?>" class="container">
     <header class="fixed-top overlayBackground py-2 elevation-1">
-        <?php require ("headerElement.php");?>
+        <?php require("headerElement.php"); ?>
         <div class="top-navigation">
             <div class="active-link"></div>
-                <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
-                <a class = "top-links" data-value = "Reviews" href="#">Reviews</a>
+            <a class="top-links active" data-value="Posts" href="#">Posts</a>
+            <a class="top-links" data-value="Reviews" href="#">Reviews</a>
         </div>
     </header>
     <main>
         <div class="content">
             <div class="Posts" style="display:block;visibility:visible">
-                <div id="postList">
+                <div class="mb-5">
                     <?php
-                        $_SESSION["postOffset"] = 0;
-                        $moods = $dbh->getFriendsMoods($_COOKIE["username"]);
-                        require("processNewMoods.php");
-                        require("processNewPosts.php");
+                    $moods = $dbh->getFriendsMoods($_COOKIE["username"]);
+                    require("processNewMoods.php");
                     ?>
                 </div>
-                <button class="btn secondary" id="loadMorePosts" style="visibility:hidden">Load more posts</button>
+                <div id="postList">
+                    <?php
+                    $_SESSION["postOffset"] = 0;
+                    require("processNewPosts.php");
+                    ?>
+                </div>
+                <div class="d-flex">
+                    <button class="btn secondary mx-auto" id="loadMorePosts">Load more posts</button>
+                </div>
             </div>
             <div class="Reviews" style="visibility:hidden;display:none">
                 <div id="reviewList">
                     <?php
-                        $_SESSION["reviewOffset"] = 0;
-                        require("processNewReviews.php");
+                    $_SESSION["reviewOffset"] = 0;
+                    require("processNewReviews.php");
                     ?>
                 </div>
-                <button class="btn secondary" id="loadMoreReviews" style="visibility:hidden">Load more reviews</button>
+                <div class="d-flex">
+                    <button class="btn secondary mx-auto" id="loadMoreReviews">Load more reviews</button>
+                </div>
             </div>
         </div>
     </main>
@@ -54,6 +63,8 @@
     <script src="js/sliding_bar.js"></script>
     <script src="js/home.js"></script>
     <script src="js/postPage.js"></script>
+    <script src="js/reviewPage.js"></script>
+
 </body>
-<script src="/Spotlight/js/reviewPage.js"></script>
+
 </html>

@@ -732,7 +732,7 @@ class DatabaseHelper{
     }
 
     public function getFollowersReviews($username, $offset){
-        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $query = "SELECT * FROM `review` WHERE `username` IN (SELECT `follower_username` FROM `follows` WHERE `username`= ?) ORDER BY `date`,`review_id`  DESC LIMIT ?,5";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('si',$username, $offset);
         $stmt->execute();
@@ -742,7 +742,7 @@ class DatabaseHelper{
     }
 
     public function getFriendsPosts($username, $offset){
-        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date` DESC LIMIT ?,5";
+        $query = "SELECT * FROM `post` WHERE `username` IN (SELECT `friend_username` FROM `friends` WHERE `username`= ?) ORDER BY `date`,`post_id` DESC LIMIT ?,5";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('si',$username, $offset);
         $stmt->execute();
@@ -772,9 +772,9 @@ class DatabaseHelper{
 
     public function getLastMood($username){
         $date = date("Y/m/d");
-        $query = "SELECT * FROM `mood` WHERE `username`= ? ORDER BY `date` DESC LIMIT 1";
+        $query = "SELECT * FROM `mood` WHERE `username`= ? AND `date`=?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('ss', $username, $date);
         $stmt->execute();
         $result = $stmt->get_result();
 

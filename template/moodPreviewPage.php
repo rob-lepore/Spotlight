@@ -39,7 +39,7 @@
 
     <main style="margin: auto">
         <div class='d-flex my-2 align-items-center elevation-1 mx-auto p-3' id="card" style="border-radius: 10px;  width:90%" onclick="changeGradient()">
-            <img class='album-cover' src=<?php echo $track->album->images[0]->url ?>>
+            <img class='album-cover' src=<?php echo $track->album->images[0]->url ?> alt="album cover">
             <div class="overflow-hidden d-block">
                 <span>feeling <?php echo $emo ?></span>
                 <br>
@@ -64,7 +64,7 @@
 
         function changeGradient() {
             $("#card").removeClass("gradient-" + currentGradient);
-            currentGradient = (currentGradient + 1) % 3;
+            currentGradient = (currentGradient + 1) % 5;
             $("#card").addClass("gradient-" + currentGradient);
 
         }
