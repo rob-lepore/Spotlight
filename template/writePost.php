@@ -35,7 +35,7 @@
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
             </svg>
         </button>
-        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn primary"><em class="fa fa-search"> Search a song </em></button>
+        <button data-bs-toggle="modal" data-bs-target="#selectionModal" class="btn sl-btn primary elevation-1"><em class="fa fa-search"></em> Search a song</button>
         <?php
             $templateParams["searchType"] = "track";
             require("template/modal.php");
@@ -60,10 +60,11 @@
     </header>
     <?php endif; ?>
     <main class="mt-3">
-        <form <?php if(isset($_GET["id"])):?>action="post_creation.php?id=<?php echo $_GET["id"]?>" <?php endif; ?>id="create-post-form" method="POST" name="post_form">
+        <form <?php if(isset($_GET["id"])):?> action="post_creation.php?id=<?php echo $_GET["id"]?>" <?php else:?>action="#"<?php endif;?>
+        id="create-post-form" method="POST" name="post_form">
             <label for="post_text" class="mx-2">Tell everyone what you think of this song!</label><textarea id="post_text" class="post_text" name="post_text" placeholder="Write here..." required maxlength="200"></textarea>
             <div class="col-12 text-end">
-                <input type="submit" class="btn btn-sm primary elevation-1 mx-2" value="Post"/>
+                <button type="submit" class="btn sl-btn primary elevation-1 mx-2">Post</button>
             </div>
         </form>
     </main>
