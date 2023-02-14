@@ -67,6 +67,7 @@ function createNewElements(type){
                     var a = document.createElement('a',element["element_link"])
                     a.setAttribute('href', lowerFirstLetter(type)+'.php?id='+element["element_link"])
                     a.setAttribute('style','text-decoration:none;outline:none')
+                    a.setAttribute('title',res["data"]["name"])
                     var section = document.createElement('section')
                     section.setAttribute('id',element["element_link"])
                     section.setAttribute('class', 'd-flex my-2 surface align-items-center')
