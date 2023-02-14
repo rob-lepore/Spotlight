@@ -75,16 +75,16 @@
         <input class="select-file" name="propic" type="file"/>
         <button class="save-btn primary sl-btn">save</button>
         <div class = "d-flex justify-content-center">
-            <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a class='info text-on-primary text-reset text-decoration-none mx-3' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
-            <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
-            <a class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
+            <?php echo $templateParams["is_friend"] || $templateParams["username"] == $_COOKIE["username"]?"<a title='Friends' class='info text-on-primary text-reset text-decoration-none mx-3' href='search_users.php?user=" . $templateParams["username"] . "'>". $templateParams['FriendsCount']. " Friends</a>":""?>
+            <a title="Follower" class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php  echo $templateParams["FollowerCount"];?> Followers</a>
+            <a title="Following" class=" info text-on-primary text-reset text-decoration-none mx-3" href=<?php echo "search_users.php?user=" . $templateParams["username"]?>><?php echo $templateParams["FollowingCount"]?> Following</a>
         </div>
         <div class="top-navigation">
             <div class="active-link"></div>
-                <a class = "top-links active" data-value = "Posts" href="#">Posts</a> 
-                <a class = "top-links " data-value = "Reviews" href="#">Reviews</a>
-                <a class = "top-links " data-value = "Artists" href="#">Artists</a>
-                <a class = "top-links " data-value = "Albums" href="#">Albums</a> 
+                <a title="posts" class = "top-links active" data-value = "Posts" href="#">Posts</a> 
+                <a title="reviews" class = "top-links " data-value = "Reviews" href="#">Reviews</a>
+                <a title="artists" class = "top-links " data-value = "Artists" href="#">Artists</a>
+                <a title="albums" class = "top-links " data-value = "Albums" href="#">Albums</a> 
         </div>
     </nav>
 
@@ -103,25 +103,27 @@
                             require('template/moodElement.php');
                         ?>
                     <?php endif;?>
-                    <?php
-                        foreach($userPosts as $userPost){
-                            $postData["profilePic"] = $templateParams["profilePicPath"];
-                            $postData["username"] = $templateParams["username"];
-                            $postData["likes"] = $userPost["number_of_likes"];
-                            $postData["friendship"] = $templateParams["is_friend"];
-                            $postData["id"] = $userPost["post_id"];
-                            $trackId = $userPost["song"];
-                            require('fetchTrackData.php');
-                            $postData["track"] = $track;
-                            $likes = $dbh->getPostLikes($userPost["post_id"]);
-                            $postData['likes'] = $likes;
-                            $likes = array_map("mapToUsernames", $likes);
-                            $postData['isLiked'] = (in_array($_COOKIE["username"],array_values($likes)));
-                            $postData['date'] = $userPost['date'];
-                            $postData['text'] = $userPost['text'];
-                            require('postElement.php');
-                        }
-                    ?> 
+                    <?php if($templateParams['is_friend'] || $templateParams["username"] == $_COOKIE["username"]):?>
+                        <?php
+                            foreach($userPosts as $userPost){
+                                $postData["profilePic"] = $templateParams["profilePicPath"];
+                                $postData["username"] = $templateParams["username"];
+                                $postData["likes"] = $userPost["number_of_likes"];
+                                $postData["friendship"] = $templateParams["is_friend"];
+                                $postData["id"] = $userPost["post_id"];
+                                $trackId = $userPost["song"];
+                                require('fetchTrackData.php');
+                                $postData["track"] = $track;
+                                $likes = $dbh->getPostLikes($userPost["post_id"]);
+                                $postData['likes'] = $likes;
+                                $likes = array_map("mapToUsernames", $likes);
+                                $postData['isLiked'] = (in_array($_COOKIE["username"],array_values($likes)));
+                                $postData['date'] = $userPost['date'];
+                                $postData['text'] = $userPost['text'];
+                                require('postElement.php');
+                            }
+                        ?> 
+                    <?php endif;?>
                 </div>
                 <div class="Reviews" style="visibility:hidden;display:none">
                     <?php

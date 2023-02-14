@@ -19,11 +19,11 @@
 
 <article class="review container mb-3" id="<?php echo $templateParams["review_id"]?>">
     <header class="d-flex flex-row ">
-        <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>">
+        <a title="<?php echo $templateParams["username"]?>" href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>">
         <img class="col-3 profile-pic-review mr-3" alt="" src="<?php echo UPLOAD_DIR . $templateParams["profilePicPath"]?>"/>
         </a>
         <div class="col-5 flex-column">
-            <a href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>" class="label-large text-decoration-none text-reset"> <p class="label-large ms-3 username"><?php echo $templateParams["username"]?></p> </a>
+            <a title="<?php echo $templateParams["username"]?>" href="<?php echo "/Spotlight/profile.php?user=" . $templateParams["username"]?>" class="label-large text-decoration-none text-reset"> <p class="label-large ms-3 username"><?php echo $templateParams["username"]?></p> </a>
             <p class="ms-3"><?php echo $templateParams["is_follower"]?"following":($templateParams["username"] == $_COOKIE["username"]?"":"not following");?></p>
         </div>
         <p class=" ms-auto text-small"><?php echo substr($templateParams["date"],0,10)?></p>
@@ -32,7 +32,7 @@
         $albumId = $templateParams["id"];
         require("fetchAlbumInfo.php");
     ?>
-    <a href=<?php echo '/Spotlight/album.php?id='.$album_data->id?> class="text-decoration-none text-reset">
+    <a title="Album" href=<?php echo '/Spotlight/album.php?id='.$album_data->id?> class="text-decoration-none text-reset">
     <section class='d-flex my-2 surface align-items-center album-section' data-type="template" >
             <img class='album-cover-img mx-2' src="<?php echo $album_data->images[0]->url?>" />
         <div  class="overflow-hidden d-block">
@@ -55,7 +55,7 @@
                 </svg>';
             }
         ?>
-        <a href=<?php echo $album_data->external_urls->spotify ?> class=" btn text-spotify elevation-1 ms-auto" target="_blank">
+        <a title="Spotify" href=<?php echo $album_data->external_urls->spotify ?> class=" btn text-spotify elevation-1 ms-auto" target="_blank">
             listen on Spotify
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-spotify" viewBox="0 0 16 16">
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.669 11.538a.498.498 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686zm.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858zm.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288z" />
